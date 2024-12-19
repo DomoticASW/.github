@@ -173,7 +173,7 @@ We plan to use:
 - **Interests**:  
   - Work-life balance, smart time management, luxury tech.
 
-## Requirements gathering
+## Requirements
 
 ### User stories
 |As a|I want|so that|
