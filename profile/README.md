@@ -70,6 +70,8 @@ We plan to use:
 ## Personas
 
 ### Alex Carter  
+<img src="https://images.pexels.com/photos/1073097/pexels-photo-1073097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" style="float: right; width: 35%"/>
+
 - **Type of target user**: Geek homeowner
 - **Age**: 43
 - **Occupation**: Software Engineer  
@@ -84,7 +86,10 @@ We plan to use:
   - [Liam Carter](#liam-carter)'s parent
   - [Emma Carter](#emma-carter)'s parent
 
+
 ### Mia Fernandez
+<img src="https://images.pexels.com/photos/4050291/pexels-photo-4050291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" style="float: right; width: 35%"/>
+
 - **Age**: 40  
 - **Type of target user**: Eco-Conscious Parent
 - **Occupation**: Environmental Consultant  
@@ -100,6 +105,8 @@ We plan to use:
   - [Emma Carter](#emma-carter)'s parent
 
 ### Emma Carter
+<img src="https://images.pexels.com/photos/8430249/pexels-photo-8430249.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" style="float: right; width: 35%"/>
+
 - **Type of target user**: Young Teen
 - **Age**: 10  
 - **Occupation**: Elementary School Student  
@@ -113,8 +120,10 @@ We plan to use:
   - [Liam Carter](#liam-carter)'s sister
 
 ### Liam Carter
+<img src="https://images.pexels.com/photos/8185874/pexels-photo-8185874.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" style="float: right; width: 35%"/>
+
 - **Type of target user**: Young Teen
-- **Age**: 14  
+- **Age**: 12
 - **Occupation**: Student  
 - **Tech Confidence**: Moderate  
 - **Goals**:  
@@ -126,6 +135,8 @@ We plan to use:
   - [Emma Carter](#emma-carter)'s brother
 
 ### Evelyn Moore  
+<img src="https://images.pexels.com/photos/7330716/pexels-photo-7330716.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" style="float: right; width: 35%"/>
+
 - **Type of target user**: Elderly User
 - **Age**: 72  
 - **Occupation**: Retired Teacher  
@@ -137,6 +148,8 @@ We plan to use:
   - Home security, maintaining independence.  
 
 ### Jordan Patel  
+<img src="https://images.pexels.com/photos/6249674/pexels-photo-6249674.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" style="float: right; width: 35%"/>
+
 - **Type of target user**: Mobility-limited User
 - **Age**: 32  
 - **Occupation**: Freelance Illustrator  
@@ -145,9 +158,11 @@ We plan to use:
   - Use voice commands or simplified controls due to mobility limitations.  
   - Automate routines to enhance accessibility (e.g., blinds opening automatically).  
 - **Interests**:  
-  - Accessibility tech, convenience, creative pursuits.  
+  - Accessibility tech, convenience, creative pursuits, basketball.  
 
 ### Claire Bennett  
+<img src="https://images.pexels.com/photos/1181534/pexels-photo-1181534.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" style="float: right; width: 35%"/>
+
 - **Type of target user**: Busy Professional
 - **Age**: 45  
 - **Occupation**: Corporate Executive  
