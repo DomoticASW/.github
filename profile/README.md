@@ -66,3 +66,94 @@ We plan to use:
   - Electronics
   - IT
   - Being environment friendly
+
+## Personas
+
+### Alex Carter  
+- **Type of target user**: Geek homeowner
+- **Age**: 43
+- **Occupation**: Software Engineer  
+- **Tech Confidence**: High  
+- **Goals**:  
+  - Experiment with custom automations for smart devices.  
+  - Seamlessly integrate new devices from various manufacturers.
+- **Interests**:  
+  - Programming, optimizing home workflows, staying on the cutting edge of technology.
+- **Relationships**:
+  - [Mia Fernandez](#mia-fernandez)'s husband
+  - [Liam Carter](#liam-carter)'s parent
+  - [Emma Carter](#emma-carter)'s parent
+
+### Mia Fernandez
+- **Age**: 40  
+- **Type of target user**: Eco-Conscious Parent
+- **Occupation**: Environmental Consultant  
+- **Tech Confidence**: Moderate  
+- **Goals**:  
+  - Monitor and reduce energy consumption at home.  
+  - Get notifications on energy usage trends or anomalies.
+- **Interests**:  
+  - Environment-friendly practices, sustainable living, family well-being.  
+- **Relationships**:
+  - [Alex Carter](#alex-carter)'s wife
+  - [Liam Carter](#liam-carter)'s parent
+  - [Emma Carter](#emma-carter)'s parent
+
+### Emma Carter
+- **Type of target user**: Young Teen
+- **Age**: 10  
+- **Occupation**: Elementary School Student  
+- **Tech Confidence**: High for her age  
+- **Goals**:  
+  - Playfully disrupt Liam’s automations (e.g., turning lights off and on).  
+- **Interests**:  
+  - Playing games, trying out tech, and sibling rivalry.  
+  - Playing music in her room.
+- **Relationships**:
+  - [Liam Carter](#liam-carter)'s sister
+
+### Liam Carter
+- **Type of target user**: Young Teen
+- **Age**: 14  
+- **Occupation**: Student  
+- **Tech Confidence**: Moderate  
+- **Goals**:  
+  - Customize lights or music for their room.
+  - Prank his sister by locking her in her room when she makes fool of him.
+- **Interests**:  
+  - Gaming setups, customizing room ambiance, experimenting with tech.  
+- **Relationships**:
+  - [Emma Carter](#emma-carter)'s brother
+
+### Evelyn Moore  
+- **Type of target user**: Elderly User
+- **Age**: 72  
+- **Occupation**: Retired Teacher  
+- **Tech Confidence**: Low  
+- **Goals**:  
+  - Turn on and off lights without having to get to the switch.
+  - Receive clear and concise alerts for critical security events.
+- **Interests**:  
+  - Home security, maintaining independence.  
+
+### Jordan Patel  
+- **Type of target user**: Mobility-limited User
+- **Age**: 32  
+- **Occupation**: Freelance Illustrator  
+- **Tech Confidence**: Moderate  
+- **Goals**:  
+  - Use voice commands or simplified controls due to mobility limitations.  
+  - Automate routines to enhance accessibility (e.g., blinds opening automatically).  
+- **Interests**:  
+  - Accessibility tech, convenience, creative pursuits.  
+
+### Claire Bennett  
+- **Type of target user**: Busy Professional
+- **Age**: 45  
+- **Occupation**: Corporate Executive  
+- **Tech Confidence**: Moderate  
+- **Goals**:  
+  - Take care of the house remotely due to frequent business trips.
+  - Automate recurring tasks like setting the thermostat or starting appliances.  
+- **Interests**:  
+  - Work-life balance, smart time management, luxury tech.
