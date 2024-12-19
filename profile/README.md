@@ -49,3 +49,20 @@ We plan to use:
 ### Fault Tolerance and Resilience
 - Since there are several devices in the house, it’s important for the server to track which devices are active and working properly, detecting offline devices if possible.
 - Ensure the server can automatically restart in case of a crash.
+
+## Target users
+
+- **Age range**: 8 -> 75
+- **Level of confidence with technology**:
+  - Know how to use a smartphone
+  - Know how to browse the internet
+- **Goals and reasons**:
+  - Easier and constant home monitoring
+  - Remote interaction with their home or devices
+  - Automation to speed up or ease recurring activities
+  - Reduce their home environmental footprint
+- **Interests**:
+  - Keeping their home up to date with the latest technologies
+  - Electronics
+  - IT
+  - Being environment friendly
