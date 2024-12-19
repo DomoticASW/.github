@@ -172,3 +172,39 @@ We plan to use:
   - Automate recurring tasks like setting the thermostat or starting appliances.  
 - **Interests**:  
   - Work-life balance, smart time management, luxury tech.
+
+## Requirements gathering
+
+### User stories
+|As a|I want|so that|
+|-----|----------|-------------|
+|Admin|to add or remove smart devices to my smart home|i can extend my domotic system|
+|Admin|my domotic system to be compatible with devices produced by multiple other manifacturers|i can have a wider choice when buying the devices|
+|Admin|to be able to access my domotic system through the local network|internet is not required when i'm phisically in my house|
+|Admin|to be able to access my domotic system remotely through internet|i can administrate it remotely|
+|User |to access my domotic system both from desktop and mobile clients|i can access it even remotely and without installing any app|
+|User |to see the properties exposed by my smart devices|i can gain knowledge about the state of the house|
+|User |to make smart devices execute an action|i can alter the state of the house|
+|User |to set up tasks to be executed with one click|i can automate the execution of multiple instructions|
+|User |to set up automations to be executed when specific triggering events happen|my home can do stuff even without me taking care of it|
+
+
+### Non functional requirments
+
+## Ubiquitous language
+|Word|Definition|Synonyms|
+|----|----------|--------|
+|User|A person which interacts with the domotic system||
+|Admin|A role played by a user of the system which is responsible for its management|Administrator|
+|Smart home|A phisical house equipped with a software to manage connected smart devices|Domotic, Domotic system, Home, System|
+|Smart device|An electronic device able to interact or sense the environment, generally connected to other devices or networks|IoT device, device|
+|Client|A computer (mobile or desktop) used by the users to interact with the system||
+|Remote access|Ability to access the domotic system even if not connected to the local network||
+|Property|Some data provided by a smart device|Device data|
+|Action|An operation that can be executed by a smart device||
+|Notification|A message sent by the server to every user that wants to receive it||
+|Instruction|An operation that can be executed by the domotic system (for example running a device action, reading some property on a device or sending a notification)||
+|Task|A sequence of instructions to be executed||
+|Automation|A task or an instruction which is triggered by an triggering event||
+|Triggering event|A specific condition about the system itself|trigger|
+<!-- |Server|A computer installed in the house responsible for managing all aspects of the domotic system|| -->
