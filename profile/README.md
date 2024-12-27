@@ -182,6 +182,9 @@ We plan to use:
 |Admin|my domotic system to be compatible with devices produced by multiple other manifacturers|i can have a wider choice when buying the devices|
 |Admin|to be able to access my domotic system through the local network|internet is not required when i'm phisically in my house|
 |Admin|to be able to access my domotic system remotely through internet|i can administrate it remotely|
+|Admin|to be able to give some device privileges only to some users|i can prohibit uninteded use of the system|
+|Admin|that tasks can be executed only by users that own the privileges for every device included in the task|i can prohibit uninteded use of the system|
+|Admin|tasks to have a whitelist and a blacklist|i can prohibit uninteded use of the system|
 |User |to access my domotic system both from desktop and mobile clients|i can access it even remotely and without installing any app|
 |User |to see the properties exposed by my smart devices|i can gain knowledge about the state of the house|
 |User |to make smart devices execute an action|i can alter the state of the house|
@@ -210,4 +213,8 @@ We plan to use:
 |Automation|A task or an instruction which is triggered by an triggering event||
 |Triggering event|A specific condition about the system itself|trigger|
 |Offline device|A smart device that is not reachable by the domotic system||
+|Interacting with a device|A client that reads properties or runs actions on a smart device||
+|Device privilege|Right of a user to interact with some device||
+|Task whitelist|A list of users that can run the task regardless of the device privileges||
+|Task blacklist|A list of users that cannot run the task regardless of the device privileges||
 <!-- |Server|A computer installed in the house responsible for managing all aspects of the domotic system|| -->
