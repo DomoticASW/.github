@@ -193,6 +193,7 @@ We plan to use:
 |User |to set up tasks to be executed with one click|i can automate the execution of multiple instructions|
 |User |to set up automations to be executed when specific triggering events happen|my home can do stuff even without me taking care of it|
 |User |to receive a notification when a specific device goes offline|i can fix problems in case they happen|
+|User |to organize the home devices in groups|it's easier to find them|
 
 ### Non functional requirements
 - Users (and the admin) must be authenticated in order to interact with the system
@@ -220,4 +221,5 @@ We plan to use:
 |Task whitelist|A list of users that can run the task regardless of the device privileges||
 |Task blacklist|A list of users that cannot run the task regardless of the device privileges||
 |Registration request|A user must send a registration request that must be accepted by the admin before he can interact with the system||
+|Device group|A grouping of smart devices, each device can be part of 0 or N groups|Group|
 <!-- |Server|A computer installed in the house responsible for managing all aspects of the domotic system|| -->
