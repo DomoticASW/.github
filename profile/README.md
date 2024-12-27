@@ -187,6 +187,8 @@ We plan to use:
 |User |to make smart devices execute an action|i can alter the state of the house|
 |User |to set up tasks to be executed with one click|i can automate the execution of multiple instructions|
 |User |to set up automations to be executed when specific triggering events happen|my home can do stuff even without me taking care of it|
+|User |to receive a notification when a specific device goes offline|i can fix problems in case they happen|
+
 
 
 ### Non functional requirments
@@ -207,4 +209,5 @@ We plan to use:
 |Task|A sequence of instructions to be executed||
 |Automation|A task or an instruction which is triggered by an triggering event||
 |Triggering event|A specific condition about the system itself|trigger|
+|Offline device|A smart device that is not reachable by the domotic system||
 <!-- |Server|A computer installed in the house responsible for managing all aspects of the domotic system|| -->
