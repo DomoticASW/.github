@@ -1,5 +1,5 @@
 #!/bin/sh
 
-PROJECT_ROOT="$(pwd)/$(dirname $0)"
+PROJECT_ROOT=$(cd "$(dirname "$0")" && pwd)
 
 cp ${PROJECT_ROOT}/hooks/* .git/hooks
