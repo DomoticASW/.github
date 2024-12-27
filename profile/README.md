@@ -185,6 +185,8 @@ We plan to use:
 |Admin|to be able to give some device privileges only to some users|i can prohibit uninteded use of the system|
 |Admin|that tasks can be executed only by users that own the privileges for every device included in the task|i can prohibit uninteded use of the system|
 |Admin|tasks to have a whitelist and a blacklist|i can prohibit uninteded use of the system|
+|Admin|to review and accept or decline users registration requests|i can manage who has access to the system|
+|Admin|to be able to remove users from the system|i can manage who has access to the system|
 |User |to access my domotic system both from desktop and mobile clients|i can access it even remotely and without installing any app|
 |User |to see the properties exposed by my smart devices|i can gain knowledge about the state of the house|
 |User |to make smart devices execute an action|i can alter the state of the house|
@@ -192,9 +194,9 @@ We plan to use:
 |User |to set up automations to be executed when specific triggering events happen|my home can do stuff even without me taking care of it|
 |User |to receive a notification when a specific device goes offline|i can fix problems in case they happen|
 
-
-
-### Non functional requirments
+### Non functional requirements
+- Users (and the admin) must be authenticated in order to interact with the system
+- The server should restart automatically in case of a crash
 
 ## Ubiquitous language
 |Word|Definition|Synonyms|
@@ -217,4 +219,5 @@ We plan to use:
 |Device privilege|Right of a user to interact with some device||
 |Task whitelist|A list of users that can run the task regardless of the device privileges||
 |Task blacklist|A list of users that cannot run the task regardless of the device privileges||
+|Registration request|A user must send a registration request that must be accepted by the admin before he can interact with the system||
 <!-- |Server|A computer installed in the house responsible for managing all aspects of the domotic system|| -->
