@@ -90,8 +90,8 @@ We plan to use:
 ### Mia Fernandez
 <img src="https://images.pexels.com/photos/4050291/pexels-photo-4050291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" style="float: right; width: 35%"/>
 
-- **Age**: 40  
 - **Type of target user**: Eco-Conscious Parent
+- **Age**: 40  
 - **Occupation**: Environmental Consultant  
 - **Tech Confidence**: Moderate  
 - **Goals**:  
@@ -110,7 +110,7 @@ We plan to use:
 - **Type of target user**: Young Teen
 - **Age**: 10  
 - **Occupation**: Elementary School Student  
-- **Tech Confidence**: High for her age  
+- **Tech Confidence**: High given her age  
 - **Goals**:  
   - Playfully disrupt Liam’s automations (e.g., turning lights off and on).  
 - **Interests**:  
