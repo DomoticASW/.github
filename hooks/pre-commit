@@ -12,7 +12,7 @@ PROJECT_ROOT="$(pwd)/$(dirname $0)/../.."
 
 echo "Generating UML diagrams"
 
-if docker run -v ${PROJECT_ROOT}:/data plantuml/plantuml -failfast2 -o ../generated /data/diagrams/src; then
+if docker run -v /${PROJECT_ROOT}:/data plantuml/plantuml -failfast2 -o ../generated //data/diagrams/src; then
 	git add ${PROJECT_ROOT}/diagrams/generated
 else
 	exit 1
