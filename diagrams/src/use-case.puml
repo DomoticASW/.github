@@ -8,6 +8,7 @@ rectangle DomoticASW {
     User --> (Create automation)
     User --> (Run task)
     User --> (Delete task)
+    User --> (Ciao)
 }
 
 @enduml
