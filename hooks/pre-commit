@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Redirect output to stderr.
+exec 1>&2
+
+if ! which docker &> /dev/null; then
+    echo "Docker is required"
+	exit 1
+fi
+
+PROJECT_ROOT="$(pwd)/$(dirname $0)/../.."
+
+if ! git diff --quiet --cached -- "${PROJECT_ROOT}/diagrams/src"; then
+	echo "Generating UML diagrams"
+
+	if docker run -v /${PROJECT_ROOT}:/data plantuml/plantuml -failfast2 -o ../generated //data/diagrams/src; then
+		git add ${PROJECT_ROOT}/diagrams/generated
+	else
+		exit 1
+	fi
+fi
