@@ -222,3 +222,7 @@ We plan to use:
 |Registration request|A user must send a registration request that must be accepted by the admin before he can interact with the system||
 |Device group|A grouping of smart devices, each device can be part of 0 or N groups|Group|
 <!-- |Server|A computer installed in the house responsible for managing all aspects of the domotic system|| -->
+
+## Use case
+![Use case diagram](../diagrams/generated/use-case.png)
+
