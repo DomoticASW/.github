@@ -1,10 +1,14 @@
-name: Build diagrams
-on: push
+name: Generate diagrams
+on:
+  push:
+    paths:
+      # Generates diagrams only if some diagram has changed
+      - diagrams/**
 
 jobs:
 
-  build-diagrams:
-    name: Build diagrams
+  generate-diagrams:
+    name: Generate diagrams
     runs-on: ubuntu-latest
 
     permissions:
@@ -17,7 +21,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Remove old generated diagrams # in case a diagram src was actually deleted
         run : rm -f diagrams/generated/*
-      - name: Build diagrams
+      - name: Generate diagrams
         run: 'docker run -v $(pwd):/data plantuml/plantuml -v -o ../generated /data/diagrams/src'
       - uses: stefanzweifel/git-auto-commit-action@v5 # commiting if something changed
         with:
