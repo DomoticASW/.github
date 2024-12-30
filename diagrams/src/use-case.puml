@@ -15,11 +15,11 @@ rectangle "DomoticASW system" {
     Admin -- (registration)
     User -- (registration)
     Admin -- (Remove user)
+    Admin -- (Manage device groups)
     User -- (Read smart device properties)
     User -- (Make smart device execute an action)
     User -- (Manage tasks)
     User -- (Manage automations)
-    User -- (Manage device groups)
     User -- (Sub/Unsubscribe for offline devices notifications)
 }
 
