@@ -2,7 +2,7 @@ name: Generate diagrams
 on:
   push:
     paths:
-      - diagrams
+      - diagrams/**
 
 jobs:
 
