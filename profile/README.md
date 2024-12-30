@@ -179,15 +179,11 @@ We plan to use:
 |As a|I want|so that|
 |-----|----------|-------------|
 |Admin|to add or remove smart devices to my smart home|i can extend my domotic system|
-|Admin|my domotic system to be compatible with devices produced by multiple other manifacturers|i can have a wider choice when buying the devices|
-|Admin|to be able to access my domotic system through the local network|internet is not required when i'm phisically in my house|
-|Admin|to be able to access my domotic system remotely through internet|i can administrate it remotely|
 |Admin|to be able to give some device privileges only to some users|i can prohibit uninteded use of the system|
 |Admin|that tasks can be executed only by users that own the privileges for every device included in the task|i can prohibit uninteded use of the system|
 |Admin|tasks to have a whitelist and a blacklist|i can prohibit uninteded use of the system|
 |Admin|to review and accept or decline users registration requests|i can manage who has access to the system|
 |Admin|to be able to remove users from the system|i can manage who has access to the system|
-|User |to access my domotic system both from desktop and mobile clients|i can access it even remotely and without installing any app|
 |User |to see the properties exposed by my smart devices|i can gain knowledge about the state of the house|
 |User |to make smart devices execute an action|i can alter the state of the house|
 |User |to set up tasks to be executed with one click|i can automate the execution of multiple instructions|
@@ -196,6 +192,10 @@ We plan to use:
 |User |to organize the home devices in groups|it's easier to find them|
 
 ### Non functional requirements
+- The domotic system must be compatible with devices produced by multiple other manifacturers
+- The domotic system should be accessible through the internet so that it can be accessed remotely
+- The domotic system should be accessible through the local network so that internet access is not required when the user is phisically in their house
+- The domotic system should be accessible both from desktop and mobile clients
 - Users (and the admin) must be authenticated in order to interact with the system
 - The server should restart automatically in case of a crash
 
