@@ -179,9 +179,8 @@ We plan to use:
 |As a|I want|so that|
 |-----|----------|-------------|
 |Admin|to add or remove smart devices to my smart home|i can extend my domotic system|
-|Admin|to be able to give some device privileges only to some users|i can prohibit uninteded use of the system|
-|Admin|that tasks can be executed only by users that own the privileges for every device included in the task|i can prohibit uninteded use of the system|
-|Admin|tasks to have a whitelist and a blacklist|i can prohibit uninteded use of the system|
+|Admin|to be able to give some device privileges only to some users and as a consequence tasks can be executed only by users that own the privileges for every device included in the task|i can prohibit uninteded use of the system|
+|Admin|tasks to have a user whitelist and a user blacklist to override device privileges|i can prohibit uninteded use of the system|
 |Admin|to review and accept or decline users registration requests|i can manage who has access to the system|
 |Admin|to be able to remove users from the system|i can manage who has access to the system|
 |User |to see the properties exposed by my smart devices|i can gain knowledge about the state of the house|
