@@ -227,3 +227,10 @@ We plan to use:
 ## Use case
 ![Use case diagram](../diagrams/generated/use-case.png)
 
+### Scenarios
+
+**Add/Remove smart device**:
+  1. The admin sees a list of devices added to the system.
+    **Add device**:
+  1. Each device in the list shows a button which can be clicked to remove the device
+  1. A button can be clicked in order to add a new device
