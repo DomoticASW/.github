@@ -26,7 +26,7 @@ The client can receive custom push notifications from the server, such as:
 - Results of a scheduled automation
 
 There are two types of users:
-- **Admin**: Can add and remove devices from the system and define which devices other users can interact with. (Admins also use the system, they’re not technical staff.)
+- **Admin**: Can add and remove devices from the system and define which devices other users can interact with. (The admin also uses the system, he's not technical staff.)
 - **User**: Can only interact with devices they’ve been given access to by the admin.
 
 The system includes an authentication feature so that only authenticated users can interact with it.
