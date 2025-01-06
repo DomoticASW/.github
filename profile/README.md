@@ -189,6 +189,7 @@ We plan to use:
 |User |to set up tasks to be executed with one click|i can automate the execution of multiple instructions|
 |User |to set up automations to be executed when specific triggering events happen|my home can do stuff even without me taking care of it|
 |User |to receive a notification when a specific device goes offline|i can fix problems in case they happen|
+|User |to edit my profile data like my nickname, email and password|i can keep my data up to date|
 
 ### Non functional requirements
 - The domotic system must be compatible with devices produced by multiple other manifacturers
@@ -202,6 +203,9 @@ We plan to use:
 |Word|Definition|Synonyms|
 |----|----------|--------|
 |User|A person which interacts with the domotic system||
+|Nickname|A simple name or string that the user choose to present himself to other users|Username|
+|Email|An e-mail address that it used to identify a user inside the system|E-mail|
+|Password|A string that grants the access to a user account||
 |Admin|A role played by a user of the system which is responsible for its management|Administrator|
 |Smart home|A phisical house equipped with a software to manage connected smart devices|Domotic, Domotic system, Home, System|
 |Smart device|An electronic device able to interact or sense the environment, generally connected to other devices or networks|IoT device, device|
