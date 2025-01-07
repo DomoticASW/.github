@@ -181,6 +181,7 @@ We plan to use:
 |Admin|to add or remove smart devices to my smart home|i can extend my domotic system|
 |Admin|to be able to set up user-device permissions and as a consequence tasks can be executed only by users that own the user-device permission for every device included in the task|i can prohibit uninteded use of the system|
 |Admin|tasks to have a user whitelist and a user blacklist to override user-device permissions|i can prohibit uninteded use of the system|
+|Admin|tasks to have an editlist to specify which user can edit that task|i can prohibit uninteded use of the system|
 |Admin|to review and accept or decline users registration requests|i can manage who has access to the system|
 |Admin|to be able to remove users from the system|i can manage who has access to the system|
 |Admin|to organize the home devices in groups|it's easier to manage them|
@@ -221,9 +222,10 @@ We plan to use:
 |Offline device|A smart device that is not reachable by the domotic system||
 |Interacting with a device|A client that reads properties or runs actions on a smart device||
 |User-Device permission|Right of a user to interact with some device|User permission|
-|Task permissions|A task whitelist and blacklist||
+|Task permissions|A task whitelist, blacklist and editlist||
 |Task whitelist|A list of users that can run the task regardless of their user-device permissions||
 |Task blacklist|A list of users that cannot run the task regardless of their user-device permissions||
+|Task editlist|A list of users which can edit the task||
 |Registration request|A user must send a registration request that must be accepted by the admin before he can interact with the system||
 |Device group|A grouping of smart devices, each device can be part of 0 or N groups|Group|
 <!-- |Server|A computer installed in the house responsible for managing all aspects of the domotic system|| -->
