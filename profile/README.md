@@ -281,3 +281,19 @@ Additional details that are not shown in the mockups:
 
       2. A block will be added in the trigger section with default start time and period
       2. The user can now edit those parameters
+
+## Bounded contexts
+
+### Users management context
+This context handles everything related to user accounts.
+- User registration, approval, and removal.
+- Editing user profiles (nickname, email, password).
+
+### Device management context
+This context is responsible for managing the lifecycle of smart devices and the interfaces they offer.
+- Adding, removing, and renaming smart devices.
+- Organizing devices into groups.
+- Tracking device status (online/offline).
+- Exposing device properties.
+- Managing device actions (executing them and setting input controls).
+
