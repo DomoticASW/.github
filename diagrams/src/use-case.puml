@@ -8,7 +8,7 @@ actor Admin
 Admin -l-|> User
 
 rectangle "DomoticASW system" {
-    Admin -- (Add/Remove smart device)
+    Admin -- (Add/Remove/Rename smart device)
     Admin -- (Manage users-device permissions)
     Admin -- (Manage tasks permissions)
     usecase "User registration" as (registration)

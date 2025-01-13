@@ -178,7 +178,7 @@ We plan to use:
 ### User stories
 |As a|I want|so that|
 |-----|----------|-------------|
-|Admin|to add or remove smart devices to my smart home|i can extend my domotic system|
+|Admin|to add, remove or rename smart devices in my smart home|i can extend my domotic system|
 |Admin|to be able to set up user-device permissions and as a consequence tasks can be executed only by users that own the user-device permission for every device included in the task|i can prohibit uninteded use of the system|
 |Admin|tasks to have a user whitelist and a user blacklist to override user-device permissions|i can prohibit uninteded use of the system|
 |Admin|tasks to have an editlist to specify which user can edit that task|i can prohibit uninteded use of the system|
