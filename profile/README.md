@@ -243,10 +243,12 @@ We plan to use:
 ## Use case
 ![Use case diagram](../diagrams/generated/use-case.png)
 
-### Scenarios
+## Mockups (scenarios)
 
-**Add/Remove smart device**:
-  1. The admin sees a list of devices added to the system.
-    **Add device**:
-  1. Each device in the list shows a button which can be clicked to remove the device
-  1. A button can be clicked in order to add a new device
+<iframe
+style="
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  height: 700px;"
+src="https://embed.figma.com/proto/2LrkXTdBFe5BjsJjpdfBuB/DomoticASW?node-id=1329-206&p=f&scaling=scale-down&content-scaling=fixed&page-id=1214%3A419&starting-point-node-id=1329%3A206&embed-host=share"
+allowfullscreen>
+</iframe>
