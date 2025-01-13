@@ -181,7 +181,7 @@ We plan to use:
 |Admin|to add, remove or rename smart devices in my smart home|i can extend my domotic system|
 |Admin|to be able to set up user-device permissions and as a consequence tasks can be executed only by users that own the user-device permission for every device included in the task|i can prohibit uninteded use of the system|
 |Admin|tasks to have a user whitelist and a user blacklist to override user-device permissions|i can prohibit uninteded use of the system|
-|Admin|tasks to have an editlist to specify which user can edit that task|i can prohibit uninteded use of the system|
+|Admin|tasks and automations to have an editlist to specify which user can edit that|i can prohibit uninteded use of the system|
 |Admin|to review and accept or decline users registration requests|i can manage who has access to the system|
 |Admin|to be able to remove users from the system|i can manage who has access to the system|
 |Admin|to organize the home devices in groups|it's easier to manage them|

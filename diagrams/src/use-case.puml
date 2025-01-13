@@ -10,7 +10,7 @@ Admin -l-|> User
 rectangle "DomoticASW system" {
     Admin -- (Add/Remove/Rename smart device)
     Admin -- (Manage users-device permissions)
-    Admin -- (Manage tasks permissions)
+    Admin -- (Manage tasks/automations permissions)
     usecase "User registration" as (registration)
     Admin -- (registration)
     User -- (registration)
