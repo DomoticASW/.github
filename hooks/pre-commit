@@ -18,7 +18,7 @@ if ! git diff --quiet --cached -- "${PROJECT_ROOT}/diagrams"; then
 	docker pull plantuml/plantuml:latest &> /dev/null
 
 	echo "Generating UML diagrams"
-	if docker run -v /${PROJECT_ROOT}:/data plantuml/plantuml:latest -failfast2 -o ../generated //data/diagrams/src; then
+	if docker run --rm -v /${PROJECT_ROOT}:/data plantuml/plantuml:latest -failfast2 -o ../generated //data/diagrams/src; then
 		git add ${PROJECT_ROOT}/diagrams/generated
 	else
 		exit 1
