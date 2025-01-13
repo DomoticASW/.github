@@ -188,7 +188,8 @@ We plan to use:
 |User |to see the properties exposed by my smart devices|i can gain knowledge about the state of the house|
 |User |to make smart devices execute an action|i can alter the state of the house|
 |User |to set up tasks to be executed with one click|i can automate the execution of multiple instructions|
-|User |to set up automations to be executed when specific triggering events happen|my home can do stuff even without me taking care of it|
+|User |to set up automations to be executed periodically or when specific triggering events happen|my home can do stuff even without me taking care of it|
+|User |to enable and disable automations|i can stop some automations to run for a while|
 |User |to receive a notification when a specific device goes offline|i can fix problems in case they happen|
 |User |to edit my profile data like my nickname, email and password|i can keep my data up to date|
 
@@ -218,7 +219,10 @@ We plan to use:
 |Instruction|An operation that can be executed by the domotic system (for example running a device action, reading some property on a device or sending a notification)||
 |Task|A sequence of instructions to be executed||
 |Automation|A task or an instruction which is triggered by an triggering event||
-|Triggering event|A specific condition about the system itself|trigger|
+|Active/Inactive automation|An automation that is/is not run by the domotic system when it triggers||
+|Automation trigger|A device event or a time period specification|trigger|
+|Triggering period|How frequently an automation should be run, has a starting point in time|period|
+|Device event|An event that can be fired by a device||
 |Offline device|A smart device that is not reachable by the domotic system||
 |Interacting with a device|A client that reads properties or runs actions on a smart device||
 |User-Device permission|Right of a user to interact with some device|User permission|
