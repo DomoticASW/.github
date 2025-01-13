@@ -245,6 +245,7 @@ We plan to use:
 
 ## Mockups (scenarios)
 
+(This frame cannot be rendered on GitHub so click the link to view it on Figma)
 <iframe
 style="
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -252,3 +253,31 @@ style="
 src="https://embed.figma.com/proto/2LrkXTdBFe5BjsJjpdfBuB/DomoticASW?node-id=1329-206&p=f&scaling=scale-down&content-scaling=fixed&page-id=1214%3A419&starting-point-node-id=1329%3A206&embed-host=share"
 allowfullscreen>
 </iframe>
+
+Additional details that are not shown in the mockups:
+
+- **Manage tasks**:
+  1.After adding an instruction relative to a device, through the "plus" button, it will be added a block with a default action or property of that device. Clicking on the instruction will allow the user change the device action or property
+
+- **Make smart device execute an action**:
+  1. When an input control is also used to show the current value of a property, it is not trivial to handle cases in which the value may phisically change slowly.
+  1. Right after modifying the content of the input it will be "detached" from the actual property and two buttons (Cancel and Confirm) will be shown.
+  1. If "cancel" is pressed then no action is fired and the control returns to be "attached" to the property.
+  1. Otherwise if "confirm" is pressed the input control immediately returns to be "attached" to the property and the user will see that value slowly change up to the set one.
+
+- **Sign-up**:
+  1. When signing up to the system the first user to do so will immediately become the admin.
+
+- **Manage automations**:
+  1. In the "trigger" section the user will choose between triggering by event or periodically.
+
+    - if triggering by event is chosen:
+
+      2. A page with all the devices will be shown and one can be selected.
+      2. A block will be added in the trigger section with the device name and a default triggering event.
+      2. Clicking that block will allow the user change the triggering event.
+
+    - else if triggering periodically is chosen:
+
+      2. A block will be added in the trigger section with default start time and period
+      2. The user can now edit those parameters
