@@ -188,6 +188,7 @@ We plan to use:
 |User |to see the properties exposed by my smart devices|i can gain knowledge about the state of the house|
 |User |to make smart devices execute an action|i can alter the state of the house|
 |User |to set up tasks to be executed with one click|i can automate the execution of multiple instructions|
+|User |to express conditional logic in my tasks|i can achieve complex behaviour|
 |User |to set up automations to be executed periodically or when specific triggering events happen|my home can do stuff even without me taking care of it|
 |User |to enable and disable automations|i can stop some automations to run for a while|
 |User |to receive a notification when a specific device goes offline|i can fix problems in case they happen|
@@ -216,9 +217,13 @@ We plan to use:
 |Property|Some data provided by a smart device|Device data|
 |Action|An operation that can be executed by a smart device||
 |Notification|A message sent by the server to every user that wants to receive it||
-|Instruction|An operation that can be executed by the domotic system (for example running a device action, reading some property on a device or sending a notification)||
+|Instruction|An operation that can be executed by the domotic system (for example running a device action, reading some property on a device or sending a notification, wait for some time, set constants for scripting purposes and start other tasks). Instructions can have inputs||
+|Constant|A name with an associated value of a specific type. It can be set manually or by reading a device property|variable|
+|Type (scripting)|A set of possible values||
+|Control flow instructions|Instructions that can alter the control flow of the task/automation (if and if-else) based on a condition||
+|Condition|An expression that results in a boolean value||
 |Task|A sequence of instructions to be executed||
-|Automation|A task or an instruction which is triggered by an triggering event||
+|Automation|A sequence of instructions triggered by an automation trigger||
 |Active/Inactive automation|An automation that is/is not run by the domotic system when it triggers||
 |Automation trigger|A device event or a time period specification|trigger|
 |Triggering period|How frequently an automation should be run, has a starting point in time|period|
@@ -227,9 +232,10 @@ We plan to use:
 |Interacting with a device|A client that reads properties or runs actions on a smart device||
 |User-Device permission|Right of a user to interact with some device|User permission|
 |Task permissions|A task whitelist, blacklist and editlist||
+|Automation permissions|An automation editlist||
 |Task whitelist|A list of users that can run the task regardless of their user-device permissions||
 |Task blacklist|A list of users that cannot run the task regardless of their user-device permissions||
-|Task editlist|A list of users which can edit the task||
+|Task/Automation editlist|A list of users which can edit the task/automation||
 |Registration request|A user must send a registration request that must be accepted by the admin before he can interact with the system||
 |Device group|A grouping of smart devices, each device can be part of 0 or N groups|Group|
 |Server|A computer installed in the house responsible for managing all aspects of the domotic system||
