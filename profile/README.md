@@ -290,7 +290,7 @@ Additional details that are not shown in the mockups:
   - User login, registration, approval, and removal.
   - Editing user profiles (nickname, email, password).
 
-- Device management context
+- Devices management context
 
   This context is responsible for managing the lifecycle of smart devices and the interfaces they offer.
   - Adding, removing, and renaming smart devices.
@@ -299,7 +299,7 @@ Additional details that are not shown in the mockups:
   - Exposing device properties.
   - Managing device actions (executing them and setting input controls).
 
-- Task and automation context
+- Tasks and automations context
 
   This context focuses on automating the functionality of the smart home.
   - Defining and executing tasks
