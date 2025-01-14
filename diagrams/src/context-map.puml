@@ -1,0 +1,43 @@
+@startuml context-map
+
+left to right direction
+hide empty members
+
+note as AggregatesNote
+  In this diagram only
+  the aggregates are shown
+end note
+ 
+package "Shared kernel" as Kernel {
+    interface User
+    interface Admin
+    interface Device
+    interface Notification
+}
+package "Users management" as Users {
+
+}
+package "Devices management" as Devices {
+
+}
+package "Tasks and automations" as Tasks {
+
+}
+package "Permissions" {
+
+}
+package "Notifications" {
+
+}
+package "System access" as SystemAccess {
+    
+}
+
+Users --> Kernel
+Devices --> Kernel
+Tasks --> Kernel
+Permissions -u-> Kernel
+Notifications -u-> Kernel
+SystemAccess -u-> Kernel
+
+@enduml
