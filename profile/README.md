@@ -284,16 +284,45 @@ Additional details that are not shown in the mockups:
 
 ## Bounded contexts
 
-### Users management context
-This context handles everything related to user accounts.
-- User registration, approval, and removal.
-- Editing user profiles (nickname, email, password).
+- Users management context
 
-### Device management context
-This context is responsible for managing the lifecycle of smart devices and the interfaces they offer.
-- Adding, removing, and renaming smart devices.
-- Organizing devices into groups.
-- Tracking device status (online/offline).
-- Exposing device properties.
-- Managing device actions (executing them and setting input controls).
+  This context handles everything related to user accounts.
+  - User login, registration, approval, and removal.
+  - Editing user profiles (nickname, email, password).
 
+- Device management context
+
+  This context is responsible for managing the lifecycle of smart devices and the interfaces they offer.
+  - Adding, removing, and renaming smart devices.
+  - Organizing devices into groups.
+  - Tracking device status (online/offline).
+  - Exposing device properties.
+  - Managing device actions (executing them and setting input controls).
+
+- Task and automation context
+
+  This context focuses on automating the functionality of the smart home.
+  - Defining and executing tasks
+  - Defining automations triggered by events or periodically.
+  - Managing automation states (active/inactive).
+  - Providing graphical scripting capabilities (constants, control flow instructions, and conditions).
+
+- Permissions context
+
+  This context handles everything related to permissions and access control.
+  - Handling user-device permissions.
+  - task whitelist/blacklist.
+  - task/automation editlist.
+
+- Notifications context
+
+  This context handles notifications sent to the users.
+  - Sending notifications when devices go offline
+  - Sending custom notification from tasks
+  - Configuring notification preferences for users.
+
+- System access context
+
+  This context deals with remote/local system access.
+  - Supporting local network access when users are home.
+  - Enabling remote access for managing the system from anywhere.
