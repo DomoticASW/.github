@@ -10,7 +10,9 @@ end title
 package "System access" as SystemAccess {}
 package "Users management" as Users {}
 package "Devices management" as Devices {}
+Devices --> Users
 package "Tasks and automations" as Tasks {}
+Tasks --> Users
 Tasks -d-> Permissions
 Tasks --> Devices
 Tasks --> Notifications

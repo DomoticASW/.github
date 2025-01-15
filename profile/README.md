@@ -239,6 +239,7 @@ We plan to use:
 |Registration request|A user must send a registration request that must be accepted by the admin before he can interact with the system||
 |Device group|A grouping of smart devices, each device can be part of 0 or N groups|Group|
 |Server|A computer installed in the house responsible for managing all aspects of the domotic system||
+|Token|A piece of data that contains information about a user and it's role in the system. It is signed in order to prove it's validity||
 
 ## Use case
 ![Use case diagram](../diagrams/generated/use-case.png)
@@ -288,6 +289,7 @@ Additional details that are not shown in the mockups:
 
   This context handles everything related to user accounts.
   - User login, registration, approval, and removal.
+  - Session token verification
   - Editing user profiles (nickname, email, password).
 
 - Devices management context
