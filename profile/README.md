@@ -326,3 +326,5 @@ Additional details that are not shown in the mockups:
   This context deals with remote/local system access.
   - Supporting local network access when users are home.
   - Enabling remote access for managing the system from anywhere.
+
+![Bounded contexts map](../diagrams/generated/context-map.png)
