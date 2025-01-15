@@ -1,0 +1,69 @@
+@startuml users-management-domain-model
+
+hide empty members
+package Repository{
+    interface Repository<Id, Entity>
+}
+
+package "Users management" as Users {
+    interface User {
+        + nickname: Nickname
+        + email: Email
+        + passwordHash: PasswordHash
+    }
+    interface Admin extends User
+
+    interface RegistrationRequest {
+        + nickname: Nickname
+        + email: Email
+        + passwordHash: PasswordHash
+    }
+
+    interface Token {
+        + userEmail: Email
+    }
+    enum UserRole {
+        Admin
+        User
+    }
+    Token -- UserRole : "role >"
+
+    interface UsersService {
+        + publishRegistrationRequest(Nickname, Email, Password): EmailAlreadyInUseError?
+        + approveRegistrationRequest(Token, Email): NotFoundError?
+        + rejectRegistrationRequest(Token, Email): NotFoundError?
+        + removeUser(Token, Email): NotFoundError?
+        + updateUserData(Token, Nickname?, Email?, Password?): (NotFoundError | EmailAlreadyInUseError)?
+        + login(Email, Password): Token | InvalidCredentialsError
+        + verifyToken(Token): Boolean
+        + validateToken(String): Token | InvalidTokenFormatError
+    }
+
+
+    interface RegistrationRequestRepository<Email, RegistrationRequest> <<Repository>>
+    RegistrationRequestRepository -l-|> Repository.Repository
+    RegistrationRequestRepository o-- RegistrationRequest
+    interface UsersRepository<Email, User> <<Repository>>
+    UsersRepository -l-|> Repository.Repository
+    UsersRepository o-- User
+    
+    UsersService --> UsersRepository
+    UsersService --> RegistrationRequestRepository
+
+
+    interface UserFactory <<Factory>> {
+        + new(Nickname, Email, Password): User
+    }
+    interface RegistrationRequestFactory <<Factory>> {
+        + new(Nickname, Email, Password): RegistrationRequest
+    }
+    interface TokenFactory <<Factory>> {
+        + new(String): Token | InvalidTokenFormatError
+    }
+    TokenFactory -[hidden]-> Token
+    UsersService --> UserFactory
+    UsersService --> RegistrationRequestFactory
+    UsersService --> TokenFactory
+}
+
+@enduml
