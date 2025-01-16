@@ -1,0 +1,71 @@
+@startuml devices-management-domain-model
+
+hide empty members
+package Repository{
+    interface Repository<Id, Entity>
+}
+
+package "Devices management" {
+
+    interface Device {
+        + id: DeviceId
+        + name: String
+        + address: URL
+    }
+
+    enum DeviceStatus {
+        Online
+        Offline
+    }
+    Device -- DeviceStatus : "status >"
+
+    interface DeviceGroup {
+        + name: String
+    }
+
+    Device "0..*"  --o "0..*" DeviceGroup
+
+    interface DeviceProperty<T> {
+        + name: String
+    }
+    DeviceProperty "1" -- "1" Value
+
+    interface Value<T> {
+        + value: T
+        + setValue(T): InvalidValueError?
+    }
+
+    struct ColorValue
+    ColorValue -u-|> Value : "<Color>"
+
+    struct BooleanValue
+    BooleanValue -u-|> Value : "<Boolean>"
+
+    struct IntValue
+    IntValue -u-|> Value : "<Int>"
+
+    struct IntRangeValue {
+        + min: Int
+        + max: Int
+    }
+    IntRangeValue -u-|> Value : "<Int>"
+
+    struct EnumValue {
+        + values: Set<String>
+    }
+    EnumValue -u-|> Value : "<String>"
+
+    struct DoubleValue
+    DoubleValue -u-|> Value : "<Double>"
+
+    struct DoubleRangeValue {
+        + min: Double
+        + max: Double
+    }
+    DoubleRangeValue -u-|> Value : "<Double>"
+
+    Device "1" -- "0..*" DeviceProperty
+    
+}
+
+@enduml

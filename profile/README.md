@@ -298,7 +298,7 @@ Additional details that are not shown in the mockups:
   - Adding, removing, and renaming smart devices.
   - Organizing devices into groups.
   - Tracking device status (online/offline).
-  - Exposing device properties.
+  - Exposing device properties and events.
   - Managing device actions (executing them and setting input controls).
 
 - Tasks and automations context
