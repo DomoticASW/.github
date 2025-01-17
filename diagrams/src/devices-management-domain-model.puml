@@ -67,6 +67,10 @@ package "Devices management" {
         + execute(input: V): Void
     }
 
+    interface DeviceEvent {
+        + name: String
+    }
+
 
     Device -l- DeviceStatus : "status >"
     Device "0..*"  -r-o "0..*" DeviceGroup
@@ -85,6 +89,7 @@ package "Devices management" {
         DeviceProperty.Device == DeviceAction.Device
     end note
     Diamond "0..*" -- "1" TypeConstraints
+    Device "1" -- "0..*" DeviceEvent
 }
 
 note top of "Devices management"
