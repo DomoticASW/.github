@@ -17,55 +17,78 @@ package "Devices management" {
         Online
         Offline
     }
-    Device -- DeviceStatus : "status >"
 
     interface DeviceGroup {
         + name: String
     }
 
-    Device "0..*"  --o "0..*" DeviceGroup
-
-    interface DeviceProperty<T> {
-        + name: String
-    }
-    DeviceProperty "1" -- "1" Value
-
-    interface Value<T> {
-        + value: T
-        + setValue(T): InvalidValueError?
+    enum Type<T> {
+        IntType<Int>
+        DoubleType<Double>
+        BooleanType<Boolean>
+        ColorType<Color>
+        StringType<String>
+        VoidType<Void>
     }
 
-    struct ColorValue
-    ColorValue -u-|> Value : "<Color>"
+    interface TypeConstraints<T> {
+        + validate(value: T): InvalidValueError?
+    }
 
-    struct BooleanValue
-    BooleanValue -u-|> Value : "<Boolean>"
+    struct Enum {
+        + values: Set<String>
+    }
 
-    struct IntValue
-    IntValue -u-|> Value : "<Int>"
-
-    struct IntRangeValue {
+    struct IntRange {
         + min: Int
         + max: Int
     }
-    IntRangeValue -u-|> Value : "<Int>"
 
-    struct EnumValue {
-        + values: Set<String>
-    }
-    EnumValue -u-|> Value : "<String>"
-
-    struct DoubleValue
-    DoubleValue -u-|> Value : "<Double>"
-
-    struct DoubleRangeValue {
+    struct DoubleRange {
         + min: Double
         + max: Double
     }
-    DoubleRangeValue -u-|> Value : "<Double>"
 
-    Device "1" -- "0..*" DeviceProperty
-    
+    struct None<T>
+    note bottom of None
+        None represents a simple
+        type without constraints
+    end note
+
+
+    interface DeviceProperty<T> {
+        + name: String
+        + value: T
+    }
+
+    interface DeviceAction<T> {
+        + name: String
+        + description: String?
+        + execute(input: V): Void
+    }
+
+
+    Device -l- DeviceStatus : "status >"
+    Device "0..*"  -r-o "0..*" DeviceGroup
+    TypeConstraints "0..*" -- "1" Type : "type >"
+    Enum -u-|> TypeConstraints : "<String>"
+    IntRange -u-|> TypeConstraints : "<Int>"
+    DoubleRange -u-|> TypeConstraints : "<Double>"
+    None -u-|> TypeConstraints
+    DeviceAction "0..*" -- "1" TypeConstraints : "inputTypeConstraint >"
+    Device "1" *-- "0..*" DeviceProperty
+    Device "1" *-- "0..*" DeviceAction
+    <> Diamond
+    DeviceProperty -r- Diamond : "or"
+    Diamond "0..1" -r- "1" DeviceAction : "setter >"
+    note on link 
+        DeviceProperty.Device == DeviceAction.Device
+    end note
+    Diamond "0..*" -- "1" TypeConstraints
 }
+
+note top of "Devices management"
+    every field is immutable
+end note
 
 @enduml
