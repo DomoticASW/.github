@@ -28,7 +28,7 @@ package "Users management" as Users {
     }
     Token -- UserRole : "role >"
 
-    interface UsersService {
+    interface UsersService <<Service>> {
         + publishRegistrationRequest(Nickname, Email, Password): EmailAlreadyInUseError?
         + approveRegistrationRequest(Token, Email): NotFoundError?
         + rejectRegistrationRequest(Token, Email): NotFoundError?
