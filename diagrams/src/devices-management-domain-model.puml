@@ -86,6 +86,10 @@ package "Devices management" {
         find(DeviceId): Device | DeviceNotFoundError
         getAllDevices(): Iterable<Device>
         executeAction(DeviceId, DeviceActionId, input: Any) : (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound)?
+        subscribeForDeviceEvents(DeviceEventsSubscriber)
+        unsubscribeForDeviceEvents(DeviceEventsSubscriber)
+        subscribeForDeviceStatusChanges(DeviceStatusChangesSubscriber)
+        unsubscribeForDeviceStatusChanges(DeviceStatusChangesSubscriber)
         addGroup(name: String): DeviceGroupId | DeviceGroupNameAlreadyInUseError
         removeGroup(DeviceGroupId): DeviceGroupNotFoundError?
         renameGroup(DeviceGroupId, String): (DeviceGroupNotFoundError | DeviceGroupNameAlreadyInUseError)?
@@ -97,6 +101,14 @@ package "Devices management" {
 
     ~interface DeviceFactory <<Factory>> {
         new(deviceUrl: URL): Device | DeviceUnreachableError
+    }
+
+    interface DeviceEventsSubscriber {
+        deviceEventPublished(DeviceId, DeviceEvent)
+    }
+
+    interface DeviceStatusChangesSubscriber {
+        deviceStatusChanged(DeviceId, DeviceStatus)
     }
 
 
