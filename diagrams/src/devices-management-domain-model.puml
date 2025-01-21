@@ -93,6 +93,10 @@ package "Devices management" {
         + removeDeviceFromGroup(DeviceId, DeviceGroupId): (DeviceNotFoundError | DeviceGroupNotFoundError)?
     }
 
+    interface DeviceFactory <<Factory>> {
+        + new(deviceUrl: URL): Device | DeviceUnreachableError
+    }
+
 
     Device -l- DeviceStatus : "status >"
     Device "0..*"  <-r-o "0..*" DeviceGroup
@@ -118,6 +122,7 @@ package "Devices management" {
     DeviceRepository o-- Device
     DevicesService --> DeviceRepository
     DevicesService --> DeviceGroupRepository
+    DevicesService --> DeviceFactory
 }
 
 note top of "Devices management"
