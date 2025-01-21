@@ -139,8 +139,4 @@ package "Devices management" {
     DevicesService --> DeviceFactory
 }
 
-note top of "Devices management"
-every field is immutable
-end note
-
 @enduml
