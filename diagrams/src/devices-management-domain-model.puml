@@ -107,6 +107,11 @@ package "Devices management" {
         removeDeviceFromGroup(DeviceId, DeviceGroupId): (DeviceNotFoundError | DeviceGroupNotFoundError)?
     }
 
+    note right of DevicesService
+        Every method accepts a Token to be verified and
+        so it can also return a InvalidTokenError
+    end note
+
     ~interface DeviceFactory <<Factory>> {
         new(deviceUrl: URL): Device | DeviceUnreachableError
     }
