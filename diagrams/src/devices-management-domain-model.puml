@@ -8,9 +8,9 @@ package Repository{
 package "Devices management" {
 
     interface Device <<Aggregate Root>> {
-        + id: DeviceId
-        + name: String
-        + address: URL
+        id: DeviceId
+        name: String
+        address: URL
         ~ executeAction(DeviceActionId, input: Any): (InvalidInputError | DeviceActionError | DeviceActionNotFound)?
     }
 
@@ -20,8 +20,8 @@ package "Devices management" {
     }
 
     interface DeviceGroup <<Aggregate Root>> {
-        + id: DeviceGroupId
-        + name: String
+        id: DeviceGroupId
+        name: String
     }
 
     enum Type<T> {
@@ -34,21 +34,21 @@ package "Devices management" {
     }
 
     interface TypeConstraints<T> {
-        + validate(value: T): InvalidValueError?
+        validate(value: T): InvalidValueError?
     }
 
     struct Enum {
-        + values: Set<String>
+        values: Set<String>
     }
 
     struct IntRange {
-        + min: Int
-        + max: Int
+        min: Int
+        max: Int
     }
 
     struct DoubleRange {
-        + min: Double
-        + max: Double
+        min: Double
+        max: Double
     }
 
     struct None<T>
@@ -59,42 +59,44 @@ package "Devices management" {
 
 
     interface DeviceProperty<T> {
-        + name: String
-        + value: T
+        name: String
+        value: T
     }
 
     interface DeviceAction<T> {
-        + id: DeviceActionId
-        + name: String
-        + description: String?
+        id: DeviceActionId
+        name: String
+        description: String?
         ~ execute(input: V): (InvalidInputError | DeviceActionError)?
     }
 
     interface DeviceEvent {
-        + name: String
+        name: String
     }
 
-    interface DeviceGroupRepository<DeviceGroupId, DeviceGroup> <<Repository>>
-    interface DeviceRepository<DeviceId, Device> <<Repository>>
+    ~interface DeviceGroupRepository<DeviceGroupId, DeviceGroup> <<Repository>> {
+    }
+    ~interface DeviceRepository<DeviceId, Device> <<Repository>> {
+    }
 
     interface DevicesService <<Service>> {
-        + add(deviceUrl: URL): DeviceId | DeviceUnreachableError
-        + remove(DeviceId): DeviceNotFoundError?
-        + rename(DeviceId, String): DeviceNotFoundError?
-        + find(DeviceId): Device | DeviceNotFoundError
-        + getAllDevices(): Iterable<Device>
-        + executeAction(DeviceId, DeviceActionId, input: Any) : (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound)?
-        + addGroup(name: String): DeviceGroupId | DeviceGroupNameAlreadyInUseError
-        + removeGroup(DeviceGroupId): DeviceGroupNotFoundError?
-        + renameGroup(DeviceGroupId, String): (DeviceGroupNotFoundError | DeviceGroupNameAlreadyInUseError)?
-        + findGroup(DeviceGroupId): DeviceGroup | DeviceGroupNotFoundError
-        + getAllDeviceGroups(): Iterable<DeviceGroup>
-        + addDeviceToGroup(DeviceId, DeviceGroupId): (DeviceNotFoundError | DeviceGroupNotFoundError)?
-        + removeDeviceFromGroup(DeviceId, DeviceGroupId): (DeviceNotFoundError | DeviceGroupNotFoundError)?
+        add(deviceUrl: URL): DeviceId | DeviceUnreachableError
+        remove(DeviceId): DeviceNotFoundError?
+        rename(DeviceId, String): DeviceNotFoundError?
+        find(DeviceId): Device | DeviceNotFoundError
+        getAllDevices(): Iterable<Device>
+        executeAction(DeviceId, DeviceActionId, input: Any) : (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound)?
+        addGroup(name: String): DeviceGroupId | DeviceGroupNameAlreadyInUseError
+        removeGroup(DeviceGroupId): DeviceGroupNotFoundError?
+        renameGroup(DeviceGroupId, String): (DeviceGroupNotFoundError | DeviceGroupNameAlreadyInUseError)?
+        findGroup(DeviceGroupId): DeviceGroup | DeviceGroupNotFoundError
+        getAllDeviceGroups(): Iterable<DeviceGroup>
+        addDeviceToGroup(DeviceId, DeviceGroupId): (DeviceNotFoundError | DeviceGroupNotFoundError)?
+        removeDeviceFromGroup(DeviceId, DeviceGroupId): (DeviceNotFoundError | DeviceGroupNotFoundError)?
     }
 
-    interface DeviceFactory <<Factory>> {
-        + new(deviceUrl: URL): Device | DeviceUnreachableError
+    ~interface DeviceFactory <<Factory>> {
+        new(deviceUrl: URL): Device | DeviceUnreachableError
     }
 
 

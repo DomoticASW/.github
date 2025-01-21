@@ -2,11 +2,11 @@
 
 package Repository{
     interface Repository<Id, Entity> {
-        + add(Entity): DuplicateIdError?
-        + update(Entity): NotFoundError?
-        + remove(Entity): NotFoundError?
-        + getAll(): Iterable<Entity>
-        + find(Id): Entity | NotFoundError
+        add(Entity): DuplicateIdError?
+        update(Entity): NotFoundError?
+        remove(Entity): NotFoundError?
+        getAll(): Iterable<Entity>
+        find(Id): Entity | NotFoundError
     }
 }
 

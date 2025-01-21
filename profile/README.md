@@ -330,3 +330,11 @@ Additional details that are not shown in the mockups:
   - Enabling remote access for managing the system from anywhere.
 
 ![Bounded contexts map](../diagrams/generated/context-map.png)
+
+## Domain modeling
+In every upcoming diagram:
+- fields are to be considered readonly, changes to those fields will always be mediated by methods.
+- default visibility is *public* unless otherwise specified.
+- about types the "|" character stands for an union type (so "String | Int" means String OR Int)
+- about types the "?" character stands for an optional type
+- types that extends generic types by concretizing the type parameter are expressed through an arrow with a \<Type> label.
