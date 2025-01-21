@@ -74,9 +74,17 @@ package "Devices management" {
         name: String
     }
 
+    ~interface DeviceRepository<DeviceId, Device> <<Repository>> {
+    }
     ~interface DeviceGroupRepository<DeviceGroupId, DeviceGroup> <<Repository>> {
     }
-    ~interface DeviceRepository<DeviceId, Device> <<Repository>> {
+
+    interface DeviceEventsSubscriber {
+        deviceEventPublished(DeviceId, DeviceEvent)
+    }
+
+    interface DeviceStatusChangesSubscriber {
+        deviceStatusChanged(DeviceId, DeviceStatus)
     }
 
     interface DevicesService <<Service>> {
@@ -101,14 +109,6 @@ package "Devices management" {
 
     ~interface DeviceFactory <<Factory>> {
         new(deviceUrl: URL): Device | DeviceUnreachableError
-    }
-
-    interface DeviceEventsSubscriber {
-        deviceEventPublished(DeviceId, DeviceEvent)
-    }
-
-    interface DeviceStatusChangesSubscriber {
-        deviceStatusChanged(DeviceId, DeviceStatus)
     }
 
 
@@ -137,6 +137,7 @@ package "Devices management" {
     DevicesService --> DeviceRepository
     DevicesService --> DeviceGroupRepository
     DevicesService --> DeviceFactory
+    DeviceEventsSubscriber -[hidden]- DeviceStatusChangesSubscriber
 }
 
 @enduml
