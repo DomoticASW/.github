@@ -6,14 +6,14 @@ package Repository{
 }
 
 package "Users management" as Users {
-    interface User {
+    interface User <<Aggregate Root>> {
         + nickname: Nickname
         + email: Email
         + passwordHash: PasswordHash
     }
     interface Admin extends User
 
-    interface RegistrationRequest {
+    interface RegistrationRequest <<Aggregate Root>> {
         + nickname: Nickname
         + email: Email
         + passwordHash: PasswordHash
@@ -34,6 +34,7 @@ package "Users management" as Users {
         + rejectRegistrationRequest(Token, Email): NotFoundError?
         + removeUser(Token, Email): NotFoundError?
         + updateUserData(Token, Nickname?, Email?, Password?): (NotFoundError | EmailAlreadyInUseError)?
+        + getAllUsers(): Iterable<User>
         + login(Email, Password): Token | InvalidCredentialsError
         + verifyToken(Token): Boolean
         + validateToken(String): Token | InvalidTokenFormatError
