@@ -338,3 +338,10 @@ In every upcoming diagram:
 - about types the "|" character stands for an union type (so "String | Int" means String OR Int)
 - about types the "?" character stands for an optional type
 - types that extends generic types by concretizing the type parameter are expressed through an arrow with a \<Type> label.
+
+### Users management
+![Users management domain model diagram](../diagrams/generated/users-management-domain-model.png)
+
+This bounded context exposes a *UsersService* which offers all the methods to implement the use cases.
+
+*UsersService* service also includes methods for authentication (*login, verifyToken, validateToken*). The idea is that every other service will use this one to validate authentication tokens received by the client.
