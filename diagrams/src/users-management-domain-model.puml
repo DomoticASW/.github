@@ -30,14 +30,14 @@ package "Users management" as Users {
 
     interface UsersService <<Service>> {
         publishRegistrationRequest(Nickname, Email, Password): EmailAlreadyInUseError?
-        approveRegistrationRequest(Token, Email): NotFoundError?
-        rejectRegistrationRequest(Token, Email): NotFoundError?
-        removeUser(Token, Email): NotFoundError?
-        updateUserData(Token, Nickname?, Email?, Password?): (NotFoundError | EmailAlreadyInUseError)?
-        getAllUsers(): Iterable<User>
+        approveRegistrationRequest(Token, Email): (NotFoundError | TokenError)?
+        rejectRegistrationRequest(Token, Email): (NotFoundError | TokenError)?
+        removeUser(Token, Email): (NotFoundError | TokenError)?
+        updateUserData(Token, Nickname?, Email?, Password?): (NotFoundError | EmailAlreadyInUseError | TokenError)?
+        getAllUsers(Token): Iterable<User> | InvalidTokenError
         login(Email, Password): Token | InvalidCredentialsError
-        verifyToken(Token): Boolean
-        validateToken(String): Token | InvalidTokenFormatError
+        verifyToken(Token): InvalidTokenError?
+        makeToken(String): Token | InvalidTokenFormatError
     }
 
     ~interface RegistrationRequestRepository<Email, RegistrationRequest> <<Repository>> {
@@ -52,6 +52,10 @@ package "Users management" as Users {
     UsersService --> UsersRepository
     UsersService --> RegistrationRequestRepository
 
+    interface TokenError
+    struct UnauthorizedError extends TokenError
+    struct InvalidTokenError extends TokenError
+    Token -r[hidden]- TokenError
 
     ~interface UserFactory <<Factory>> {
         new(Nickname, Email, Password): User
@@ -66,6 +70,7 @@ package "Users management" as Users {
     UsersService --> UserFactory
     UsersService --> RegistrationRequestFactory
     UsersService --> TokenFactory
+
 }
 
 @enduml

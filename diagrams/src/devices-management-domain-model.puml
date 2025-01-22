@@ -93,31 +93,35 @@ package "Devices management" {
         deviceStatusChanged(DeviceId, DeviceStatus)
     }
 
-    interface DevicesService <<Service>> {
-        add(deviceUrl: URL): DeviceId | DeviceUnreachableError
-        remove(DeviceId): DeviceNotFoundError?
-        rename(DeviceId, String): DeviceNotFoundError?
-        find(DeviceId): Device | DeviceNotFoundError
-        getAllDevices(): Iterable<Device>
-        executeAction(DeviceId, DeviceActionId, input: Any) : (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound)?
+    interface DeviceGroupsService <<Service>> {
+        addGroup(Token, name: String): DeviceGroupId | DeviceGroupNameAlreadyInUseError | TokenError
+        removeGroup(Token, DeviceGroupId): (DeviceGroupNotFoundError | TokenError)?
+        renameGroup(Token, DeviceGroupId, String): (DeviceGroupNotFoundError | DeviceGroupNameAlreadyInUseError | TokenError)?
+        findGroup(Token, DeviceGroupId): DeviceGroup | DeviceGroupNotFoundError | InvalidTokenError
+        getAllDeviceGroups(Token): Iterable<DeviceGroup> | InvalidTokenError
+        addDeviceToGroup(Token, DeviceId, DeviceGroupId): (DeviceNotFoundError | DeviceGroupNotFoundError | TokenError)?
+        removeDeviceFromGroup(Token, DeviceId, DeviceGroupId): (DeviceNotFoundError | DeviceGroupNotFoundError | TokenError)?
+    }
+
+    interface DeviceEventsService <<Service>> {
         publishEvent(DeviceId, eventName: String): (DeviceNotFoundError | NotDeviceEventError)?
         subscribeForDeviceEvents(DeviceEventsSubscriber)
         unsubscribeForDeviceEvents(DeviceEventsSubscriber)
+    }
+    interface DeviceStatusesService <<Service>> {
         subscribeForDeviceStatusChanges(DeviceStatusChangesSubscriber)
         unsubscribeForDeviceStatusChanges(DeviceStatusChangesSubscriber)
-        addGroup(name: String): DeviceGroupId | DeviceGroupNameAlreadyInUseError
-        removeGroup(DeviceGroupId): DeviceGroupNotFoundError?
-        renameGroup(DeviceGroupId, String): (DeviceGroupNotFoundError | DeviceGroupNameAlreadyInUseError)?
-        findGroup(DeviceGroupId): DeviceGroup | DeviceGroupNotFoundError
-        getAllDeviceGroups(): Iterable<DeviceGroup>
-        addDeviceToGroup(DeviceId, DeviceGroupId): (DeviceNotFoundError | DeviceGroupNotFoundError)?
-        removeDeviceFromGroup(DeviceId, DeviceGroupId): (DeviceNotFoundError | DeviceGroupNotFoundError)?
     }
 
-    note right of DevicesService
-        Every method accepts a Token to be verified and
-        so it can also return a InvalidTokenError
-    end note
+    interface DevicesService <<Service>> {
+        add(Token, deviceUrl: URL): DeviceId | DeviceUnreachableError | TokenError
+        remove(Token, DeviceId): (DeviceNotFoundError | TokenError)?
+        rename(Token, DeviceId, String): (DeviceNotFoundError | TokenError)?
+        find(Token, DeviceId): Device | DeviceNotFoundError | InvalidTokenError
+        getAllDevices(Token): Iterable<Device> | InvalidTokenError
+        executeAction(Token, DeviceId, DeviceActionId, input: Any): (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound | TokenError)?
+        executeAutomationAction(DeviceId, DeviceActionId, input: Any): (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound)?
+    }
 
     ~interface DeviceFactory <<Factory>> {
         new(deviceUrl: URL): Device | DeviceUnreachableError
