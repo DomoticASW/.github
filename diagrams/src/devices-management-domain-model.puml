@@ -5,6 +5,10 @@ package Repository{
     interface Repository<Id, Entity>
 }
 
+package "Users management" as UsersManagement {
+    interface UsersService <<Service>>
+}
+
 package "Devices management" {
 
     interface Device <<Aggregate Root>> {
@@ -147,6 +151,7 @@ package "Devices management" {
     DevicesService --> DeviceFactory
     DevicesService "1" --> "0..*" DeviceEventsSubscriber
     DevicesService "1" --> "0..*" DeviceStatusChangesSubscriber
+    DevicesService -r-> UsersManagement.UsersService
 }
 
 @enduml
