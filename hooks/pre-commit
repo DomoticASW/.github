@@ -12,7 +12,7 @@ PROJECT_ROOT="$(pwd)/$(dirname $0)/../.."
 
 if ! git diff --quiet --cached -- "${PROJECT_ROOT}/diagrams"; then
 	# Removing all the diagrams so that is a src was deleted the generated diagram will be deleted as well
-	rm -f "${PROJECT_ROOT}/diagrams/generated/*"
+	rm -f "${PROJECT_ROOT}/diagrams/generated/"*
 
 	echo "Pulling plantuml image"
 	docker pull plantuml/plantuml:latest &> /dev/null
