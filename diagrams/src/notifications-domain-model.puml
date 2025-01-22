@@ -1,0 +1,40 @@
+@startuml notifications-domain-model
+
+hide empty members
+package Repository{
+    interface Repository<Id, Entity>
+}
+
+package "Users management" as UsersManagement {
+    interface UsersService <<Service>>
+}
+
+package "Devices management" as DevicesManagement {
+    interface DevicesService <<Service>>
+    interface DeviceStatusChangesSubscriber
+}
+
+package "Notifications" {
+    interface NotificationsService <<Service>> {
+        subscribeForDeviceOfflineNotifications(Token, DeviceId): (DeviceNotFoundError | InvalidTokenError)?
+        unsubscribeForDeviceOfflineNotifications(Token, DeviceId): (DeviceNotFoundError | InvalidTokenError)?
+        sendNotification(UserId, message: String): UserNotFoundError?
+    }
+
+    ~interface DeviceOfflineNotificationSubscriptionRepository<(UserId, DeviceId), DeviceOfflineNotificationSubscription> <<Repository>> {
+    }
+
+    interface DeviceOfflineNotificationSubscription <<Aggregate>> {
+        userId: UserId
+        deviceId: DeviceId
+    }
+
+    NotificationsService --> DeviceOfflineNotificationSubscriptionRepository
+    NotificationsService -r-|> DevicesManagement.DeviceStatusChangesSubscriber
+    NotificationsService -r-> DevicesManagement.DevicesService
+    NotificationsService --> UsersManagement.UsersService
+    DeviceOfflineNotificationSubscriptionRepository --|> Repository.Repository
+    DeviceOfflineNotificationSubscriptionRepository o-- DeviceOfflineNotificationSubscription
+}
+
+@enduml

@@ -371,3 +371,15 @@ An input which requires an integer from 0 to 100 can be modeled as a subclass of
 A setter is a *DeviceAction* whose execution is expected to set a property with the given input. This allows to create richer user interfaces where properies and actions are bound.
 
 *DeviceAction*s have just one *TypeConstraint* which constraints the input they can take. Actions that require no input can be implemented by an input of *Type* "VoidType".
+
+### Notifications
+![Notifications domain model diagram](../diagrams/generated/notifications-domain-model.png)
+
+This bounded context exposes a *NotificationsService* which offers all the methods to implement the use cases.
+
+The service subscribes itself to the *DevicesService* to be informed when a device goes offline.
+
+To achieve eventual consistency in case of the removal of a user from the system, the next time a device offline notification would be sent to that user the service will remove that subscription from the repository.
+
+Regarding device removal from the system, it is not a bad idea to keep the subscription.
+Let's say that the *DeviceId* is actually a hardware identifier, in case that device will be added again to the system, subscription would be valid again.
