@@ -11,6 +11,7 @@ package "Users management" as UsersManagement {
 
 package "Devices management" as DevicesManagement {
     interface DevicesService <<Service>>
+    interface DeviceStatusesService <<Service>>
     interface DeviceStatusChangesSubscriber
 }
 
@@ -32,6 +33,7 @@ package "Notifications" {
     NotificationsService --> DeviceOfflineNotificationSubscriptionRepository
     NotificationsService -r-|> DevicesManagement.DeviceStatusChangesSubscriber
     NotificationsService -r-> DevicesManagement.DevicesService
+    NotificationsService -r-> DevicesManagement.DeviceStatusesService
     NotificationsService --> UsersManagement.UsersService
     DeviceOfflineNotificationSubscriptionRepository --|> Repository.Repository
     DeviceOfflineNotificationSubscriptionRepository o-- DeviceOfflineNotificationSubscription

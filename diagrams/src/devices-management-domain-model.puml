@@ -151,11 +151,11 @@ package "Devices management" {
     DeviceRepository -u-|> Repository.Repository
     DeviceRepository o-- Device
     DevicesService --> DeviceRepository
-    DevicesService --> DeviceGroupRepository
+    DeviceGroupsService --> DeviceGroupRepository
     DevicesService --> DeviceFactory
-    DevicesService "1" --> "0..*" DeviceEventsSubscriber
-    DevicesService "1" --> "0..*" DeviceStatusChangesSubscriber
-    DevicesService -r-> UsersManagement.UsersService
+    DeviceEventsService "1" --> "0..*" DeviceEventsSubscriber
+    DeviceStatusesService "1" --> "0..*" DeviceStatusChangesSubscriber
+    DevicesService -u-> UsersManagement.UsersService
 }
 
 @enduml
