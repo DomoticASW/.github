@@ -1,0 +1,46 @@
+@startuml tasks-and-automations-domain-model
+
+hide empty members
+' package Repository{
+'     interface Repository<Id, Entity>
+' }
+
+' package "Users management" as UsersManagement {
+'     interface UsersService <<Service>>
+' }
+
+' package "Devices management" as DevicesManagement {
+'     interface DevicesService <<Service>>
+' }
+
+package "Tasks and automations" {
+
+    interface ScriptId
+
+    interface Script<Id extends ScriptId> <<Aggregate>> {
+        id: Id
+        name: String
+        ~execute()
+    }
+
+    interface Task
+    interface Automation
+
+    interface Trigger
+
+    struct DeviceEventTrigger extends Trigger {
+        deviceId: DeviceId
+        eventName: String
+    }
+
+    struct PeriodTrigger extends Trigger {
+        start: DateTime
+        periodSeconds: Long
+    }
+
+    Script <|-- Task : "<TaskId>"
+    Script <|-- Automation : "<AutomationId>"
+    Automation "1" -- "1" Trigger
+}
+
+@enduml

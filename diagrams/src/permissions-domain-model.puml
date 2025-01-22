@@ -8,6 +8,7 @@ package Repository{
 
 package "Users management" as UsersManagement {
     interface UsersService <<Service>>
+    struct UserId
 }
 
 package "Devices management" as DevicesManagement {
@@ -18,8 +19,19 @@ package "Permissions" {
     interface PermissionsService <<Service>> {
         addUserDevicePermission(Token, UserId, DeviceId): (UserNotFoundError | DeviceNotFoundError | TokenError)?
         removeUserDevicePermission(Token, UserId, DeviceId): (UserNotFoundError | DeviceNotFoundError | TokenError)?
+        ..
         canExecuteActionOnDevice(Token, DeviceId): (PermissionError | InvalidTokenError)?
         canExecuteTask(Token, TaskId): (PermissionError | InvalidTokenError)?
+        canEdit(Token, ScriptId): (PermissionError | InvalidTokenError)?
+        ..
+        addToEditlist(Token, UserId, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
+        removeFromEditlist(Token, UserId, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
+        ..
+        addToWhitelist(Token, UserId, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
+        removeFromWhitelist(Token, UserId, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
+        ..
+        addToBlacklist(Token, UserId, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
+        removeFromBlacklist(Token, UserId, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
     }
 
     ~interface UserDevicePermissionRepository<(UserId, DeviceId), UserDevicePermission> <<Repository>> {
@@ -30,11 +42,41 @@ package "Permissions" {
         deviceId: DeviceId
     }
 
+    ~interface EditListRepository<ScriptId, EditList> <<Repository>> {
+    }
+
+    interface EditList <<Aggregate>> {
+        id: ScriptId
+    }
+
+    ~interface TaskListsRepository<TaskId, TaskLists> <<Repository>> {
+    }
+
+    interface TaskLists <<Aggregate>> {
+        id: TaskId
+    }
+
+    note left of TaskLists
+        Users cannot be in both 
+        lists at the same time
+    end note
+
+
     PermissionsService -u-> DevicesManagement.DevicesService
-    PermissionsService -u-> UsersManagement.UsersService
+    PermissionsService --> UsersManagement.UsersService
     PermissionsService --> UserDevicePermissionRepository
+    PermissionsService --> EditListRepository
+    PermissionsService --> TaskListsRepository
     UserDevicePermissionRepository --|> Repository.Repository
     UserDevicePermissionRepository o-- UserDevicePermission
+    EditList "0..*" -- "0..*" UsersManagement.UserId
+    EditListRepository --|> Repository.Repository
+    EditListRepository o-- EditList
+    TaskLists "0..*" --- "0..*" UsersManagement.UserId : "blacklist >"
+    TaskLists "0..*" --- "0..*" UsersManagement.UserId : "whitelist >"
+    TaskListsRepository --|> Repository.Repository
+    TaskListsRepository o-- TaskLists
+
 }
 
 @enduml
