@@ -142,7 +142,8 @@ package "Devices management" {
     DevicesService --> DeviceRepository
     DevicesService --> DeviceGroupRepository
     DevicesService --> DeviceFactory
-    DeviceEventsSubscriber -[hidden]- DeviceStatusChangesSubscriber
+    DevicesService "1" --> "0..*" DeviceEventsSubscriber
+    DevicesService "1" --> "0..*" DeviceStatusChangesSubscriber
 }
 
 @enduml
