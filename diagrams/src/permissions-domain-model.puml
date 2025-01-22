@@ -1,5 +1,5 @@
 
-@startuml notifications-domain-model
+@startuml permissions-domain-model
 
 hide empty members
 package Repository{
