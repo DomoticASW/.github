@@ -1,4 +1,4 @@
-@startuml tasks-and-automations-domain-model
+@startuml scripts-domain-model
 
 hide empty members
 package Repository{
@@ -17,7 +17,7 @@ package Permissions {
     interface PermissionsService <<Service>>
 }
 
-package "Tasks and automations" {
+package "Scripts" {
 
     interface ScriptId
 

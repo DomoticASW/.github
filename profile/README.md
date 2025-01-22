@@ -220,10 +220,11 @@ We plan to use:
 |Instruction|An operation that can be executed by the domotic system (for example running a device action, reading some property on a device or sending a notification, wait for some time, set constants for scripting purposes and start other tasks). Instructions can have inputs||
 |Constant|A name with an associated value of a specific type. It can be set manually or by reading a device property|variable|
 |Type (scripting)|A set of possible values||
-|Control flow instructions|Instructions that can alter the control flow of the task/automation (if and if-else) based on a condition||
+|Control flow instructions|Instructions that can alter the control flow of the script (if and if-else) based on a condition||
 |Condition|An expression that results in a boolean value||
 |Task|A sequence of instructions to be executed||
 |Automation|A sequence of instructions triggered by an automation trigger||
+|Script|A task or an automation||
 |Active/Inactive automation|An automation that is/is not run by the domotic system when it triggers||
 |Automation trigger|A device event or a time period specification|trigger|
 |Triggering period|How frequently an automation should be run, has a starting point in time|period|
@@ -235,7 +236,7 @@ We plan to use:
 |Automation permissions|An automation editlist||
 |Task whitelist|A list of users that can run the task regardless of their user-device permissions||
 |Task blacklist|A list of users that cannot run the task regardless of their user-device permissions||
-|Task/Automation editlist|A list of users which can edit the task/automation||
+|Task/Automation editlist|A list of users which can edit the script||
 |Registration request|A user must send a registration request that must be accepted by the admin before he can interact with the system||
 |Device group|A grouping of smart devices, each device can be part of 0 or N groups|Group|
 |Server|A computer installed in the house responsible for managing all aspects of the domotic system||
@@ -301,7 +302,7 @@ Additional details that are not shown in the mockups:
   - Exposing device properties and events.
   - Managing device actions (executing them and setting input controls).
 
-- Tasks and automations context
+- Scripts context
 
   This context focuses on automating the functionality of the smart home.
   - Defining and executing tasks
@@ -314,7 +315,7 @@ Additional details that are not shown in the mockups:
   This context handles everything related to permissions and access control.
   - Handling user-device permissions.
   - task whitelist/blacklist.
-  - task/automation editlist.
+  - scripts editlist.
 
 - Notifications context
 

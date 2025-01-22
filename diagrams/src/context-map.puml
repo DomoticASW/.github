@@ -12,14 +12,14 @@ package "Users management" as Users {}
 package "Devices management" as Devices {}
 Devices --> Users
 Devices -l-> Permissions
-package "Tasks and automations" as Tasks {}
-Tasks --> Users
-Tasks --> Permissions
-Tasks --> Devices
-Tasks -r-> Notifications
+package "Scripts" {}
+Scripts --> Users
+Scripts --> Permissions
+Scripts --> Devices
+Scripts -r-> Notifications
 package "Permissions" {}
 Permissions --> Users
-Permissions -u-> Tasks
+Permissions -u-> Scripts
 Permissions --> Devices
 package "Notifications" {}
 Notifications --> Users
