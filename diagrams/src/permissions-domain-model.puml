@@ -18,8 +18,8 @@ package "Permissions" {
     interface PermissionsService <<Service>> {
         addUserDevicePermission(Token, UserId, DeviceId): (UserNotFoundError | DeviceNotFoundError | TokenError)?
         removeUserDevicePermission(Token, UserId, DeviceId): (UserNotFoundError | DeviceNotFoundError | TokenError)?
-        canExecuteActionOnDevice(Token, DeviceId): Boolean | InvalidTokenError
-        canExecuteTask(Token, TaskId): Boolean | InvalidTokenError
+        canExecuteActionOnDevice(Token, DeviceId): (PermissionError | InvalidTokenError)?
+        canExecuteTask(Token, TaskId): (PermissionError | InvalidTokenError)?
     }
 
     ~interface UserDevicePermissionRepository<(UserId, DeviceId), UserDevicePermission> <<Repository>> {

@@ -11,11 +11,12 @@ package "System access" as SystemAccess {}
 package "Users management" as Users {}
 package "Devices management" as Devices {}
 Devices --> Users
+Devices -l-> Permissions
 package "Tasks and automations" as Tasks {}
 Tasks --> Users
-Tasks -d-> Permissions
+Tasks --> Permissions
 Tasks --> Devices
-Tasks --> Notifications
+Tasks -r-> Notifications
 package "Permissions" {}
 Permissions --> Users
 Permissions -u-> Tasks

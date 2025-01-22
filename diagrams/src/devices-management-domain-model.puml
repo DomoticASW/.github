@@ -9,6 +9,10 @@ package "Users management" as UsersManagement {
     interface UsersService <<Service>>
 }
 
+package Permissions {
+    interface PermissionsService <<Service>>
+}
+
 package "Devices management" {
 
     interface Device <<Aggregate Root>> {
@@ -119,7 +123,7 @@ package "Devices management" {
         rename(Token, DeviceId, String): (DeviceNotFoundError | TokenError)?
         find(Token, DeviceId): Device | DeviceNotFoundError | InvalidTokenError
         getAllDevices(Token): Iterable<Device> | InvalidTokenError
-        executeAction(Token, DeviceId, DeviceActionId, input: Any): (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound | TokenError)?
+        executeAction(Token, DeviceId, DeviceActionId, input: Any): (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound | InvalidTokenError | PermissionError)?
         executeAutomationAction(DeviceId, DeviceActionId, input: Any): (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound)?
     }
 
@@ -156,6 +160,7 @@ package "Devices management" {
     DeviceEventsService "1" --> "0..*" DeviceEventsSubscriber
     DeviceStatusesService "1" --> "0..*" DeviceStatusChangesSubscriber
     DevicesService -u-> UsersManagement.UsersService
+    DevicesService -u-> Permissions.PermissionsService
 }
 
 @enduml
