@@ -53,12 +53,35 @@ package "Scripts" {
         input: Any
     }
 
+    class DevicePropertyInstruction extends Instruction {
+        deviceId: DeviceId
+        propertyId: DevicePropertyId
+        name: String
+    }
+
     class IfInstruction extends Instruction {
         ' TODO: condition
     }
 
     class IfElseInstruction extends IfInstruction {
         ' TODO: condition
+    }
+
+    class SendNotificationInstruction extends Instruction {
+        userId: UserId
+        message: String
+    }
+
+    class WaitInstruction extends Instruction {
+        seconds: Long
+    }
+
+    class StartTaskInstruction extends Instruction
+
+    class ConstantInstruction extends Instruction {
+        name: String
+        type: Type
+        value: Any
     }
 
     ~interface ScriptRepository<ScriptId, Script> <<Repository>> {
@@ -81,6 +104,7 @@ package "Scripts" {
     Script "1" -r- "0..*" Instruction : "{ordered}"
     IfInstruction "0..1" o-- "0..*" Instruction : "then >"
     IfElseInstruction "0..1" o-- "0..*" Instruction : "else >"
+    StartTaskInstruction "0..*" -- "1" Task
     ScriptsService --> ScriptRepository
     ScriptsService -u-> Permissions.PermissionsService
     ScriptsService -u-> DevicesManagement.DevicesService

@@ -69,6 +69,7 @@ package "Devices management" {
 
 
     interface DeviceProperty<T> {
+        id: DevicePropertyId
         name: String
         value: T
     }
