@@ -22,6 +22,8 @@ package "Devices management" {
     interface DeviceGroup <<Aggregate Root>> {
         id: DeviceGroupId
         name: String
+        ~addDeviceToGroup(DeviceId)
+        ~removeDeviceFromGroup(DeviceId)
     }
 
     enum Type<T> {
@@ -119,7 +121,7 @@ package "Devices management" {
 
 
     Device -l- DeviceStatus : "status >"
-    Device "0..*"  <-r-o "0..*" DeviceGroup
+    Device "0..*   "  <--r--o "   0..*" DeviceGroup
     TypeConstraints "0..*" -- "1" Type : "type >"
     Enum -u-|> TypeConstraints : "<String>"
     IntRange -u-|> TypeConstraints : "<Int>"
