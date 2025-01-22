@@ -94,7 +94,7 @@ package "Devices management" {
         find(DeviceId): Device | DeviceNotFoundError
         getAllDevices(): Iterable<Device>
         executeAction(DeviceId, DeviceActionId, input: Any) : (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound)?
-        publishEvent(DeviceId, eventName: String)
+        publishEvent(DeviceId, eventName: String): (DeviceNotFoundError | NotDeviceEventError)?
         subscribeForDeviceEvents(DeviceEventsSubscriber)
         unsubscribeForDeviceEvents(DeviceEventsSubscriber)
         subscribeForDeviceStatusChanges(DeviceStatusChangesSubscriber)
