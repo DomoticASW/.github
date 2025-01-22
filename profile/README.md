@@ -345,3 +345,29 @@ In every upcoming diagram:
 This bounded context exposes a *UsersService* which offers all the methods to implement the use cases.
 
 *UsersService* service also includes methods for authentication (*login, verifyToken, validateToken*). The idea is that every other service will use this one to validate authentication tokens received by the client.
+
+### Devices management
+![Devices management domain model diagram](../diagrams/generated/devices-management-domain-model.png)
+
+This bounded context exposes a *DevicesService* which offers all the methods to implement the use cases.
+
+More complex stuff explanation:
+- The *DeviceFactory* is able to create a *Device* just through an URL as it will contact the device on that address which will then describe himself.
+- The main service will be responsible for keeping the devices *DeviceStatus* up to date, and allows for subscribers to listen to status change events.
+- The main service will be responsible for receiving *DeviceEvent*s (through the *publishEvent* method) from the devices, and allows for subscribers to be notified about *DeviceEvent*s.
+- *DeviceGroup*s are responsible for managing the N-N relationships with *Device*s.
+- The *DevicesService* is responsible for keeping *DeviceGroup*s up to date in case of device removal.
+
+#### TypeConstraints
+Since devices will define their own action and properties they must also define what datatypes they are.
+
+Types are defined in the *Type* enum which is generic on T which reprents the actual datatype that will be used internally.
+
+A *TypeConstraint* is a constraint over a type which can also have additional constraints over the values, for example:
+An input which requires an integer from 0 to 100 can be modeled as a subclass of *TypeConstraint* with *Type* "IntType" which overrides the *validate* method implementing that logic (in the diagram we called this *IntRange*).
+
+*DeviceProperty*s which have a setter will use its *TypeConstraint*, otherwise they will have their own *TypeConstraint*.
+
+A setter is a *DeviceAction* whose execution is expected to set a property with the given input. This allows to create richer user interfaces where properies and actions are bound.
+
+*DeviceAction*s have just one *TypeConstraint* which constraints the input they can take. Actions that require no input can be implemented by an input of *Type* "VoidType".
