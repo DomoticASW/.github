@@ -44,6 +44,23 @@ package "Scripts" {
         periodSeconds: Long
     }
 
+    interface Instruction {
+    }
+
+    class DeviceActionInstruction extends Instruction {
+        deviceId: DeviceId
+        actionId: DeviceActionId
+        input: Any
+    }
+
+    class IfInstruction extends Instruction {
+        ' TODO: condition
+    }
+
+    class IfElseInstruction extends IfInstruction {
+        ' TODO: condition
+    }
+
     ~interface ScriptRepository<ScriptId, Script> <<Repository>> {
     }
     ScriptRepository -l-|> Repository.Repository
@@ -57,10 +74,13 @@ package "Scripts" {
         setAutomationEnable(Token, AutomationId, enable: Boolean): (InvalidTokenError | ScriptNotFound)?
     }
 
-    Script -[hidden] ScriptId
+    Script -l[hidden] ScriptId
     Script <|-- Task : "<TaskId>"
     Script <|-- Automation : "<AutomationId>"
     Automation "1" -- "1" Trigger
+    Script "1" -r- "0..*" Instruction : "{ordered}"
+    IfInstruction "0..1" o-- "0..*" Instruction : "then >"
+    IfElseInstruction "0..1" o-- "0..*" Instruction : "else >"
     ScriptsService --> ScriptRepository
     ScriptsService -u-> Permissions.PermissionsService
     ScriptsService -u-> DevicesManagement.DevicesService
