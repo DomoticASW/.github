@@ -1,17 +1,21 @@
 @startuml tasks-and-automations-domain-model
 
 hide empty members
-' package Repository{
-'     interface Repository<Id, Entity>
-' }
+package Repository{
+    interface Repository<Id, Entity>
+}
 
-' package "Users management" as UsersManagement {
-'     interface UsersService <<Service>>
-' }
+package "Users management" as UsersManagement {
+    interface UsersService <<Service>>
+}
 
-' package "Devices management" as DevicesManagement {
-'     interface DevicesService <<Service>>
-' }
+package "Devices management" as DevicesManagement {
+    interface DevicesService <<Service>>
+}
+
+package Permissions {
+    interface PermissionsService <<Service>>
+}
 
 package "Tasks and automations" {
 
@@ -24,7 +28,9 @@ package "Tasks and automations" {
     }
 
     interface Task
-    interface Automation
+    interface Automation {
+        enabled: Boolean
+    }
 
     interface Trigger
 
@@ -38,9 +44,27 @@ package "Tasks and automations" {
         periodSeconds: Long
     }
 
+    ~interface ScriptRepository<ScriptId, Script> <<Repository>> {
+    }
+    ScriptRepository -l-|> Repository.Repository
+    ScriptRepository o-- Script
+
+    interface ScriptsService <<Service>> {
+        getAllTasks(Token): Iterable<Task> | InvalidTokenError
+        executeTask(Token, TaskId): (InvalidTokenError | ScriptNotFound | PermissionError)?
+        ..
+        getAllAutomations(Token): Iterable<Automation> | InvalidTokenError
+        setAutomationEnable(Token, AutomationId, enable: Boolean): (InvalidTokenError | ScriptNotFound)?
+    }
+
+    Script -[hidden] ScriptId
     Script <|-- Task : "<TaskId>"
     Script <|-- Automation : "<AutomationId>"
     Automation "1" -- "1" Trigger
+    ScriptsService --> ScriptRepository
+    ScriptsService -u-> Permissions.PermissionsService
+    ScriptsService -u-> DevicesManagement.DevicesService
+    ScriptsService -u-> UsersManagement.UsersService
 }
 
 @enduml
