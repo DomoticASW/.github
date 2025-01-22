@@ -94,6 +94,7 @@ package "Devices management" {
         find(DeviceId): Device | DeviceNotFoundError
         getAllDevices(): Iterable<Device>
         executeAction(DeviceId, DeviceActionId, input: Any) : (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound)?
+        publishEvent(DeviceId, eventName: String)
         subscribeForDeviceEvents(DeviceEventsSubscriber)
         unsubscribeForDeviceEvents(DeviceEventsSubscriber)
         subscribeForDeviceStatusChanges(DeviceStatusChangesSubscriber)
@@ -134,7 +135,7 @@ package "Devices management" {
         DeviceProperty.Device == DeviceAction.Device
     end note
     Diamond "0..*" -- "1" TypeConstraints
-    Device "1" -- "0..*" DeviceEvent
+    Device [name: String] -- "0..*" DeviceEvent
     DeviceGroupRepository -u-|> Repository.Repository
     DeviceGroupRepository o-- DeviceGroup
     DeviceRepository -u-|> Repository.Repository
