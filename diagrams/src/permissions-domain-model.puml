@@ -1,0 +1,40 @@
+
+@startuml notifications-domain-model
+
+hide empty members
+package Repository{
+    interface Repository<Id, Entity>
+}
+
+package "Users management" as UsersManagement {
+    interface UsersService <<Service>>
+}
+
+package "Devices management" as DevicesManagement {
+    interface DevicesService <<Service>>
+}
+
+package "Permissions" {
+    interface PermissionsService <<Service>> {
+        addUserDevicePermission(Token, UserId, DeviceId): (UserNotFoundError | DeviceNotFoundError | TokenError)?
+        removeUserDevicePermission(Token, UserId, DeviceId): (UserNotFoundError | DeviceNotFoundError | TokenError)?
+        canExecuteActionOnDevice(Token, DeviceId): Boolean | InvalidTokenError
+        canExecuteTask(Token, TaskId): Boolean | InvalidTokenError
+    }
+
+    ~interface UserDevicePermissionRepository<(UserId, DeviceId), UserDevicePermission> <<Repository>> {
+    }
+
+    interface UserDevicePermission <<Aggregate>> {
+        userId: UserId
+        deviceId: DeviceId
+    }
+
+    PermissionsService -u-> DevicesManagement.DevicesService
+    PermissionsService -u-> UsersManagement.UsersService
+    PermissionsService --> UserDevicePermissionRepository
+    UserDevicePermissionRepository --|> Repository.Repository
+    UserDevicePermissionRepository o-- UserDevicePermission
+}
+
+@enduml
