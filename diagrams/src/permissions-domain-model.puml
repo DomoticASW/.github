@@ -15,6 +15,10 @@ package "Devices management" as DevicesManagement {
     interface DevicesService <<Service>>
 }
 
+package Scripts {
+    interface ScriptsService <<Service>>
+}
+
 package "Permissions" {
     interface PermissionsService <<Service>> {
         addUserDevicePermission(Token, UserId, DeviceId): (UserNotFoundError | DeviceNotFoundError | TokenError)?
@@ -64,10 +68,11 @@ package "Permissions" {
 
     PermissionsService -u-> DevicesManagement.DevicesService
     PermissionsService --> UsersManagement.UsersService
+    PermissionsService -u-> Scripts.ScriptsService
     PermissionsService --> UserDevicePermissionRepository
     PermissionsService --> EditListRepository
     PermissionsService --> TaskListsRepository
-    UserDevicePermissionRepository --|> Repository.Repository
+    UserDevicePermissionRepository ----|> Repository.Repository
     UserDevicePermissionRepository o-- UserDevicePermission
     EditList "0..*" -- "0..*" UsersManagement.UserId
     EditListRepository --|> Repository.Repository
