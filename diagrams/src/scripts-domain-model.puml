@@ -53,19 +53,9 @@ package "Scripts" {
         input: Any
     }
 
-    class DevicePropertyInstruction extends Instruction {
-        deviceId: DeviceId
-        propertyId: DevicePropertyId
-        name: String
-    }
+    class IfInstruction extends Instruction
 
-    class IfInstruction extends Instruction {
-        ' TODO: condition
-    }
-
-    class IfElseInstruction extends IfInstruction {
-        ' TODO: condition
-    }
+    class IfElseInstruction extends IfInstruction
 
     class SendNotificationInstruction extends Instruction {
         userId: UserId
@@ -78,11 +68,51 @@ package "Scripts" {
 
     class StartTaskInstruction extends Instruction
 
-    class ConstantInstruction extends Instruction {
+    interface ConstantInstruction<T> extends Instruction {
         name: String
-        type: Type
-        value: Any
+        type: Type<T>
     }
+
+    class CreateDevicePropertyConstantInstruction<T> extends ConstantInstruction {
+        deviceId: DeviceId
+        propertyId: DevicePropertyId
+    }
+    note bottom of CreateDevicePropertyConstantInstruction
+        When creating an instance of this class
+        the type will be taken by following the
+        DevicePropertyId and an eventual setter.
+    end note
+
+    class CreateConstantInstruction<T> extends ConstantInstruction {
+        value: T
+    }
+
+    interface Condition<T> {
+        leftConstant: ConstantInstruction<T>
+        rightConstant: ConstantInstruction<T>
+        negate: Boolean
+    }
+
+    interface ConditionOperator<T> {
+        evaluate(ConstantInstruction<T>, ConstantInstruction<T>): Boolean
+    }
+
+    note bottom of ConditionOperator
+        instaces of this interface will be:
+        IntEOperator
+        IntGEOperator
+        IntLEOperator
+        IntGOperator
+        IntLOperator
+
+        (And same of Int for Double)
+
+        StringEOperator
+
+        ColorEOperator
+
+        BooleanEOperator
+    end note
 
     ~interface ScriptRepository<ScriptId, Script> <<Repository>> {
     }
@@ -103,8 +133,10 @@ package "Scripts" {
     Automation "1" -- "1" Trigger
     Script "1" -r- "0..*" Instruction : "{ordered}"
     IfInstruction "0..1" o-- "0..*" Instruction : "then >"
+    IfInstruction "1" -- "1" Condition
     IfElseInstruction "0..1" o-- "0..*" Instruction : "else >"
     StartTaskInstruction "0..*" -- "1" Task
+    Condition "0..*" -- "1" ConditionOperator
     ScriptsService --> ScriptRepository
     ScriptsService -u-> Permissions.PermissionsService
     ScriptsService -u-> DevicesManagement.DevicesService
