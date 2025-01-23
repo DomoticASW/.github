@@ -17,6 +17,10 @@ package Permissions {
     interface PermissionsService <<Service>>
 }
 
+package Notifications {
+    interface NotificationsService <<Service>>
+}
+
 package "Scripts" {
 
     interface ScriptId
@@ -154,6 +158,7 @@ package "Scripts" {
     ScriptsService -u-> Permissions.PermissionsService
     ScriptsService -u-> DevicesManagement.DevicesService
     ScriptsService -u-> UsersManagement.UsersService
+    Script -u-> Notifications.NotificationsService
 }
 
 @enduml
