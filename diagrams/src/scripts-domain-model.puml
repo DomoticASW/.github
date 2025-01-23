@@ -45,6 +45,7 @@ package "Scripts" {
     }
 
     interface Instruction {
+        execute(ExecutionEnvironment): ExecutionEnvironment
     }
 
     class DeviceActionInstruction extends Instruction {
@@ -91,6 +92,7 @@ package "Scripts" {
         leftConstant: ConstantInstruction<T>
         rightConstant: ConstantInstruction<T>
         negate: Boolean
+        evaluate(ExecutionEnvironment): Boolean
     }
 
     interface ConditionOperator<T> {
@@ -113,6 +115,15 @@ package "Scripts" {
 
         BooleanEOperator
     end note
+
+    interface ExecutionEnvironment
+
+    struct ConstantValue<T> {
+        value: T
+    }
+
+    ExecutionEnvironment "0..*" -- "0..*" ConstantInstruction
+    ConstantValue .. (ExecutionEnvironment, ConstantInstruction)
 
     ~interface ScriptRepository<ScriptId, Script> <<Repository>> {
     }
