@@ -49,7 +49,7 @@ package "Scripts" {
     }
 
     interface Instruction {
-        execute(ExecutionEnvironment): ExecutionEnvironment
+        ~execute(ExecutionEnvironment): ExecutionEnvironment
     }
     class StartTaskInstruction extends Instruction
 
@@ -95,11 +95,11 @@ package "Scripts" {
         leftConstant: ConstantInstruction<T>
         rightConstant: ConstantInstruction<T>
         negate: Boolean
-        evaluate(ExecutionEnvironment): Boolean
+        ~evaluate(ExecutionEnvironment): Boolean
     }
 
     interface ConditionOperator<T> {
-        evaluate(ConstantInstruction<T>, ConstantInstruction<T>): Boolean
+        ~evaluate(ConstantInstruction<T>, ConstantInstruction<T>): Boolean
     }
 
     note right of ConditionOperator
