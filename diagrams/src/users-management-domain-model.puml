@@ -17,10 +17,12 @@ package "Users management" as Users {
         nickname: Nickname
         email: Email
         passwordHash: PasswordHash
+        ~{static} new(Nickname, Email, Password): RegistrationRequest
     }
 
     interface Token {
         userEmail: Email
+        ~{static} new(String): Token | InvalidTokenFormatError
     }
     enum UserRole {
         Admin
@@ -57,20 +59,7 @@ package "Users management" as Users {
     struct InvalidTokenError extends TokenError
     Token -r[hidden]- TokenError
 
-    ~interface UserFactory <<Factory>> {
-        new(Nickname, Email, Password): User
-    }
-    ~interface RegistrationRequestFactory <<Factory>> {
-        new(Nickname, Email, Password): RegistrationRequest
-    }
-    ~interface TokenFactory <<Factory>> {
-        new(String): Token | InvalidTokenFormatError
-    }
-    TokenFactory -[hidden]-> Token
-    UsersService --> UserFactory
-    UsersService --> RegistrationRequestFactory
-    UsersService --> TokenFactory
-
+    UsersService -[hidden]-> Token
 }
 
 @enduml
