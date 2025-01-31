@@ -1,0 +1,48 @@
+@startuml scripts-builders-domain-model
+
+hide empty members
+
+package "Scripts" {
+    interface NodeRef
+
+    interface RootNodeRef extends NodeRef
+    interface ThenNodeRef extends NodeRef
+    interface ElseNodeRef extends NodeRef
+    interface ConstantRef<T>
+
+    ' WHEN IMPLEMENTING TRY TO SEE WHAT IT LOOKS LIKE TO USE HIGHER ORDER FUNCTIONS
+    abstract class ScriptBuilder {
+        addIf<T>(NodeRef, leftConstant: ConstantRef<T>, rightConstant: ConstantRef<T>, negate: Boolean, ConditionOperator<T>): (TaskBuilder, ThenNodeRef)
+        addIfElse<T>(NodeRef, leftConstant: ConstantRef<T>, rightConstant: ConstantRef<T>, negate: Boolean, ConditionOperator<T>): (TaskBuilder, ThenNodeRef, ElseNodeRef)
+        addWait(NodeRef, Long): ScriptBuilder
+        addSendNotification(NodeRef, UserId, String): ScriptBuilder
+        addDeviceAction(NodeRef, DeviceId, DeviceActionId, input: Any): ScriptBuilder
+        addStartTask(NodeRef, TaskId): ScriptBuilder
+        addCreateConstant<T>(NodeRef, name: String, type: Type<T>, value: T): (ScriptBuilder, ConstantRef<T>)
+        addCreateDevicePropertyConstant<T>(NodeRef, name: String, type: Type<T>, DeviceId, DevicePropertyId): (ScriptBuilder, ConstantRef<T>)
+        {abstract} ~ build(): Script | InvalidScriptError
+    }
+
+    ' It may be useful to use composition instead of inheritance for Task and Automations with regards to Script
+    class TaskBuilder extends ScriptBuilder {
+        {static} newTask(name: String): (TaskBuilder, RootNodeRef)
+    }
+    class AutomationBuilder extends ScriptBuilder {
+        {static} newEventTriggeredAutomation(name: String, enabled: Boolean, DeviceId, eventName: String): (AutomationBuilder, RootNodeRef)
+        {static} newPeriodicAutomation(name: String, enabled: Boolean, start: DateTime, periodSeconds: Long): (AutomationBuilder, RootNodeRef)
+    }
+    note as ScriptBuilderNote
+        This class should override
+        all methods of ScriptBuilder
+        so that methods return 
+        Task/AutomationBuilder instead
+        of ScriptBuilder and 
+        Task/Automation instead
+        of Script
+    end note
+
+    ScriptBuilderNote .u. TaskBuilder
+    ScriptBuilderNote .u. AutomationBuilder
+}
+
+@enduml

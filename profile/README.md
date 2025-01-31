@@ -391,3 +391,15 @@ Let's say that the *DeviceId* is actually a hardware identifier, in case that de
 This bounded context exposes a *PermissionsService* which offers all the methods to implement the use cases.
 
 The *canExecuteTask* method is responsible for implementing the expected behaviour (checking user-device permissions and in case of presence in blacklist or whitelist use that as decision factor).
+
+### Scripts
+![Scripts domain model diagram](../diagrams/generated/scripts-domain-model.png)
+
+This bounded context exposes a *ScriptsService* which offers all the methods to implement the use cases.
+
+#### Builders
+![Script builders domain model diagram](../diagrams/generated/scripts-builders-domain-model.png)
+
+Builders can check whether a script syntax is correct, but they cannot do the same with regard to semantics (because they would need to access devices data in the repository).
+
+Scripts semantic correctness is checked by the ScriptsService

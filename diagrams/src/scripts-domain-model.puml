@@ -81,11 +81,6 @@ package "Scripts" {
         deviceId: DeviceId
         propertyId: DevicePropertyId
     }
-    note bottom of CreateDevicePropertyConstantInstruction
-        When creating an instance of this class
-        the type will be taken by following the
-        DevicePropertyId and an eventual setter.
-    end note
 
     class CreateConstantInstruction<T> extends ConstantInstruction {
         value: T
@@ -135,9 +130,13 @@ package "Scripts" {
 
     interface ScriptsService <<Service>> {
         getAllTasks(Token): Iterable<Task> | InvalidTokenError
+        createTask(Token, TaskBuilder): TaskId | InvalidTokenError | TaskNameAlreadyInUse | InvalidTaskError
+        editTask(Token, TaskId, TaskBuilder): (InvalidTokenError | PermissionError | ScriptNotFoundError | InvalidTaskError)?
         executeTask(Token, TaskId): (InvalidTokenError | ScriptNotFound | PermissionError)?
         ..
         getAllAutomations(Token): Iterable<Automation> | InvalidTokenError
+        createAutomation(Token, AutomationBuilder): AutomationId | InvalidTokenError | AutomationNameAlreadyInUse | InvalidAutomationError
+        editAutomation(Token, AutomationId, AutomationBuilder): (InvalidTokenError | PermissionError | ScriptNotFoundError | InvalidAutomationError)?
         setAutomationEnable(Token, AutomationId, enable: Boolean): (InvalidTokenError | ScriptNotFound)?
     }
 
