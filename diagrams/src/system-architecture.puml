@@ -1,0 +1,21 @@
+@startuml system-architecture
+
+component Client
+
+rectangle LocalNetwork {
+    component Server
+    component SmartDevice
+    database DB
+    component "Client" as LocalClient
+    interface " " as ServerClientAPI
+    interface " " as ServerDeviceAPI
+}
+
+Server --> DB
+Server "1" -r-() ServerDeviceAPI
+SmartDevice "0..*" -l-( ServerDeviceAPI
+Server "1" -l- ServerClientAPI
+ServerClientAPI )-l- "0..*" Client
+LocalClient "0..*" -u-( ServerClientAPI
+
+@enduml

@@ -420,3 +420,11 @@ When a script is executed it creates internally an ExecutionEnvironment which is
 Builders can check whether a script syntax is correct, but they cannot do the same with regard to semantics (because they would need to access devices data in the repository).
 
 Scripts semantic correctness is checked by the ScriptsService
+
+## Architecture
+
+### System architecture
+![System architecture](../diagrams/generated/system-architecture.png)
+
+### Server architecture
+The server implementation will follow an hexagonal architecture design.
