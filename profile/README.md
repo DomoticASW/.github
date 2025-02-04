@@ -397,6 +397,23 @@ The *canExecuteTask* method is responsible for implementing the expected behavio
 
 This bounded context exposes a *ScriptsService* which offers all the methods to implement the use cases.
 
+A Script can be either a Task or an Automation the main difference is that automations have a Trigger.
+
+Each script has a sequence of Instructions that has the following behaviour when executed based on the concrete implementation:
+- SendNotificationInstruction: sends a notification to a user
+- WaitInstruction: pauses the script execution for a given amount of seconds
+- StartTaskInstruction: starts another task waiting for its completion
+- DeviceActionInstruction: make a device execute the specified action with the given input
+- ConstantInstruction:
+  - CreateConstantInstruction: defines a constant with a given value
+  - CreateDevicePropertyConstantInstruction: defines a constant which will get it's value at runtime from a device property
+- IfInstruction: defines a sequence of instructions that are executed only if the condition evaluates to true at runtime. (The condition is based on constants)
+- IfElseInstruction: defines two sequences of instructions that are executed if the condition evaluate to true or false respectively.
+
+Conditions must operate on homogeneous types and for each type a fixed set of operators are given.
+
+When a script is executed it creates internally an ExecutionEnvironment which is responsible for storing constant values.
+
 #### Builders
 ![Script builders domain model diagram](../diagrams/generated/scripts-builders-domain-model.png)
 

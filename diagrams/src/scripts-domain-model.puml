@@ -129,11 +129,13 @@ package "Scripts" {
     ScriptRepository o-- Script
 
     interface ScriptsService <<Service>> {
+        findTask(Token, TaskId): Task | InvalidTokenError | ScriptNotFound
         getAllTasks(Token): Iterable<Task> | InvalidTokenError
         createTask(Token, TaskBuilder): TaskId | InvalidTokenError | TaskNameAlreadyInUse | InvalidTaskError
         editTask(Token, TaskId, TaskBuilder): (InvalidTokenError | PermissionError | ScriptNotFoundError | InvalidTaskError)?
         executeTask(Token, TaskId): (InvalidTokenError | ScriptNotFound | PermissionError)?
         ..
+        findAutomation(Token, AutomationId): Automation | InvalidTokenError | ScriptNotFound
         getAllAutomations(Token): Iterable<Automation> | InvalidTokenError
         createAutomation(Token, AutomationBuilder): AutomationId | InvalidTokenError | AutomationNameAlreadyInUse | InvalidAutomationError
         editAutomation(Token, AutomationId, AutomationBuilder): (InvalidTokenError | PermissionError | ScriptNotFoundError | InvalidAutomationError)?
