@@ -37,6 +37,7 @@ package "Users management" as Users {
         removeUser(Token, Email): (NotFoundError | TokenError)?
         updateUserData(Token, Nickname?, Email?, Password?): (NotFoundError | EmailAlreadyInUseError | TokenError)?
         getAllUsers(Token): Iterable<User> | InvalidTokenError
+        getUserData(Token): User | InvalidTokenError
         login(Email, Password): Token | InvalidCredentialsError
         verifyToken(Token): InvalidTokenError?
         makeToken(String): Token | InvalidTokenFormatError
