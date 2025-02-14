@@ -428,3 +428,13 @@ Scripts semantic correctness is checked by the ScriptsService
 
 ### Server architecture
 The server implementation will follow an hexagonal architecture design.
+
+## Software process
+Every rule described below must be applied both to the server and the client repositories unless otherwise specified by them.
+
+### Branching model and GitHub branch protection rules
+It has been decided to adopt [GitFlow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) as branching model.
+Releases will be published from the main branch.
+
+In order to build high quality software it has been decided that it will not be possible to push on the `main` which must be updated only through pull request.
+Those pull request will need to pass all tests and be reviewed by at least one other developer before being eligible for merging.
