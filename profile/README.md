@@ -438,3 +438,21 @@ Releases will be published from the main branch.
 
 In order to build high quality software it has been decided that it will not be possible to push on the `main` which must be updated only through pull request.
 Those pull request will need to pass all tests and be reviewed by at least one other developer before being eligible for merging.
+
+### Conventional commits
+
+Since semantic release is being adopted it has been decided to use [commitlint](https://github.com/conventional-changelog/commitlint) in order to enforce conventional commit messages (both in the client and server repositories).
+
+#### commitlint CI
+[DomoticASW commitlint github action](https://github.com/DomoticASW/commitlint) is run in a github workflow on every pull request in order to prohibit invalid commit messages.
+
+It works by running commitlint verifying all the commits from the pull request base up to its head.
+
+#### commitlint git hook
+Executing commitlint only on the remote means that the developer will discover that the commit messages he wrote were wrong only after pushing them, and to fix the problem he would be forced to reword the commits and push again.
+
+To avoid this problem a pre-commit git hook have been written under the `hooks` directory both in the server and in the client. It must be installed through the `setup.sh` script which can be found in the root of both the repositories.
+
+> **Note:**
+>
+> Running commitlint on the remote is kept as a safety measure since there's no way to trust the developer that he will install the git hook.
