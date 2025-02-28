@@ -438,3 +438,13 @@ Releases will be published from the main branch.
 
 In order to build high quality software it has been decided that it will not be possible to push on the `main` which must be updated only through pull request.
 Those pull request will need to pass all tests and be reviewed by at least one other developer before being eligible for merging.
+
+### Semantic release
+The semantic-release workflow automates the versioning and publishing process for the GitHub repository and NPM package.
+It analyzes commit messages and it determines the appropriate version number and publishes the new release automatically, eliminating the need for manual version management.
+This workflow runs automatically when triggered (on a push to the main branch or a merged pull request).
+
+Moreover the release of an NPM package allows to distribute the package more easily because, for example, with just the command `npm install @domoticasw/server` it is possible to install the latest version of the server package without having to specify the version number or anything else.
+
+#### NPM token
+The NPM token is an authentication key used to publish packages the NPM registry. It allows semantic-release to authenticate with NPM and push the new package version, it is stored as a GitHub Actions secret to prevent unauthorized access.
