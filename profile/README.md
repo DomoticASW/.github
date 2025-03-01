@@ -438,3 +438,12 @@ Releases will be published from the main branch.
 
 In order to build high quality software it has been decided that it will not be possible to push on the `main` which must be updated only through pull request.
 Those pull request will need to pass all tests and be reviewed by at least one other developer before being eligible for merging.
+
+### Semantic-release and commitlint github actions
+
+It has been decided to extract the [semantic-release workflow](https://github.com/DomoticASW/semantic-release) and the [commitlint workflow](https://github.com/DomoticASW/commitlint) into two different github actions of the organization so that they can be resued both from the server and the client.
+
+### Client CI test suite
+
+For the client CI has been decided to just test that the code passes the lint, compiles and runs.
+Automated tests are not possible due to being just the GUI of the wep app.
