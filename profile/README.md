@@ -475,3 +475,10 @@ It has been decided to extract the [semantic-release workflow](https://github.co
 
 For the client CI has been decided to just test that the code passes the lint and compiles.
 Automated tests are not possible due to being just the GUI of the wep app.
+
+### Serve client web app from within the server using git submodules
+
+We used git submodules to link the client repository within the server repository.
+This approach allows us to maintain a clear separation between the two repositories while still being able to serve the client from within the server.
+
+A limitation of this method is that the submodule points to a specific commit of the client repository. As a result, updates to the client repository are not automatically reflected in the server repository and must be manually updated.
