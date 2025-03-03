@@ -442,9 +442,27 @@ Those pull request will need to pass all tests and be reviewed by at least one o
 ### Semantic release
 The semantic-release workflow automates the versioning and publishing process for the GitHub repository and NPM package.
 It analyzes commit messages and it determines the appropriate version number and publishes the new release automatically, eliminating the need for manual version management.
-This workflow runs automatically when triggered (on a push to the main branch or a merged pull request).
+This workflow runs automatically on pushes to the main branch.
 
 Moreover the release of an NPM package allows to distribute the package more easily because, for example, with just the command `npm install @domoticasw/server` it is possible to install the latest version of the server package without having to specify the version number or anything else.
 
 #### NPM token
 The NPM token is an authentication key used to publish packages the NPM registry. It allows semantic-release to authenticate with NPM and push the new package version, it is stored as a GitHub Actions secret to prevent unauthorized access.
+
+### Conventional commits
+
+Since semantic release is being adopted it has been decided to use [commitlint](https://github.com/conventional-changelog/commitlint) in order to enforce conventional commit messages (both in the client and server repositories).
+
+#### commitlint CI
+[DomoticASW commitlint github action](https://github.com/DomoticASW/commitlint) is run in a github workflow on every pull request in order to prohibit invalid commit messages.
+
+It works by running commitlint verifying all the commits from the pull request base up to its head.
+
+#### commitlint git hook
+Executing commitlint only on the remote means that the developer will discover that the commit messages he wrote were wrong only after pushing them, and to fix the problem he would be forced to reword the commits and push again.
+
+To avoid this problem a pre-commit git hook have been written under the `hooks` directory both in the server and in the client. It must be installed through the `setup.sh` script which can be found in the root of both the repositories.
+
+> **Note:**
+>
+> Running commitlint on the remote is kept as a safety measure since there's no way to trust the developer that he will install the git hook.
