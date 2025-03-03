@@ -127,6 +127,12 @@ package "Devices management" {
         executeAction(Token, DeviceId, DeviceActionId, input: Any): (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound | InvalidTokenError | PermissionError)?
         executeAutomationAction(DeviceId, DeviceActionId, input: Any): (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound)?
         updateDeviceProperty(DeviceId, DevicePropertyId, value: Any): (InvalidInputError | DeviceNotFound | DevicePropertyNotFound)?
+        subscribeForDevicePropertyUpdates(DevicePropertyUpdatesSubscriber)
+        unsubscribeForDevicePropertyUpdates(DevicePropertyUpdatesSubscriber)
+    }
+
+    interface DevicePropertyUpdatesSubscriber {
+        devicePropertyChanged(DeviceId, DevicePropertyId, value: Any)
     }
 
     ~interface DeviceFactory <<Factory>> {
@@ -158,6 +164,7 @@ package "Devices management" {
     DeviceRepository o-- Device
     DevicesService --> DeviceRepository
     DeviceGroupsService --> DeviceGroupRepository
+    DevicesService --> DevicePropertyUpdatesSubscriber
     DevicesService --> DeviceFactory
     DeviceEventsService "1" --> "0..*" DeviceEventsSubscriber
     DeviceStatusesService "1" --> "0..*" DeviceStatusChangesSubscriber
