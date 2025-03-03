@@ -126,6 +126,7 @@ package "Devices management" {
         getAllDevices(Token): Iterable<Device> | InvalidTokenError
         executeAction(Token, DeviceId, DeviceActionId, input: Any): (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound | InvalidTokenError | PermissionError)?
         executeAutomationAction(DeviceId, DeviceActionId, input: Any): (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound)?
+        updateDeviceProperty(DeviceId, DevicePropertyId, value: Any): (InvalidInputError | DeviceNotFound | DevicePropertyNotFound)?
     }
 
     ~interface DeviceFactory <<Factory>> {

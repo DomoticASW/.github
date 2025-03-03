@@ -362,6 +362,7 @@ More complex stuff explanation:
 - The *DeviceEventsService* service will be responsible for receiving *DeviceEvent*s (through the *publishEvent* method) from the devices, and allows for subscribers to be notified about *DeviceEvent*s.
 - The *DeviceGroupsService* and *DeviceGroup*s are responsible for managing the N-N relationships with *Device*s.
 - The *DevicesService* is responsible for keeping *DeviceGroup*s up to date in case of device removal.
+- The *DevicesService* offers the method *updateDeviceProperty* which can be invoked by devices to notify the server about their current state.
 
 #### TypeConstraints
 Since devices will define their own action and properties they must also define what datatypes they are.
