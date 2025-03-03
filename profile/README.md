@@ -466,3 +466,12 @@ To avoid this problem a pre-commit git hook have been written under the `hooks` 
 > **Note:**
 >
 > Running commitlint on the remote is kept as a safety measure since there's no way to trust the developer that he will install the git hook.
+
+### Semantic-release and commitlint github actions
+
+It has been decided to extract the [semantic-release workflow](https://github.com/DomoticASW/semantic-release) and the [commitlint workflow](https://github.com/DomoticASW/commitlint) into two different github actions of the organization so that they can be resued both from the server and the client.
+
+### Client CI test suite
+
+For the client CI has been decided to just test that the code passes the lint and compiles.
+Automated tests are not possible due to being just the GUI of the wep app.
