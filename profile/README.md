@@ -441,8 +441,13 @@ Every rule described below must be applied both to the server and the client rep
 It has been decided to adopt [GitFlow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) as branching model.
 Releases will be published from the main branch.
 
-In order to build high quality software it has been decided that it will not be possible to push on the `main` which must be updated only through pull request.
-Those pull request will need to pass all tests and be reviewed by at least one other developer before being eligible for merging.
+In order to build high quality software brach protection rules have been applied to the `main` and `develop` branches resulting in the following constraints:
+- merging/pushing is only allowed by means of a pull request
+- pull requests must pass every check (tests, lint, ecc...) before they can be merged.
+- pull requests must be reviewed and approved by another team member before they can be merged.
+- force pushes are disabled
+
+Many CI workflows run only on pull requests since these cannot be skipped in the process.
 
 ### Semantic release
 The semantic-release workflow automates the versioning and publishing process for the GitHub repository and NPM package.
