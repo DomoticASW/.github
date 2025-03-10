@@ -78,7 +78,7 @@ package "Devices management" {
         id: DeviceActionId
         name: String
         description: String?
-        ~ execute(input: T): (InvalidInputError | DeviceActionError)?
+        ~ execute(deviceAddress: URL, input: T): (InvalidInputError | DeviceActionError)?
     }
 
     interface DeviceEvent {
