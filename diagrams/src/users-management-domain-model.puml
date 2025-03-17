@@ -32,10 +32,10 @@ package "Users management" as Users {
 
     interface UsersService <<Service>> {
         publishRegistrationRequest(Nickname, Email, Password): EmailAlreadyInUseError?
-        approveRegistrationRequest(Token, Email): (NotFoundError | TokenError)?
-        rejectRegistrationRequest(Token, Email): (NotFoundError | TokenError)?
-        removeUser(Token, Email): (NotFoundError | TokenError)?
-        updateUserData(Token, Nickname?, Email?, Password?): (NotFoundError | EmailAlreadyInUseError | TokenError)?
+        approveRegistrationRequest(Token, Email): (UserNotFoundError | TokenError)?
+        rejectRegistrationRequest(Token, Email): (UserNotFoundError | TokenError)?
+        removeUser(Token, Email): (UserNotFoundError | TokenError)?
+        updateUserData(Token, Nickname?, Email?, Password?): (UserNotFoundError | EmailAlreadyInUseError | TokenError)?
         getAllUsers(Token): Iterable<User> | InvalidTokenError
         getUserData(Token): User | InvalidTokenError
         login(Email, Password): Token | InvalidCredentialsError
