@@ -8,7 +8,7 @@ package Repository{
 
 package "Users management" as UsersManagement {
     interface UsersService <<Service>>
-    struct UserId
+    struct Email
 }
 
 package "Devices management" as DevicesManagement {
@@ -21,28 +21,28 @@ package Scripts {
 
 package "Permissions" {
     interface PermissionsService <<Service>> {
-        addUserDevicePermission(Token, UserId, DeviceId): (UserNotFoundError | DeviceNotFoundError | TokenError)?
-        removeUserDevicePermission(Token, UserId, DeviceId): (UserNotFoundError | DeviceNotFoundError | TokenError)?
+        addUserDevicePermission(Token, Email, DeviceId): (UserNotFoundError | DeviceNotFoundError | TokenError)?
+        removeUserDevicePermission(Token, Email, DeviceId): (UserNotFoundError | DeviceNotFoundError | TokenError)?
         ..
         canExecuteActionOnDevice(Token, DeviceId): (PermissionError | InvalidTokenError)?
         canExecuteTask(Token, TaskId): (PermissionError | InvalidTokenError)?
         canEdit(Token, ScriptId): (PermissionError | InvalidTokenError)?
         ..
-        addToEditlist(Token, UserId, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
-        removeFromEditlist(Token, UserId, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
+        addToEditlist(Token, Email, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
+        removeFromEditlist(Token, Email, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
         ..
-        addToWhitelist(Token, UserId, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
-        removeFromWhitelist(Token, UserId, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
+        addToWhitelist(Token, Email, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
+        removeFromWhitelist(Token, Email, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
         ..
-        addToBlacklist(Token, UserId, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
-        removeFromBlacklist(Token, UserId, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
+        addToBlacklist(Token, Email, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
+        removeFromBlacklist(Token, Email, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
     }
 
-    ~interface UserDevicePermissionRepository<(UserId, DeviceId), UserDevicePermission> <<Repository>> {
+    ~interface UserDevicePermissionRepository<(Email, DeviceId), UserDevicePermission> <<Repository>> {
     }
 
     interface UserDevicePermission <<Aggregate>> {
-        userId: UserId
+        email: Email
         deviceId: DeviceId
     }
 
@@ -74,11 +74,11 @@ package "Permissions" {
     PermissionsService --> TaskListsRepository
     UserDevicePermissionRepository ----|> Repository.Repository
     UserDevicePermissionRepository o-- UserDevicePermission
-    EditList "0..*" -- "0..*" UsersManagement.UserId
+    EditList "0..*" -- "0..*" UsersManagement.Email
     EditListRepository --|> Repository.Repository
     EditListRepository o-- EditList
-    TaskLists "0..*" --- "0..*" UsersManagement.UserId : "blacklist >"
-    TaskLists "0..*" --- "0..*" UsersManagement.UserId : "whitelist >"
+    TaskLists "0..*" --- "0..*" UsersManagement.Email : "blacklist >"
+    TaskLists "0..*" --- "0..*" UsersManagement.Email : "whitelist >"
     TaskListsRepository --|> Repository.Repository
     TaskListsRepository o-- TaskLists
 

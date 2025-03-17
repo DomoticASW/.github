@@ -19,14 +19,14 @@ package "Notifications" {
     interface NotificationsService <<Service>> {
         subscribeForDeviceOfflineNotifications(Token, DeviceId): (DeviceNotFoundError | InvalidTokenError)?
         unsubscribeForDeviceOfflineNotifications(Token, DeviceId): (DeviceNotFoundError | InvalidTokenError)?
-        sendNotification(UserId, message: String): UserNotFoundError?
+        sendNotification(Email, message: String): UserNotFoundError?
     }
 
-    ~interface DeviceOfflineNotificationSubscriptionRepository<(UserId, DeviceId), DeviceOfflineNotificationSubscription> <<Repository>> {
+    ~interface DeviceOfflineNotificationSubscriptionRepository<(Email, DeviceId), DeviceOfflineNotificationSubscription> <<Repository>> {
     }
 
     interface DeviceOfflineNotificationSubscription <<Aggregate>> {
-        userId: UserId
+        email: Email
         deviceId: DeviceId
     }
 

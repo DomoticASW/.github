@@ -15,7 +15,7 @@ package "Scripts" {
         addIf<T>(NodeRef, leftConstant: ConstantRef<T>, rightConstant: ConstantRef<T>, negate: Boolean, ConditionOperator<T>): (TaskBuilder, ThenNodeRef)
         addIfElse<T>(NodeRef, leftConstant: ConstantRef<T>, rightConstant: ConstantRef<T>, negate: Boolean, ConditionOperator<T>): (TaskBuilder, ThenNodeRef, ElseNodeRef)
         addWait(NodeRef, Long): ScriptBuilder
-        addSendNotification(NodeRef, UserId, String): ScriptBuilder
+        addSendNotification(NodeRef, Email, String): ScriptBuilder
         addDeviceAction(NodeRef, DeviceId, DeviceActionId, input: Any): ScriptBuilder
         addStartTask(NodeRef, TaskId): ScriptBuilder
         addCreateConstant<T>(NodeRef, name: String, type: Type<T>, value: T): (ScriptBuilder, ConstantRef<T>)

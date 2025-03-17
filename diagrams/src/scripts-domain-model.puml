@@ -64,7 +64,7 @@ package "Scripts" {
     class IfElseInstruction
 
     class SendNotificationInstruction extends Instruction {
-        userId: UserId
+        email: Email
         message: String
     }
 
