@@ -19,7 +19,7 @@ package "Devices management" {
         id: DeviceId
         name: String
         address: URL
-        ~ executeAction(DeviceActionId, input: Any): (InvalidInputError | DeviceActionError | DeviceActionNotFound)?
+        ~ executeAction(DeviceActionId, input: Any): Async<(InvalidInputError | DeviceActionError | DeviceActionNotFound)?>
     }
 
     enum DeviceStatus {
@@ -78,7 +78,7 @@ package "Devices management" {
         id: DeviceActionId
         name: String
         description: String?
-        ~ execute(deviceAddress: URL, input: T): (InvalidInputError | DeviceActionError)?
+        ~ execute(deviceAddress: URL, input: T): Async<(InvalidInputError | DeviceActionError)?>
     }
 
     interface DeviceEvent {
@@ -119,13 +119,13 @@ package "Devices management" {
     }
 
     interface DevicesService <<Service>> {
-        add(Token, deviceUrl: URL): DeviceId | DeviceUnreachableError | TokenError
+        add(Token, deviceUrl: URL): Async<DeviceId | DeviceUnreachableError | TokenError>
         remove(Token, DeviceId): (DeviceNotFoundError | TokenError)?
         rename(Token, DeviceId, String): (DeviceNotFoundError | TokenError)?
         find(Token, DeviceId): Device | DeviceNotFoundError | InvalidTokenError
         getAllDevices(Token): Iterable<Device> | InvalidTokenError
-        executeAction(Token, DeviceId, DeviceActionId, input: Any): (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound | InvalidTokenError | PermissionError)?
-        executeAutomationAction(DeviceId, DeviceActionId, input: Any): (InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound)?
+        executeAction(Token, DeviceId, DeviceActionId, input: Any): Async<(InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound | InvalidTokenError | PermissionError)?>
+        executeAutomationAction(DeviceId, DeviceActionId, input: Any): Async<(InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound)?>
         updateDeviceProperty(DeviceId, DevicePropertyId, value: Any): (InvalidInputError | DeviceNotFound | DevicePropertyNotFound)?
         subscribeForDevicePropertyUpdates(DevicePropertyUpdatesSubscriber)
         unsubscribeForDevicePropertyUpdates(DevicePropertyUpdatesSubscriber)
@@ -136,7 +136,7 @@ package "Devices management" {
     }
 
     ~interface DeviceFactory <<Factory>> {
-        new(deviceUrl: URL): Device | DeviceUnreachableError
+        new(deviceUrl: URL): Async<Device | DeviceUnreachableError>
     }
 
 
