@@ -30,7 +30,7 @@ package "Scripts" {
     interface Script<Id extends ScriptId> <<Aggregate>> {
         id: Id
         name: String
-        ~execute(): ExecutionEnvironment
+        ~execute(): Async<ExecutionEnvironment>
     }
 
     interface Task
@@ -51,7 +51,7 @@ package "Scripts" {
     }
 
     interface Instruction {
-        ~execute(ExecutionEnvironment): ExecutionEnvironment
+        ~execute(ExecutionEnvironment): Async<ExecutionEnvironment>
     }
     class StartTaskInstruction extends Instruction
 
@@ -135,7 +135,7 @@ package "Scripts" {
         getAllTasks(Token): Iterable<Task> | InvalidTokenError
         createTask(Token, TaskBuilder): TaskId | InvalidTokenError | TaskNameAlreadyInUse | InvalidTaskError
         editTask(Token, TaskId, TaskBuilder): (InvalidTokenError | PermissionError | ScriptNotFoundError | InvalidTaskError)?
-        executeTask(Token, TaskId): (InvalidTokenError | ScriptNotFound | PermissionError)?
+        startTask(Token, TaskId): (InvalidTokenError | ScriptNotFound | PermissionError)?
         ..
         findAutomation(Token, AutomationId): Automation | InvalidTokenError | ScriptNotFound
         getAllAutomations(Token): Iterable<Automation> | InvalidTokenError
@@ -143,6 +143,11 @@ package "Scripts" {
         editAutomation(Token, AutomationId, AutomationBuilder): (InvalidTokenError | PermissionError | ScriptNotFoundError | InvalidAutomationError)?
         setAutomationEnable(Token, AutomationId, enable: Boolean): (InvalidTokenError | ScriptNotFound)?
     }
+
+    note left of ScriptsService::startTask
+        internally creates a new thread 
+        which will run the task
+    end note
 
     Script -l[hidden] ScriptId
     Script <|-- Task : "<TaskId>"
