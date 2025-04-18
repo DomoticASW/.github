@@ -11,6 +11,8 @@ package "Users management" as UsersManagement {
 
 package "Devices management" as DevicesManagement {
     interface DevicesService <<Service>>
+    interface DeviceEventsService <<Service>>
+    interface DeviceEventsSubscriber
 }
 
 package Permissions {
@@ -158,6 +160,8 @@ package "Scripts" {
     ScriptsService --> ScriptRepository
     ScriptsService -u-> Permissions.PermissionsService
     ScriptsService -u-> DevicesManagement.DevicesService
+    ScriptsService -u-> DevicesManagement.DeviceEventsService
+    ScriptsService -u-|> DevicesManagement.DeviceEventsSubscriber
     ScriptsService -u-> UsersManagement.UsersService
     Script -u-> Notifications.NotificationsService
 }
