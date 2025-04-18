@@ -28,7 +28,7 @@ package "Scripts" {
     interface Script<Id extends ScriptId> <<Aggregate>> {
         id: Id
         name: String
-        ~execute()
+        ~execute(): ExecutionEnvironment
     }
 
     interface Task
@@ -94,7 +94,7 @@ package "Scripts" {
     }
 
     interface ConditionOperator<T> {
-        ~evaluate(ConstantInstruction<T>, ConstantInstruction<T>): Boolean
+        ~evaluate(ConstantValue<T>, ConstantValue<T>): Boolean
     }
 
     note right of ConditionOperator

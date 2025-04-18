@@ -383,7 +383,7 @@ A setter is a *DeviceAction* whose execution is expected to set a property with 
 
 This bounded context exposes a *NotificationsService* which offers all the methods to implement the use cases.
 
-The service subscribes itself to the *DevicesService* to be informed when a device goes offline.
+The service subscribes itself to the *DeviceStatusesService* to be informed when a device goes offline.
 
 To achieve eventual consistency in case of the removal of a user from the system, the next time a device offline notification would be sent to that user the service will remove that subscription from the repository.
 
