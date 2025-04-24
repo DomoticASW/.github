@@ -119,7 +119,7 @@ package "Devices management" {
     }
 
     interface DevicesService <<Service>> {
-        add(Token, deviceUrl: URL): Async<DeviceId | DeviceUnreachableError | TokenError>
+        add(Token, deviceUrl: URL): Async<DeviceId | DeviceAlreadyRegisteredError | DeviceUnreachableError | TokenError>
         remove(Token, DeviceId): (DeviceNotFoundError | TokenError)?
         rename(Token, DeviceId, String): (DeviceNotFoundError | TokenError)?
         find(Token, DeviceId): Device | DeviceNotFoundError | InvalidTokenError
