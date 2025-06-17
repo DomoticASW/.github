@@ -133,12 +133,14 @@ package "Devices management" {
         unsubscribeForDevicePropertyUpdates(DevicePropertyUpdatesSubscriber)
     }
 
-    interface DevicePropertyUpdatesSubscriber {
-        devicePropertyChanged(DeviceId, DevicePropertyId, value: Any)
+    interface DeviceCommunicationProtocol {
+        checkDeviceStatus(DeviceAddress): Async<DeviceStatus | CommunicationError>
+        executeDeviceAction(DeviceAddress, DeviceActionId, input: unknown): Async<(DeviceUnreachableError | CommunicationError | DeviceActionError)?>
+        register(DeviceAddress): Async<Device | DeviceUnreachableError | CommunicationError>
     }
 
-    ~interface DeviceFactory <<Factory>> {
-        new(DeviceAddress): Async<Device | DeviceUnreachableError>
+    interface DevicePropertyUpdatesSubscriber {
+        devicePropertyChanged(DeviceId, DevicePropertyId, value: Any)
     }
 
 
@@ -167,9 +169,10 @@ package "Devices management" {
     DevicesService --> DeviceRepository
     DeviceGroupsService --> DeviceGroupRepository
     DevicesService --> DevicePropertyUpdatesSubscriber
-    DevicesService --> DeviceFactory
+    DevicesService --> DeviceCommunicationProtocol
     DeviceEventsService "1" --> "0..*" DeviceEventsSubscriber
     DeviceStatusesService "1" --> "0..*" DeviceStatusChangesSubscriber
+    DeviceStatusesService --> DeviceCommunicationProtocol
     DevicesService -u-> UsersManagement.UsersService
     DevicesService -u-> Permissions.PermissionsService
 }
