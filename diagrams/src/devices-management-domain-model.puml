@@ -18,7 +18,7 @@ package "Devices management" {
     interface Device <<Aggregate Root>> {
         id: DeviceId
         name: String
-        address: URL
+        address: DeviceAddress
         ~ executeAction(DeviceActionId, input: Any): Async<(InvalidInputError | DeviceActionError | DeviceActionNotFound)?>
     }
 
@@ -78,7 +78,7 @@ package "Devices management" {
         id: DeviceActionId
         name: String
         description: String?
-        ~ execute(deviceAddress: URL, input: T): Async<(InvalidInputError | DeviceActionError)?>
+        ~ execute(DeviceAddress, input: T): Async<(InvalidInputError | DeviceActionError)?>
     }
 
     interface DeviceEvent {
@@ -119,7 +119,7 @@ package "Devices management" {
     }
 
     interface DevicesService <<Service>> {
-        add(Token, deviceUrl: URL): Async<DeviceId | DeviceAlreadyRegisteredError | DeviceUnreachableError | TokenError>
+        add(Token, DeviceAddress): Async<DeviceId | DeviceAlreadyRegisteredError | DeviceUnreachableError | TokenError>
         remove(Token, DeviceId): (DeviceNotFoundError | TokenError)?
         rename(Token, DeviceId, String): (DeviceNotFoundError | TokenError)?
         find(Token, DeviceId): Device | DeviceNotFoundError | InvalidTokenError
@@ -136,7 +136,7 @@ package "Devices management" {
     }
 
     ~interface DeviceFactory <<Factory>> {
-        new(deviceUrl: URL): Async<Device | DeviceUnreachableError>
+        new(DeviceAddress): Async<Device | DeviceUnreachableError>
     }
 
 
