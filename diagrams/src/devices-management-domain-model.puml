@@ -126,7 +126,9 @@ package "Devices management" {
         getAllDevices(Token): Iterable<Device> | InvalidTokenError
         executeAction(Token, DeviceId, DeviceActionId, input: Any): Async<(InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound | InvalidTokenError | PermissionError)?>
         executeAutomationAction(DeviceId, DeviceActionId, input: Any): Async<(InvalidInputError | DeviceActionError | DeviceActionNotFound | DeviceNotFound)?>
-        updateDeviceProperty(DeviceId, DevicePropertyId, value: Any): (InvalidInputError | DeviceNotFound | DevicePropertyNotFound)?
+        updateDeviceProperty(DeviceId, DevicePropertyId, value: Any): (DeviceNotFound | DevicePropertyNotFound)?
+        updateDeviceProperties(DeviceId, Map<DevicePropertyId, Any>): (DeviceNotFound | DevicePropertyNotFound)?
+        setDeviceStatusUnsafe(DeviceId, DeviceStatus): DeviceNotFoundError?
         subscribeForDevicePropertyUpdates(DevicePropertyUpdatesSubscriber)
         unsubscribeForDevicePropertyUpdates(DevicePropertyUpdatesSubscriber)
     }
