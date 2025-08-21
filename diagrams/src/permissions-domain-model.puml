@@ -25,8 +25,8 @@ package "Permissions" {
         removeUserDevicePermission(Token, Email, DeviceId): (UserNotFoundError | DeviceNotFoundError | TokenError)?
         ..
         canExecuteActionOnDevice(Token, DeviceId): (PermissionError | InvalidTokenError)?
-        canExecuteTask(Token, TaskId): (PermissionError | InvalidTokenError)?
-        canEdit(Token, ScriptId): (PermissionError | InvalidTokenError)?
+        canExecuteTask(Token, TaskId): (PermissionError | InvalidTokenError | ScriptNotFoundError)?
+        canEdit(Token, ScriptId): (PermissionError | InvalidTokenError | ScriptNotFoundError)?
         ..
         addToEditlist(Token, Email, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
         removeFromEditlist(Token, Email, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
