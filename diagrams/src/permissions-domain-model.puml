@@ -21,6 +21,11 @@ package Scripts {
 
 package "Permissions" {
     interface PermissionsService <<Service>> {
+        registerScriptService(ScriptsService)
+        ..
+        findUserDevicePermission(Token, Email, DeviceId): UserDevicePermission | TokenError | UserDevicePermissionNotFoundError
+        findAllUserDevicePermissionsOfAnUser(Token, Email): Iterable<UserDevicePermission> | UserNotFoundError | TokenError
+        getAllUserDevicePermissions(Token): Iterable<UserDevicePermission> | TokenError
         addUserDevicePermission(Token, Email, DeviceId): (UserNotFoundError | DeviceNotFoundError | TokenError)?
         removeUserDevicePermission(Token, Email, DeviceId): (UserNotFoundError | DeviceNotFoundError | TokenError)?
         ..
@@ -28,8 +33,13 @@ package "Permissions" {
         canExecuteTask(Token, TaskId): (PermissionError | InvalidTokenError | ScriptNotFoundError)?
         canEdit(Token, ScriptId): (PermissionError | InvalidTokenError | ScriptNotFoundError)?
         ..
+        findEditList(Token, ScriptId): EditList | TokenError | EditListNotFoundError
+        getAllEditLists(Token): Iterable<EditList> | TokenError
         addToEditlist(Token, Email, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError | EditListNotFoundError)?
         removeFromEditlist(Token, Email, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError | EditListNotFoundError)?
+        ..
+        findTaskLists(Token, TaskId): TaskLists | TokenError | TaskListsNotFoundError
+        getAllTaskLists(Token): Iterable<TaskLists> | TokenError
         ..
         addToWhitelist(Token, Email, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError | InvalidOperationError)?
         removeFromWhitelist(Token, Email, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
