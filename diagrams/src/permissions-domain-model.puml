@@ -28,8 +28,8 @@ package "Permissions" {
         canExecuteTask(Token, TaskId): (PermissionError | InvalidTokenError | ScriptNotFoundError)?
         canEdit(Token, ScriptId): (PermissionError | InvalidTokenError | ScriptNotFoundError)?
         ..
-        addToEditlist(Token, Email, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
-        removeFromEditlist(Token, Email, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
+        addToEditlist(Token, Email, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError | EditListNotFoundError)?
+        removeFromEditlist(Token, Email, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError | EditListNotFoundError)?
         ..
         addToWhitelist(Token, Email, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
         removeFromWhitelist(Token, Email, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
