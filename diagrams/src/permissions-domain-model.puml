@@ -31,10 +31,10 @@ package "Permissions" {
         addToEditlist(Token, Email, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError | EditListNotFoundError)?
         removeFromEditlist(Token, Email, ScriptId): (TokenError | UserNotFoundError | ScriptNotFoundError | EditListNotFoundError)?
         ..
-        addToWhitelist(Token, Email, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
+        addToWhitelist(Token, Email, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError | InvalidOperationError)?
         removeFromWhitelist(Token, Email, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
         ..
-        addToBlacklist(Token, Email, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
+        addToBlacklist(Token, Email, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError | InvalidOperationError)?
         removeFromBlacklist(Token, Email, TaskId): (TokenError | UserNotFoundError | ScriptNotFoundError)?
     }
 
