@@ -6,14 +6,19 @@ package "Scripts" {
     interface NodeRef
 
     interface RootNodeRef extends NodeRef
-    interface ThenNodeRef extends NodeRef
-    interface ElseNodeRef extends NodeRef
-    interface ConstantRef<T>
+    interface ThenNodeRef extends NodeRef {
+        instruction: IfInstruction
+    }
+    interface ElseNodeRef extends NodeRef {
+        instruction: IfElseInstruction
+    }
+    interface ConstantRef<T> {
+        constantInstruction: ConstantInstruction<T>
+    }
 
-    ' WHEN IMPLEMENTING TRY TO SEE WHAT IT LOOKS LIKE TO USE HIGHER ORDER FUNCTIONS
     abstract class ScriptBuilder {
-        addIf<T>(NodeRef, leftConstant: ConstantRef<T>, rightConstant: ConstantRef<T>, negate: Boolean, ConditionOperator<T>): (TaskBuilder, ThenNodeRef)
-        addIfElse<T>(NodeRef, leftConstant: ConstantRef<T>, rightConstant: ConstantRef<T>, negate: Boolean, ConditionOperator<T>): (TaskBuilder, ThenNodeRef, ElseNodeRef)
+        addIf<T>(NodeRef, leftConstant: ConstantRef<T>, rightConstant: ConstantRef<T>, negate: Boolean, ConditionOperator<T>): (ScriptBuilder, ThenNodeRef)
+        addIfElse<T>(NodeRef, leftConstant: ConstantRef<T>, rightConstant: ConstantRef<T>, negate: Boolean, ConditionOperator<T>): (ScriptBuilder, ThenNodeRef, ElseNodeRef)
         addWait(NodeRef, Long): ScriptBuilder
         addSendNotification(NodeRef, Email, String): ScriptBuilder
         addDeviceAction(NodeRef, DeviceId, DeviceActionId, input: Any): ScriptBuilder
@@ -21,6 +26,7 @@ package "Scripts" {
         addCreateConstant<T>(NodeRef, name: String, type: Type<T>, value: T): (ScriptBuilder, ConstantRef<T>)
         addCreateDevicePropertyConstant<T>(NodeRef, name: String, type: Type<T>, DeviceId, DevicePropertyId): (ScriptBuilder, ConstantRef<T>)
         {abstract} ~ build(): Script | InvalidScriptError
+        {abstract} ~ buildWithId(ScriptId): Script | InvalidScriptError
     }
 
     ' It may be useful to use composition instead of inheritance for Task and Automations with regards to Script
@@ -43,6 +49,8 @@ package "Scripts" {
 
     ScriptBuilderNote .u. TaskBuilder
     ScriptBuilderNote .u. AutomationBuilder
+    ConstantRef "0..*" -- "1" NodeRef
+    NodeRef "0..*" -- "1" NodeRef: superNode
 }
 
 @enduml
