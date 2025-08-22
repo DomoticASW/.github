@@ -50,7 +50,7 @@ package "Scripts" {
     ScriptBuilderNote .u. TaskBuilder
     ScriptBuilderNote .u. AutomationBuilder
     ConstantRef "0..*" -- "1" NodeRef
-    NodeRef "0..*" -- "1" NodeRef: superNode
+    NodeRef "0..*" -- "1" NodeRef: superNode >
 }
 
 @enduml
