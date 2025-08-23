@@ -417,7 +417,7 @@ Each script has a sequence of Instructions that has the following behaviour when
 
 Conditions must operate on homogeneous types and for each type a fixed set of operators are given.
 
-When a script is executed it creates internally an ExecutionEnvironment which is responsible for storing constant values.
+When a script is executed it creates internally an ExecutionEnvironment which is responsible for storing constant values. Tasks need a token to be executed manually by a user, while Automations do not (because they are executed automatically given a period of time or a device event firing). Tasks can also be executed without a token if executed through a Start Task Instruction inside a script.
 
 #### Builders
 ![Script builders domain model diagram](../diagrams/generated/scripts-builders-domain-model.png)
@@ -492,3 +492,96 @@ We used git submodules to link the client repository within the server repositor
 This approach allows us to maintain a clear separation between the two repositories while still being able to serve the client from within the server.
 
 A limitation of this method is that the submodule points to a specific commit of the client repository. As a result, updates to the client repository are not automatically reflected in the server repository and must be manually updated.
+
+## Implementation
+
+### Scripts Context
+
+#### NodeRef
+
+In order to check the syntax of a script, **NodeRef**s are used, which are a data structure that just contains its **superNode**, which is another *NodeRef*.
+
+There can be 3 types of *NodeRef*s:
+
+- **RootNodeRef**: The node which refers to the root of the script, its super node is itself
+- **ThenNodeRef**: The node which refers to an instruction inside the **then** part of an if or if-else. The superNode is the node in which is contained the if. Additionaly to the superNode, it has a reference to the **If/IfElseInstruction** in which it is contained.
+- **ElseNodeRef**: The node which refers to an instruction inside the **else** part of an if-else. The superNode is the node in which is contained the if-else. Additionaly to the superNode, it has a reference to the **IfElseInstruction** in which it is contained.
+
+The instruction contained in the *ThenNodeRef* and in the *ElseNodeRef* is used when creating the script in order to know for each instruction in which If/IfElseInstruction put it.
+
+#### ConstantRef
+
+Other than nodeRefs, it is needed the use of another data structure, called **ConstantRef**. It contains a **ConstantInstruction** and the nodeRef in which the constant has been defined. This is usefull for the following reasons:
+
+- It is possible to check if a constant is declared inside an accessible scope when trying to use it (just like in a programming language)
+- It is possibile to know if a constant is declared multiple times inside a scope
+
+In both cases a syntax error is returned.
+
+#### ScriptBuilder
+
+According to the modelling of the **ScriptBuilder**, it is an abstract class with methods that create a script checking its syntax.
+
+##### Build
+
+There are two methods to create a script, both used only by the ScriptsService: **build()** and **buildWithId(ScriptID)**.
+The *build()* method will create a script with a random ScriptID, while the *buildWithId(ScriptID)* will create a script with a given ScriptID.
+
+Both methods return a *InvalidScriptError* if the syntax of the script is wrong, if the name of the script is empty or if the period trigger of an automation have a zero or negative period.
+
+##### AddInstructions
+
+Every *add[Instruction]* method get a nodeRef and return the new scriptBuilder, which is the same of the one used but with the new instruction and the new InvalidScriptErrors, if there are some.
+
+E.g.
+
+```typescript
+// Creation of task builder
+const builderAndRef = new TaskBuilder("taskName")
+const builder = builderAndRef[0]
+const rootNodeRef = builderAndRef[1]
+
+// Adding wait instruction
+const newBuilder = builder.addWait(rootNodeRef, 10)
+// *newBuilder* has a wait instruction with 10 seconds on the root of the script, 
+// while *builder* is still empty
+```
+
+There are also some *add[Instruction]* that returns other data structure besides the new builder:
+- **addIf**: Returns a **ThenNodeRef** with the newly created **IfInstruction** inside of it, so that it can be used to add instructions inside the then scope of that if
+- **addIfElse**: Returns a **ThenNodeRef** like the *addIf* and a **ElseNodeRef**, both with the newly created **IfElseInstruction** inside of them, so that it can be used to add instructions inside the else scope of that if else.
+- **addCreateConstant**: Returns a **ConstantRef** with the newly created ConstantInstruction ised of it, so that it can be used to create ifs or if-elses
+- **addCreateDevicePropertyContant**: Works just like the *addCreateContant* method.
+
+E.g.
+
+```typescript
+// Creation of task builder
+const builderAndRef = new TaskBuilder("taskName")
+const builder = builderAndRef[0]
+const rootNodeRef = builderAndRef[1]
+
+// Adding an integer constant with value 10
+const newBuilderAndCRef1 = builder.addCreateConstant(rootNodeRef, "C1", Type.IntType, 10)
+const c1 = newBuilderAndCRef1[1]
+const newBuilder1 = newBuilderAndCRef1[0]
+
+// Adding an integer constant with value 15
+const newBuilderAndCRef2 = newBuilder1.addCreateConstant(rootNodeRef, "C2", Type.IntType, 15)
+const c2 = newBuilderAndCRef2[1]
+const newBuilder2 = newBuilderAndCRef2[0]
+
+// Adding an if-else instruction checking if the two constants are equal
+const newBuilderAndRef1 = newBuilder2.addIfElse(rootNodeRef, c1, c2, false, ConditionOperatorType.NumberEOperator)
+const thenRef = newBuilderAndRef1[1]
+const elseRef = newBuilderAndRef1[2]
+const newbuilder3 = newBuilderAndRef1[0]
+
+// Add a send notification inside the then of the previously created if-else
+const thenBuilder = newBuilder3.addSendNotification(thenRef, Email("pippo@email.com"), "Not sent")
+
+// Add a send notification inside the else of the previously created if-else
+const elseBuilder = thenBuilder.addSendNotification(elseRef, Email("pluto@email.com"), "Sent")
+
+// When executing a script created with the *elseBuilder* TaskBuilder, it will be sent a notification to pluto@email.com with the message: "Sent".
+```

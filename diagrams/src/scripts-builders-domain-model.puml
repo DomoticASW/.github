@@ -7,7 +7,7 @@ package "Scripts" {
 
     interface RootNodeRef extends NodeRef
     interface ThenNodeRef extends NodeRef {
-        instruction: IfInstruction
+        instruction: IfInstruction | IfElseInstruction
     }
     interface ElseNodeRef extends NodeRef {
         instruction: IfElseInstruction

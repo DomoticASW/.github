@@ -34,7 +34,7 @@ package "Scripts" {
     }
 
     interface Task {
-        ~execute(Token): Async<ExecutionEnvironment | ScriptError>
+        ~execute(Token?): Async<ExecutionEnvironment | ScriptError>
     }
     interface Automation {
         enabled: Boolean
