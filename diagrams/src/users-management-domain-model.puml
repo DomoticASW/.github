@@ -23,7 +23,6 @@ package "Users management" as Users {
 
     interface Token {
         userEmail: Email
-        role: Role
         source: String
         ~{static} new(String): Token | InvalidTokenFormatError
     }
