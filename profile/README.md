@@ -497,6 +497,56 @@ A limitation of this method is that the submodule points to a specific commit of
 
 ### Scripts Context
 
+#### Script
+
+According to the modelling of the **Script** aggregate, it is an interface that allows users to execute instructions.
+
+**Task** and **Automation** extends the **Script** interface in order to have the behaviour described in the modelling part.
+
+When executed, a Script creates an **ExecutionEnvironment** for that execution (because a script can be started while it is already started, it will create another, fresh one, ExecutionEnvironment every time it is started).
+
+#### Instructions
+
+There are multiple instructions, some which just do some action like waiting, starting other tasks, creating costants, sending a notification or executing device actions, others control the flow of the script, like if or if-else.
+
+- **WaitInstruction**: Stop the script for a specified amount of seconds.
+- **SendNotificationInstruction**: Send a notification through the NotificationService to a specified email with a specified message.
+- **StartTaskInstruction**: Start another task with the same permissions of the one who started the current task.
+- **DeviceActionInstruction**: Execute a specified action on a chosen device.
+- **CreateConstantInstruction**: Create a named constant with a value of the specified type.
+- **CreateDevicePropertyConstantInstruction**: Create a named constant with a device and a property of that device. At runtime, it will have the value of the specified property.
+- **IfInstruction**: Check if it is valid a *Condition*, if it is true than execute the instructions in the **then** field.
+-- **IfElseInstruction**: Check if it is valid a *Condition*, if it is true than execute the instructions in the **then** field, otherwise execute the instructions in the **else** field.
+
+#### Condition
+
+A **Condition** is a data structure which contains two *ConstantInstruction*s, a *negate* field and a **ConditionOperator**.
+
+It has also an *evaluate(ExecutionEnvironment)* method, which returns a boolean based on the *ConditionOperator*, the two *ConstantInstruction*s and the *negate* field, which, if it is true, switch the boolean returned by the *evaluate* method (if negate = true and negate should return true, than evaluate returns false)
+
+To be created, the two *ConstantInstruction*s and the *ConditionOperator* must have the same type.
+
+#### ConditionOperator
+
+There are multiple **ConditionOperator**s:
+
+- **NumberEOperator**: Equal operator for numbers.
+- **NumberGEOperator**: Greater equal operator for numbers.
+- **NumberGOperator**: Greater operator for numbers.
+- **NumberLEOperator**: Less equal operator for numbers.
+- **NumberLOperator**: Less operator for numbers.
+- **StringEOperator**: Equal operator for strings.
+- **ColorEOperator**: Equal operator for colors.
+- **BooleanEOperator**: Equal operator for booleans.
+
+The *evaluate* method of the *ConditionOperator* gets two arguments, the left and right constants, in order to evaluate if the operator returns true or false.
+
+#### ExecutionEnvironment
+
+At runtime there is the need to have a data structure that saves all the constants with their respective values, and that is the ExecutionEnvironment (indeed, it is here that the *createDevicePropertyConstantInstruction* will save its value at runtime).
+
+It is also the data structure which contain the token of the user executing the task, if there is one.
+
 #### NodeRef
 
 In order to check the syntax of a script, **NodeRef**s are used, which are a data structure that just contains its **superNode**, which is another *NodeRef*.
@@ -585,3 +635,13 @@ const elseBuilder = thenBuilder.addSendNotification(elseRef, Email("pluto@email.
 
 // When executing a script created with the *elseBuilder* TaskBuilder, it will be sent a notification to pluto@email.com with the message: "Sent".
 ```
+
+#### ScriptsService
+
+The **ScriptsService** is the *service* that manage all the *Task*s and *Automation*s.
+
+There are methods to retrieve one or more Tasks/Automations, methods that accept a **ScriptBuilder** to create or modify a Task/Automation, methods that remove a Task/Automation, a method to start a Task and a method to change the state of an automation between enabled or disabled.
+
+At the start of the server, the *ScriptsService* will start all the automations created that are enabled, starting to listen for **DeviceEvents** (for the DeviceEvent triggered Automations) or waiting (for the period triggered Automations).
+
+When removing or editing an automation, the old one will be stopped if there are no errors while doing it.
