@@ -347,6 +347,36 @@ This bounded context exposes a *UsersService* which offers all the methods to im
 
 *UsersService* service also includes methods for authentication (*login, verifyToken, validateToken*). The idea is that every other service will use this one to validate authentication tokens received by the client.
 
+### UsersService
+
+UsersService is responsible for managing the system’s users. Essentially, its purpose is to centralize all logic related to authentication, authorization, and user lifecycle management.  
+
+#### Main Responsibilities
+
+- **User lifecycle**  
+  - Registration of new users.  
+  - Approval or rejection of requests by the Admin.  
+
+- **User data management**  
+  - Retrieval of personal data.  
+  - Modification of nickname and password.  
+  - Deletion of users from the system.  
+
+- **Role-based authorization**  
+  - Distinction between Admin and User.  
+  - Enforcement of security rules.  
+
+- **Authentication management**  
+  - Credential validation.  
+  - Generation and verification of JWT tokens.  
+
+##### Security Rules
+
+- The first registered user automatically becomes Admin.  
+- Regular users can only operate on their own data.  
+- The Admin has additional privileges: management of users and requests.  
+- All operations (except login and registration) require a valid token. 
+
 ### Devices management
 ![Devices management domain model diagram](../diagrams/generated/devices-management-domain-model.png)
 
