@@ -85,6 +85,12 @@ package "Devices management" {
         name: String
     }
 
+    interface DiscoveredDevice {
+        id: DeviceId
+        name: string
+        address: DeviceAddress
+    }
+
     ~interface DeviceRepository<DeviceId, Device> <<Repository>> {
     }
     ~interface DeviceGroupRepository<DeviceGroupId, DeviceGroup> <<Repository>> {
@@ -131,12 +137,14 @@ package "Devices management" {
         setDeviceStatusUnsafe(DeviceId, DeviceStatus): DeviceNotFoundError?
         subscribeForDevicePropertyUpdates(DevicePropertyUpdatesSubscriber)
         unsubscribeForDevicePropertyUpdates(DevicePropertyUpdatesSubscriber)
+        discoveredDevices(token: Token): Iterable<DiscoveredDevice> | InvalidTokenError
     }
 
     interface DeviceCommunicationProtocol {
         checkDeviceStatus(DeviceAddress): Async<DeviceStatus | CommunicationError>
         executeDeviceAction(DeviceAddress, DeviceActionId, input: unknown): Async<(DeviceUnreachableError | CommunicationError | DeviceActionError)?>
         register(DeviceAddress): Async<Device | DeviceUnreachableError | CommunicationError>
+        unregister(DeviceAddress): Async<(DeviceUnreachableError | CommunicationError)?>
     }
 
     interface DevicePropertyUpdatesSubscriber {
@@ -162,6 +170,7 @@ package "Devices management" {
     end note
     Diamond "0..*" -- "1" TypeConstraints
     Device [name: String] -- "0..*" DeviceEvent
+    Device -u-> DeviceCommunicationProtocol : "uses"
     DeviceGroupRepository -u-|> Repository.Repository
     DeviceGroupRepository o-- DeviceGroup
     DeviceRepository -u-|> Repository.Repository
@@ -170,6 +179,7 @@ package "Devices management" {
     DeviceGroupsService --> DeviceGroupRepository
     DevicesService --> DevicePropertyUpdatesSubscriber
     DevicesService --> DeviceCommunicationProtocol
+    DevicesService --[hidden]--> DiscoveredDevice
     DeviceEventsService "1" --> "0..*" DeviceEventsSubscriber
     DeviceStatusesService "1" --> "0..*" DeviceStatusChangesSubscriber
     DeviceStatusesService --> DeviceCommunicationProtocol
