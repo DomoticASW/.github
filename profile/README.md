@@ -259,7 +259,7 @@ allowfullscreen>
 Additional details that are not shown in the mockups:
 
 - **Manage tasks**:
-  1.After adding an instruction relative to a device, through the "plus" button, it will be added a block with a default action or property of that device. Clicking on the instruction will allow the user change the device action or property
+  1. After adding an instruction relative to a device, through the "plus" button, it will be added a block with a default action or property of that device. Clicking on the instruction will allow the user change the device action or property
 
 - **Make smart device execute an action**:
   1. When an input control is also used to show the current value of a property, it is not trivial to handle cases in which the value may phisically change slowly.
