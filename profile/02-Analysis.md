@@ -258,3 +258,11 @@
   - Enabling remote access for managing the system from anywhere.
 
 ![Bounded contexts map](../diagrams/generated/context-map.png)
+
+# Other doc
+
+- [Description](./README.md)
+- [DevOps](./01-DevOps.md)
+- [Design](./03-Design.md)
+- [Architecture](./04-Architecture.md)
+- [Implementation](./05-Implementation.md)

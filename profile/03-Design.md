@@ -3,6 +3,7 @@
 ## Mockups (scenarios)
 
 (This frame cannot be rendered on GitHub so click the link to view it on Figma)
+
 <iframe
 style="
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -14,104 +15,119 @@ allowfullscreen>
 Additional details that are not shown in the mockups:
 
 - **Manage tasks**:
+
   1. After adding an instruction relative to a device, through the "plus" button, it will be added a block with a default action or property of that device. Clicking on the instruction will allow the user change the device action or property
 
 - **Make smart device execute an action**:
+
   1. When an input control is also used to show the current value of a property, it is not trivial to handle cases in which the value may phisically change slowly.
   1. Right after modifying the content of the input it will be "detached" from the actual property and two buttons (Cancel and Confirm) will be shown.
   1. If "cancel" is pressed then no action is fired and the control returns to be "attached" to the property.
   1. Otherwise if "confirm" is pressed the input control immediately returns to be "attached" to the property and the user will see that value slowly change up to the set one.
 
 - **Sign-up**:
+
   1. When signing up to the system the first user to do so will immediately become the admin.
 
 - **Manage automations**:
+
   1. In the "trigger" section the user will choose between triggering by event or periodically.
 
-    - if triggering by event is chosen:
+  - if triggering by event is chosen:
 
-      2. A page with all the devices will be shown and one can be selected.
-      2. A block will be added in the trigger section with the device name and a default triggering event.
-      2. Clicking that block will allow the user change the triggering event.
+    2. A page with all the devices will be shown and one can be selected.
+    3. A block will be added in the trigger section with the device name and a default triggering event.
+    4. Clicking that block will allow the user change the triggering event.
 
-    - else if triggering periodically is chosen:
+  - else if triggering periodically is chosen:
 
-      2. A block will be added in the trigger section with default start time and period
-      2. The user can now edit those parameters
+    2. A block will be added in the trigger section with default start time and period
+    3. The user can now edit those parameters
 
 ## Domain modeling
+
 In every upcoming diagram:
+
 - fields are to be considered readonly, changes to those fields will always be mediated by methods.
-- default visibility is *public* unless otherwise specified.
+- default visibility is _public_ unless otherwise specified.
 - about types the "|" character stands for an union type (so "String | Int" means String OR Int)
 - about types the "?" character stands for an optional type
 - types that extends generic types by concretizing the type parameter are expressed through an arrow with a \<Type> label.
 
 ### Users management
+
 ![Users management domain model diagram](../diagrams/generated/users-management-domain-model.png)
 
-This bounded context exposes a *UsersService* which offers all the methods to implement the use cases.
+This bounded context exposes a _UsersService_ which offers all the methods to implement the use cases.
 
-*UsersService* service also includes methods for authentication (*login, verifyToken, validateToken*). The idea is that every other service will use this one to validate authentication tokens received by the client.
+_UsersService_ service also includes methods for authentication (_login, verifyToken, validateToken_). The idea is that every other service will use this one to validate authentication tokens received by the client.
 
 ### Devices management
+
 ![Devices management domain model diagram](../diagrams/generated/devices-management-domain-model.png)
 
 This bounded context exposes:
-- a *DevicesService*
-- a *DeviceGroupsService*
-- a *DeviceStatusesService*
-- a *DeviceEventsService*
+
+- a _DevicesService_
+- a _DeviceGroupsService_
+- a _DeviceStatusesService_
+- a _DeviceEventsService_
 
 More complex stuff explanation:
-- The *DeviceFactory* is able to create a *Device* just through an URL as it will contact the device on that address which will then describe himself.
-- The *DeviceStatusesService* service will be responsible for keeping the devices *DeviceStatus* up to date, and allows for subscribers to listen to status change events.
-- The *DeviceEventsService* service will be responsible for receiving *DeviceEvent*s (through the *publishEvent* method) from the devices, and allows for subscribers to be notified about *DeviceEvent*s.
-- The *DeviceGroupsService* and *DeviceGroup*s are responsible for managing the N-N relationships with *Device*s.
-- The *DevicesService* is responsible for keeping *DeviceGroup*s up to date in case of device removal.
-- The *DevicesService* offers the method *updateDeviceProperty* which can be invoked by devices to notify the server about their current state. (It is also possible to subscribe for changes)
+
+- The _DeviceFactory_ is able to create a _Device_ just through an URL as it will contact the device on that address which will then describe himself.
+- The _DeviceStatusesService_ service will be responsible for keeping the devices _DeviceStatus_ up to date, and allows for subscribers to listen to status change events.
+- The _DeviceEventsService_ service will be responsible for receiving *DeviceEvent*s (through the _publishEvent_ method) from the devices, and allows for subscribers to be notified about *DeviceEvent*s.
+- The _DeviceGroupsService_ and *DeviceGroup*s are responsible for managing the N-N relationships with *Device*s.
+- The _DevicesService_ is responsible for keeping *DeviceGroup*s up to date in case of device removal.
+- The _DevicesService_ offers the method _updateDeviceProperty_ which can be invoked by devices to notify the server about their current state. (It is also possible to subscribe for changes)
 
 #### TypeConstraints
+
 Since devices will define their own action and properties they must also define what datatypes they are.
 
-Types are defined in the *Type* enum which is generic on T which reprents the actual datatype that will be used internally.
+Types are defined in the _Type_ enum which is generic on T which reprents the actual datatype that will be used internally.
 
-A *TypeConstraint* is a constraint over a type which can also have additional constraints over the values, for example:
-An input which requires an integer from 0 to 100 can be modeled as a subclass of *TypeConstraint* with *Type* "IntType" which overrides the *validate* method implementing that logic (in the diagram we called this *IntRange*).
+A _TypeConstraint_ is a constraint over a type which can also have additional constraints over the values, for example:
+An input which requires an integer from 0 to 100 can be modeled as a subclass of _TypeConstraint_ with _Type_ "IntType" which overrides the _validate_ method implementing that logic (in the diagram we called this _IntRange_).
 
-*DeviceProperty*s which have a setter will use its *TypeConstraint*, otherwise they will have their own *TypeConstraint*.
+*DeviceProperty*s which have a setter will use its _TypeConstraint_, otherwise they will have their own _TypeConstraint_.
 
-A setter is a *DeviceAction* whose execution is expected to set a property with the given input. This allows to create richer user interfaces where properies and actions are bound.
+A setter is a _DeviceAction_ whose execution is expected to set a property with the given input. This allows to create richer user interfaces where properies and actions are bound.
 
-*DeviceAction*s have just one *TypeConstraint* which constraints the input they can take. Actions that require no input can be implemented by an input of *Type* "VoidType".
+*DeviceAction*s have just one _TypeConstraint_ which constraints the input they can take. Actions that require no input can be implemented by an input of _Type_ "VoidType".
 
 ### Notifications
+
 ![Notifications domain model diagram](../diagrams/generated/notifications-domain-model.png)
 
-This bounded context exposes a *NotificationsService* which offers all the methods to implement the use cases.
+This bounded context exposes a _NotificationsService_ which offers all the methods to implement the use cases.
 
-The service subscribes itself to the *DeviceStatusesService* to be informed when a device goes offline.
+The service subscribes itself to the _DeviceStatusesService_ to be informed when a device goes offline.
 
 To achieve eventual consistency in case of the removal of a user from the system, the next time a device offline notification would be sent to that user the service will remove that subscription from the repository.
 
 Regarding device removal from the system, it is not a bad idea to keep the subscription.
-Let's say that the *DeviceId* is actually a hardware identifier, in case that device will be added again to the system, subscription would be valid again.
+Let's say that the _DeviceId_ is actually a hardware identifier, in case that device will be added again to the system, subscription would be valid again.
 
 ### Permissions
+
 ![Permissions domain model diagram](../diagrams/generated/permissions-domain-model.png)
 
-This bounded context exposes a *PermissionsService* which offers all the methods to implement the use cases.
+This bounded context exposes a _PermissionsService_ which offers all the methods to implement the use cases.
 
-The *canExecuteTask* method is responsible for implementing the expected behaviour (checking user-device permissions and in case of presence in blacklist or whitelist use that as decision factor).
+The _canExecuteTask_ method is responsible for implementing the expected behaviour (checking user-device permissions and in case of presence in blacklist or whitelist use that as decision factor).
 
 ### Scripts
+
 ![Scripts domain model diagram](../diagrams/generated/scripts-domain-model.png)
 
-This bounded context exposes a *ScriptsService* which offers all the methods to implement the use cases.
+This bounded context exposes a _ScriptsService_ which offers all the methods to implement the use cases.
 
 A Script can be either a Task or an Automation the main difference is that automations have a Trigger.
 
 Each script has a sequence of Instructions that has the following behaviour when executed based on the concrete implementation:
+
 - SendNotificationInstruction: sends a notification to a user
 - WaitInstruction: pauses the script execution for a given amount of seconds
 - StartTaskInstruction: starts another task waiting for its completion
@@ -127,9 +143,17 @@ Conditions must operate on homogeneous types and for each type a fixed set of op
 When a script is executed it creates internally an ExecutionEnvironment which is responsible for storing constant values.
 
 #### Builders
+
 ![Script builders domain model diagram](../diagrams/generated/scripts-builders-domain-model.png)
 
 Builders can check whether a script syntax is correct, but they cannot do the same with regard to semantics (because they would need to access devices data in the repository).
 
 Scripts semantic correctness is checked by the ScriptsService
 
+# Other doc
+
+- [Description](./README.md)
+- [DevOps](./01-DevOps.md)
+- [Analysis](./02-Analysis.md)
+- [Architecture](./04-Architecture.md)
+- [Implementation](./05-Implementation.md)

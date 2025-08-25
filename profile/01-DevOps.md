@@ -93,3 +93,11 @@ We used git submodules to link the client repository within the server repositor
 This approach allows us to maintain a clear separation between the two repositories while still being able to serve the client from within the server.
 
 A limitation of this method is that the submodule points to a specific commit of the client repository. As a result, updates to the client repository are not automatically reflected in the server repository and must be manually updated.
+
+# Other doc
+
+- [Description](./README.md)
+- [Analysis](./02-Analysis.md)
+- [Design](./03-Design.md)
+- [Architecture](./04-Architecture.md)
+- [Implementation](./05-Implementation.md)
