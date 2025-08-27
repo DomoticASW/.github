@@ -30,10 +30,12 @@ package "Scripts" {
     interface Script<Id extends ScriptId> <<Aggregate>> {
         id: Id
         name: String
-        ~execute(): Async<ExecutionEnvironment>
+        ~execute(): Async<ExecutionEnvironment | ScriptError>
     }
 
-    interface Task
+    interface Task {
+        ~execute(Token?): Async<ExecutionEnvironment | ScriptError>
+    }
     interface Automation {
         enabled: Boolean
     }
@@ -51,9 +53,11 @@ package "Scripts" {
     }
 
     interface Instruction {
-        ~execute(ExecutionEnvironment): Async<ExecutionEnvironment>
+        ~execute(ExecutionEnvironment): Async<ExecutionEnvironment | ScriptError>
     }
-    class StartTaskInstruction extends Instruction
+    class StartTaskInstruction extends Instruction {
+        taskId: TaskId
+    }
 
     class DeviceActionInstruction extends Instruction {
         deviceId: DeviceId
@@ -116,7 +120,9 @@ package "Scripts" {
         BooleanEOperator
     end note
 
-    interface ExecutionEnvironment
+    interface ExecutionEnvironment {
+        taskToken: Token?
+    }
 
     struct ConstantValue<T> {
         value: T
@@ -131,17 +137,19 @@ package "Scripts" {
     ScriptRepository o-- Script
 
     interface ScriptsService <<Service>> {
-        findTask(Token, TaskId): Task | InvalidTokenError | ScriptNotFound
+        findTask(Token, TaskId): Task | InvalidTokenError | ScriptNotFoundError
         getAllTasks(Token): Iterable<Task> | InvalidTokenError
-        createTask(Token, TaskBuilder): TaskId | InvalidTokenError | TaskNameAlreadyInUse | InvalidTaskError
-        editTask(Token, TaskId, TaskBuilder): (InvalidTokenError | PermissionError | ScriptNotFoundError | InvalidTaskError)?
-        startTask(Token, TaskId): (InvalidTokenError | ScriptNotFound | PermissionError)?
+        createTask(Token, TaskBuilder): TaskId | InvalidTokenError | TaskNameAlreadyInUseError | InvalidScriptError
+        editTask(Token, TaskId, TaskBuilder): (InvalidTokenError | PermissionError | ScriptNotFoundError | InvalidScriptError | TaskNameAlreadyInUseError)?
+        startTask(Token, TaskId): (InvalidTokenError | ScriptNotFoundError | PermissionError)?
+        removeTask(Token, TaskId): (InvalidTokenError | ScriptNotFoundError | PermissionError)?
         ..
-        findAutomation(Token, AutomationId): Automation | InvalidTokenError | ScriptNotFound
+        findAutomation(Token, AutomationId): Automation | InvalidTokenError | ScriptNotFoundError
         getAllAutomations(Token): Iterable<Automation> | InvalidTokenError
-        createAutomation(Token, AutomationBuilder): AutomationId | InvalidTokenError | AutomationNameAlreadyInUse | InvalidAutomationError
-        editAutomation(Token, AutomationId, AutomationBuilder): (InvalidTokenError | PermissionError | ScriptNotFoundError | InvalidAutomationError)?
-        setAutomationEnable(Token, AutomationId, enable: Boolean): (InvalidTokenError | ScriptNotFound)?
+        createAutomation(Token, AutomationBuilder): AutomationId | InvalidTokenError | AutomationNameAlreadyInUseError | InvalidScriptError | PermissionError
+        editAutomation(Token, AutomationId, AutomationBuilder): (InvalidTokenError | PermissionError | ScriptNotFoundError | InvalidScriptError | AutomationNameAlreadyInUseError)?
+        setAutomationState(Token, AutomationId, enable: Boolean): (InvalidTokenError | ScriptNotFoundError)?
+        removeAutomation(Token, AutomationId): (InvalidTokenError | ScriptNotFoundError | PermissionError)?
     }
 
     note left of ScriptsService::startTask
@@ -159,7 +167,6 @@ package "Scripts" {
     IfInstruction "0..1" o-u- "0..*" Instruction : "then >"
     IfInstruction "1" -- "1" Condition
     IfElseInstruction "0..1" o-u- "0..*" Instruction : "else >"
-    StartTaskInstruction "0..*" -- "1" Task
     Condition "0..*" -- "1" ConditionOperator
     ConstantInstruction -l-|> Instruction
     ScriptsService --> ScriptRepository
@@ -169,6 +176,9 @@ package "Scripts" {
     ScriptsService -u-|> DevicesManagement.DeviceEventsSubscriber
     ScriptsService -u-> UsersManagement.UsersService
     Script -u-> Notifications.NotificationsService
+    Script -u-> ScriptsService
+    Script -l-> Permissions.PermissionsService
+    Script -u-> DevicesManagement.DevicesService
 }
 
 @enduml
