@@ -535,3 +535,14 @@ The communication protocols expects devices to expose the following http routes 
 The DevicesService allows to subscribe for receiving device property updates.
 One of these subscribers is [SocketIOPropertyUpdatesSubscriberAdapter.ts](https://github.com/DomoticASW/server/blob/main/src/adapters/devices-management/SocketIOPropertyUpdatesSubscriberAdapter.ts) which is a SocketIO
 server that will will relay the updates to every client that connects to it.
+
+#### Repositories
+
+All repositories of this bounded context are implemented by extending a generic implementation (look at [BaseRepositoryMongoAdapter.ts](https://github.com/DomoticASW/server/blob/main/src/adapters/BaseRepositoryMongoAdapter.ts) for more infos)
+
+#### Http API
+
+Each service has its own http controller which defines routes and http logic (you can look at [http adapters](https://github.com/DomoticASW/server/blob/main/src/adapters/http/routes/devices-management)).
+
+DTOs are used when the interface to be exposed has to be different from the internal interface
+of entities. (This is done only due to time constraints, in an ideal scenario it would be better to define DTOs for each entity)
