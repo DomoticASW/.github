@@ -491,3 +491,41 @@ We used git submodules to link the client repository within the server repositor
 This approach allows us to maintain a clear separation between the two repositories while still being able to serve the client from within the server.
 
 A limitation of this method is that the submodule points to a specific commit of the client repository. As a result, updates to the client repository are not automatically reflected in the server repository and must be manually updated.
+
+## Implementation
+
+### Devices management
+
+#### Protocol
+
+It is required that every device while requesting an ip from the LAN DHCP server will also specify a name to bind to that ip.
+This allows the server to store this name and use it to reach devices even if they change their ip.
+
+##### Devices discovery
+
+Devices announce themselves on a configurable known port by sending broadcast UDP datagrams including basic data (id, name, lan hostname and port) that can be used by the server to register them to the system.
+The server [DeviceDiscovererUDPAdapter.ts](https://github.com/DomoticASW/server/blob/main/src/adapters/devices-management/DeviceDiscovererUDPAdapter.ts) will keep device announces in memory for a finite amount of time before forgetting them.
+
+##### DeviceCommunicationProtocol
+
+The communication protocols expects devices to expose the following http routes on the port that he announced during discovery:
+
+- **POST /register**
+
+  The server will contact the discovered device at this route providing the server port that the device will use to communicate with it afterwards.
+
+  The device will respond with a json description of himself (look at [DeviceCommunicationProtocolHttpAdapter.ts](https://github.com/DomoticASW/server/blob/main/src/adapters/devices-management/DeviceCommunicationProtocolHttpAdapter.ts) inline doc for more info).
+  
+  From now on the device is registered to the system and is enabled to send updates about its properties to the server.
+
+- **POST /unregister**
+  
+  The server informs the device that it has been removed from the system.
+
+- **POST /execute/<deviceActionId>**
+
+  The server tells the device to execute a specific action given some input.
+
+- **GET /check-status**
+
+  The server will periodically ask the device if it is healthy (any 2xx status code will indicate healthiness).
