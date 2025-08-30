@@ -75,7 +75,6 @@ This bounded context exposes:
 
 More complex stuff explanation:
 
-- The _DeviceFactory_ is able to create a _Device_ just through an URL as it will contact the device on that address which will then describe himself.
 - The _DeviceStatusesService_ service will be responsible for keeping the devices _DeviceStatus_ up to date, and allows for subscribers to listen to status change events.
 - The _DeviceEventsService_ service will be responsible for receiving *DeviceEvent*s (through the _publishEvent_ method) from the devices, and allows for subscribers to be notified about *DeviceEvent*s.
 - The _DeviceGroupsService_ and *DeviceGroup*s are responsible for managing the N-N relationships with *Device*s.
@@ -153,7 +152,7 @@ Scripts semantic correctness is checked by the ScriptsService
 # Other doc
 
 - [Description](./README.md)
-- [DevOps](./01-DevOps.md)
-- [Analysis](./02-Analysis.md)
-- [Architecture](./04-Architecture.md)
+- [Analysis](./01-Analysis.md)
+- [Architecture](./03-Architecture.md)
+- [DevOps](./04-DevOps.md)
 - [Implementation](./05-Implementation.md)

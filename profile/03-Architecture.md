@@ -11,7 +11,7 @@ The server implementation will follow an hexagonal architecture design.
 # Other doc
 
 - [Description](./README.md)
-- [DevOps](./01-DevOps.md)
-- [Analysis](./02-Analysis.md)
-- [Design](./03-Design.md)
+- [Analysis](./01-Analysis.md)
+- [Design](./02-Design.md)
+- [DevOps](./04-DevOps.md)
 - [Implementation](./05-Implementation.md)

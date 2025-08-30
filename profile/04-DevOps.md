@@ -28,7 +28,7 @@ The action runs only if something has changed in the diagram directory.
     - The action is run on every push (not every commit), this means that if someone pushes many commits the generated diagrams will be updated only on the last commit.
     - Relying only on the action causes the development process to slow down and also creates unnecessary commits as the user will need to push and pull every time he changes the diagrams.
 
-## Software process
+## Software process - Client and Server
 
 Every rule described below must be applied both to the server and the client repositories unless otherwise specified by them.
 
@@ -97,7 +97,7 @@ A limitation of this method is that the submodule points to a specific commit of
 # Other doc
 
 - [Description](./README.md)
-- [Analysis](./02-Analysis.md)
-- [Design](./03-Design.md)
-- [Architecture](./04-Architecture.md)
+- [Analysis](./01-Analysis.md)
+- [Design](./02-Design.md)
+- [Architecture](./03-Architecture.md)
 - [Implementation](./05-Implementation.md)

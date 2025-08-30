@@ -60,8 +60,8 @@ We plan to use:
 
 # Doc
 
-- [DevOps](./01-DevOps.md)
-- [Analysis](./02-Analysis.md)
-- [Design](./03-Design.md)
-- [Architecture](./04-Architecture.md)
+- [Analysis](./01-Analysis.md)
+- [Design](./02-Design.md)
+- [Architecture](./03-Architecture.md)
+- [DevOps](./04-DevOps.md)
 - [Implementation](./05-Implementation.md)
