@@ -10,6 +10,7 @@ package "Users management" as Users {
         nickname: Nickname
         email: Email
         passwordHash: PasswordHash
+        role: Role
     }
     interface Admin extends User
 
@@ -22,22 +23,24 @@ package "Users management" as Users {
 
     interface Token {
         userEmail: Email
+        source: String
         ~{static} new(String): Token | InvalidTokenFormatError
     }
-    enum UserRole {
+    enum Role {
         Admin
         User
     }
-    Token -- UserRole : "role >"
+    Token -- Role : "role >"
 
     interface UsersService <<Service>> {
+        getAllRegistrationRequests(Token): Iterable<RegistrationRequest>, InvalidTokenError
         publishRegistrationRequest(Nickname, Email, Password): EmailAlreadyInUseError?
-        approveRegistrationRequest(Token, Email): (UserNotFoundError | TokenError)?
-        rejectRegistrationRequest(Token, Email): (UserNotFoundError | TokenError)?
+        approveRegistrationRequest(Token, Email): (EmailAlreadyInUseError | RegistrationRequestNotFoundError | TokenError)?
+        rejectRegistrationRequest(Token, Email): (RegistrationRequestNotFoundError | TokenError)?
         removeUser(Token, Email): (UserNotFoundError | TokenError)?
-        updateUserData(Token, Nickname?, Email?, Password?): (UserNotFoundError | EmailAlreadyInUseError | TokenError)?
+        updateUserData(Token, Nickname?, Password?): (UserNotFoundError | TokenError)?
         getAllUsers(Token): Iterable<User> | InvalidTokenError
-        getUserData(Token): User | InvalidTokenError
+        getUserData(Token): User | InvalidTokenError | UserNotFoundError
         login(Email, Password): Token | InvalidCredentialsError
         verifyToken(Token): InvalidTokenError?
         makeToken(String): Token | InvalidTokenFormatError
