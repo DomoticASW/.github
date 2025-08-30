@@ -529,3 +529,9 @@ The communication protocols expects devices to expose the following http routes 
 - **GET /check-status**
 
   The server will periodically ask the device if it is healthy (any 2xx status code will indicate healthiness).
+
+#### Real time property updates
+
+The DevicesService allows to subscribe for receiving device property updates.
+One of these subscribers is [SocketIOPropertyUpdatesSubscriberAdapter.ts](https://github.com/DomoticASW/server/blob/main/src/adapters/devices-management/SocketIOPropertyUpdatesSubscriberAdapter.ts) which is a SocketIO
+server that will will relay the updates to every client that connects to it.
