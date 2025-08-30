@@ -58,8 +58,6 @@ We plan to use:
 - Since there are several devices in the house, it’s important for the server to track which devices are active and working properly, detecting offline devices if possible.
 - Ensure the server can automatically restart in case of a crash.
 
-# Doc
-
 - [Analysis](./01-Analysis.md)
 - [Design](./02-Design.md)
 - [Architecture](./03-Architecture.md)
