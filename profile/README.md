@@ -357,7 +357,6 @@ This bounded context exposes:
 - a *DeviceEventsService*
 
 More complex stuff explanation:
-- The *DeviceFactory* is able to create a *Device* just through an URL as it will contact the device on that address which will then describe himself.
 - The *DeviceStatusesService* service will be responsible for keeping the devices *DeviceStatus* up to date, and allows for subscribers to listen to status change events.
 - The *DeviceEventsService* service will be responsible for receiving *DeviceEvent*s (through the *publishEvent* method) from the devices, and allows for subscribers to be notified about *DeviceEvent*s.
 - The *DeviceGroupsService* and *DeviceGroup*s are responsible for managing the N-N relationships with *Device*s.
