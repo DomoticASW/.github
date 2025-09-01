@@ -194,6 +194,6 @@ Scripts semantic correctness is checked by the ScriptsService
 
 - [Description](./README.md)
 - [Analysis](./01-Analysis.md)
-- [Architecture](./03-Architecture.md)
+- [Architecture (next)](./03-Architecture.md)
 - [DevOps](./04-DevOps.md)
 - [Implementation](./05-Implementation.md)

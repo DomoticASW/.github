@@ -262,7 +262,7 @@
 # Other doc
 
 - [Description](./README.md)
-- [Design](./02-Design.md)
+- [Design (next)](./02-Design.md)
 - [Architecture](./03-Architecture.md)
 - [DevOps](./04-DevOps.md)
 - [Implementation](./05-Implementation.md)
