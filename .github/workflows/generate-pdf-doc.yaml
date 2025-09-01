@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Copy README to be the first md document
-        run: cp README.md 00-Description.md
+        run: cp profile/README.md profile/00-Description.md
       - name: Publish PDF Document
         id: publish-document
         uses: shrink/actions-document-publish@v1
