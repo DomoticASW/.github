@@ -29,6 +29,10 @@ jobs:
         uses: actions/checkout@v5
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Update README image paths
+        run: |
+          cp diagrams/generated/*.png ./profile
+          sed -i 's#\.\./diagrams/generated/#\./#g' ./profile/README.md ./profile/0*.md
       - name: Build
         uses: actions/jekyll-build-pages@v1
         with:
