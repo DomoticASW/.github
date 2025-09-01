@@ -8,6 +8,12 @@
 
 The server implementation will follow an hexagonal architecture design.
 
+The separation between domain, ports and adapters is clearly enforced by the folder structure:
+
+- [src/domain](https://github.com/DomoticASW/server/tree/main/src/domain)
+- [src/ports](https://github.com/DomoticASW/server/tree/main/src/ports)
+- [src/adapters](https://github.com/DomoticASW/server/tree/main/src/adapters)
+
 # Other doc
 
 - [Description](./README.md)
