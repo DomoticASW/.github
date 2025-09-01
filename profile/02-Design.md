@@ -148,7 +148,14 @@ Let's say that the _DeviceId_ is actually a hardware identifier, in case that de
 
 This bounded context exposes a _PermissionsService_ which offers all the methods to implement the use cases.
 
-The _canExecuteTask_ method is responsible for implementing the expected behaviour (checking user-device permissions and in case of presence in blacklist or whitelist use that as decision factor).
+A more detailed explanation of *PermissionsService*:
+- *registerScriptService*: this method is implemented because of the double dependece between *PermissionsService* and the *ScriptService*. It is used only at the start of the program.
+- *canExecuteTask*: it is responsible for implementing the expected behaviour (checking user-device permissions and in the case of a presence in the blacklist or the whitelist uses that as decision factor). The method always permits to an admin to execute a task, bypassing every control.
+- *canExecuteActionOnDevice*: it checks if the calling user has the permission to execute actions on the specified device. It is implemented by checking the *userDevicePermissionRepository*. The method permits to an admin to execute an action even if there is no record on the *userDevicePermissionRepository*.
+- *canEdit*: it checks if the user can edit a specified script. It simply checks if the user is an admin or the editList of the script contains the user email. 
+- *addToWhiteList* and *addToBlackList*: they are responsible of adding and removing permissions of an user. Only an admin can use these methods and if the tasklists of the relative taskId doesn't exist, it will be created. Even if the blacklist or the whitelist doesn't exist they will be created in order to add the user email. An important note is that an admin cannot be added to the blacklist, it is possible to add an admin in the whitelist, but it doesn't produce any positive effect, because an admin can already perform every action.
+- The others methods allow to add, remove or search entities. They are coherent with their names and only an admin can perform them.
+- Methods that could generate some confusion about their names are *getAllUserDevicePermissions* and *getAllUserDevicePermissionsOfAnUser*. The first one will get every permission for every user device; the second one will get every permissions that an user has on devices.
 
 ### Scripts
 
