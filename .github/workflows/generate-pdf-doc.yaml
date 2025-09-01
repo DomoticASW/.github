@@ -1,0 +1,33 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Generate PDF doc
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  generate-pdf-doc:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Copy README to be the first md document
+        run: cp README.md 00-Description.md
+      - name: Publish PDF Document
+        id: publish-document
+        uses: shrink/actions-document-publish@v1
+        with:
+          sources: "profile/0*.md"
+      - name: Rename pdf file
+        run: cp ${{ steps.publish-document.outputs.pdf }} "./Documentation.pdf"
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Documentation.pdf
