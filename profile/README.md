@@ -58,6 +58,15 @@ We plan to use:
 - Since there are several devices in the house, it’s important for the server to track which devices are active and working properly, detecting offline devices if possible.
 - Ensure the server can automatically restart in case of a crash.
 
+## Try DomoticASW
+
+We have prepared a [full demo](https://github.com/DomoticASW/demo) with sample data in order to let you try DomoticASW.
+
+## Other important repositories
+
+- [Server](https://github.com/DomoticASW/server)
+- [Client](https://github.com/DomoticASW/client)
+
 # Other doc
 
 - [Analysis](./01-Analysis.md)
