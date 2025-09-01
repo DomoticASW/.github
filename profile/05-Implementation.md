@@ -1,5 +1,14 @@
 # Implementation
 
+## Tools
+
+In order to achieve higher software quality and reliability we decided to opt for the following optional tools:
+
+- Typescript (both on the server and the client)
+- functional programming library Effect-TS (on the server)
+- Tailwind CSS (on the client)
+- DaisyUI components library for Tailwind (on the client)
+
 ## Scripts Context
 
 ### Script
