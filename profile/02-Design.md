@@ -180,6 +180,7 @@ Each script has a sequence of Instructions that has the following behaviour when
 Conditions must operate on homogeneous types and for each type a fixed set of operators are given.
 
 When a script is executed it creates internally an ExecutionEnvironment which is responsible for storing constant values.
+Tasks need a token to be executed manually by a user, while Automations do not (because they are executed automatically given a period of time or a device event firing). Tasks can also be executed without a token if executed through a Start Task Instruction inside a script.
 
 #### Builders
 
