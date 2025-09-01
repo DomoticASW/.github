@@ -18,16 +18,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Install Pandoc and LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-latex-base texlive-latex-extra texlive-fonts-recommended
+
       - name: Copy README to be the first md document
         run: cp profile/README.md profile/00-Description.md
-      - name: Publish PDF Document
-        id: publish-document
-        uses: shrink/actions-document-publish@v1
-        with:
-          sources: "profile/0*.md"
-      - name: Rename pdf file
-        run: cp ${{ steps.publish-document.outputs.pdf }} "./Documentation.pdf"
+
+      - name: Merge Markdown and Create PDF
+        run: pandoc profile/0*.md \
+          --pdf-engine=xelatex \
+          --toc \
+          --number-sections \
+          -o Documentation.pdf
+
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
