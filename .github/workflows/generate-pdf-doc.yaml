@@ -16,22 +16,22 @@ permissions:
 jobs:
   generate-pdf-doc:
     runs-on: ubuntu-latest
+    container:
+      image: pandoc/latex:latest-ubuntu
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Install Pandoc and LaTeX
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y pandoc texlive-latex-base texlive-latex-extra texlive-fonts-recommended
-
       - name: Copy README to be the first md document
         run: cp profile/README.md profile/00-Description.md
 
       - name: Merge Markdown and Create PDF
-        run: pandoc profile/0*.md \
+        run: |
+          cd profile
+          pandoc 0*.md \
           --pdf-engine=xelatex \
+          -V geometry:margin=1cm \
           --toc \
           --number-sections \
           -o Documentation.pdf
@@ -39,4 +39,4 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: Documentation.pdf
+          files: profile/Documentation.pdf
