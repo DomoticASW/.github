@@ -62,7 +62,13 @@ Each service has its own http controller which defines routes and http logic (yo
 DTOs are used when the interface to be exposed has to be different from the internal interface
 of entities. (This is done only due to time constraints, in an ideal scenario it would be better to define DTOs for each entity)
 
-## Scripts Context
+## Notifications Management
+
+The **NotificationProtocol** exposes a **SocketIO** endpoint to which the client can then connect in order to receive the notifications sent by the server (**DeviceOfflineNotifications** or other kind of notifications, like the one sent from the *script instructions*).
+
+To receive a notification a user must first emits the event "*login*" sending its email, then the server will send an event "*notification*" to that user when needed (based on **DeviceOfflineNotificationSubscriptions**, script instructions or script error), sending a message.
+
+## Scripts Management
 
 ### Script
 
@@ -71,6 +77,8 @@ According to the modelling of the **Script** aggregate, it is an interface that 
 **Task** and **Automation** extends the **Script** interface in order to have the behaviour described in the modelling part.
 
 When executed, a Script creates an **ExecutionEnvironment** for that execution (because a script can be started while it is already started, it will create another, fresh one, ExecutionEnvironment every time it is started).
+
+If a **Script** returns an error after being executed, a notification will be sent to the admin.
 
 ### Instructions
 

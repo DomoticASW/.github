@@ -17,9 +17,14 @@ package "Devices management" as DevicesManagement {
 
 package "Notifications" {
     interface NotificationsService <<Service>> {
-        subscribeForDeviceOfflineNotifications(Token, DeviceId): (DeviceNotFoundError | InvalidTokenError)?
-        unsubscribeForDeviceOfflineNotifications(Token, DeviceId): (DeviceNotFoundError | InvalidTokenError)?
+        subscribeForDeviceOfflineNotifications(Token, DeviceId): (DeviceNotFoundError | InvalidTokenError | UserNotFoundError)?
+        unsubscribeForDeviceOfflineNotifications(Token, DeviceId): (DeviceNotFoundError | InvalidTokenError | UserNotFoundError)?
         sendNotification(Email, message: String): UserNotFoundError?
+        setupNotificationProtocol(NotificationProtocol): Void
+    }
+
+    interface NotificationProtocol {
+        sendNotification(Email, message: String): Void
     }
 
     ~interface DeviceOfflineNotificationSubscriptionRepository<(Email, DeviceId), DeviceOfflineNotificationSubscription> <<Repository>> {
@@ -35,6 +40,7 @@ package "Notifications" {
     NotificationsService -r-> DevicesManagement.DevicesService
     NotificationsService -r-> DevicesManagement.DeviceStatusesService
     NotificationsService --> UsersManagement.UsersService
+    NotificationsService --> NotificationProtocol
     DeviceOfflineNotificationSubscriptionRepository --|> Repository.Repository
     DeviceOfflineNotificationSubscriptionRepository o-- DeviceOfflineNotificationSubscription
 }
