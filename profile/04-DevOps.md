@@ -8,6 +8,7 @@ In order to keep the generated diagrams in sync with their source files we've se
 ### Git hook
 
 A [pre-commit git hook](../hooks/pre-commit) has been set up which executes the following tasks:
+
 1. Checks if docker is installed (as it's used to run PlantUML).
 1. Uses git diff to check whether some diagram have changed.
 1. If so it starts a docker container of PlanUML and generate all diagrams in the diagrams folder
@@ -25,10 +26,10 @@ The action runs only if something has changed in the diagram directory.
 
 1. Since we rely on git hooks to generate diagrams but they're not safe as the user is not forced to install them a check on the server-side is needed to guarantee that the diagrams are generated correctly.
 1. Using only this action without the git hook would cause these problems:
-    - The action is run on every push (not every commit), this means that if someone pushes many commits the generated diagrams will be updated only on the last commit.
-    - Relying only on the action causes the development process to slow down and also creates unnecessary commits as the user will need to push and pull every time he changes the diagrams.
+   - The action is run on every push (not every commit), this means that if someone pushes many commits the generated diagrams will be updated only on the last commit.
+   - Relying only on the action causes the development process to slow down and also creates unnecessary commits as the user will need to push and pull every time he changes the diagrams.
 
-## Software process - Client and Server
+## Client and Server
 
 Every rule described below must be applied both to the server and the client repositories unless otherwise specified by them.
 
@@ -82,17 +83,59 @@ To avoid this problem a pre-commit git hook have been written under the `hooks` 
 
 It has been decided to extract the [semantic-release workflow](https://github.com/DomoticASW/semantic-release) and the [commitlint workflow](https://github.com/DomoticASW/commitlint) into two different github actions of the organization so that they can be resued both from the server and the client.
 
-### Client CI test suite
-
-For the client CI has been decided to just test that the code passes the lint and compiles.
-Automated tests are not possible due to being just the GUI of the wep app.
-
 ### Serve client web app from within the server using git submodules
 
 We used git submodules to link the client repository within the server repository.
 This approach allows us to maintain a clear separation between the two repositories while still being able to serve the client from within the server.
 
 A limitation of this method is that the submodule points to a specific commit of the client repository. As a result, updates to the client repository are not automatically reflected in the server repository and must be manually updated.
+
+### Code formatting
+
+We set up prettier and two npm scripts:
+
+- `format`: formats every file in the src folder (is expected to be run by the developer)
+- `format-check`: checks that every file in the src folder is correctly formatted, it is run by both:
+  - a [pre-commit git hook](https://github.com/DomoticASW/server/blob/main/hooks/pre-commit) which doesn't let the developer commit unformatted code
+  - a [GitHub action](https://github.com/DomoticASW/server/blob/main/.github/workflows/code-format.yaml) that is part of the checks that need to pass before merging a PR
+
+### Server
+
+#### Building and publishing Docker image
+
+It is useful, especially for development (we use it in our [demo](https://github.com/DomoticASW/demo/blob/main/docker-compose.yaml)), to distribute the Server (which also includes the Client) as a Docker image.
+The image is built on a two stage [Dockerfile](https://github.com/DomoticASW/server/blob/main/Dockerfile) in order to reduce the image size as much as possible.
+
+The image is built by means of a [GitHub action](https://github.com/DomoticASW/server/blob/main/.github/workflows/release.yaml) which:
+
+1. Waits for the semantic-release job to be completed and uses a plugin output to check if a release was actually published
+2. If the release was actually published it setups Docker for building a multiplaform image
+3. Publishes the docker image with tags `latest` and `<release-version>`
+
+#### Renovate
+
+We set up Renovate through the Mend.io GitHub App in order to automate our dependency updates.
+
+Our global renovate configuration is the default one while the server has a simple [renovate.json](https://github.com/DomoticASW/server/blob/main/renovate.json) configuration file which:
+
+- Extends the recommended configuration file
+- Instructs renovate to track both the `main` and `develop` branches
+- Enables automerge for every package update that is stable and non-major
+- Ensures that development dependencies are updated just on develop
+- Ensures that runtime dependencies are updated just on main
+
+The last two rules aim to reduce the number of merge conflict between main and develop while still allowing the main branch to be automatically updated (mostly for security patches).
+
+### Client
+
+#### Client CI test suite
+
+For the client CI has been decided to just test that the code passes the lint and compiles.
+Automated tests are not possible due to being just the GUI of the wep app.
+
+#### Renovate
+
+We decided not to enable renovate on the Client as we do not have any automated UI tests and therefore we cannot trust any dependency update to be made automatically.
 
 # Other doc
 
