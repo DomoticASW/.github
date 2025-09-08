@@ -94,6 +94,26 @@ This approach allows us to maintain a clear separation between the two repositor
 
 A limitation of this method is that the submodule points to a specific commit of the client repository. As a result, updates to the client repository are not automatically reflected in the server repository and must be manually updated.
 
+## Roomba
+
+This is one of the emulated device and is conveniently packaged as a Docker image.
+
+### Docker image definition
+
+In order to keep the image as lean and optimized as possible it was decided to rely upon the [sbt-native-packager](https://www.scala-sbt.org/sbt-native-packager/formats/docker.html) sbt plugin which allows to automatically build a Docker image of the project.
+
+### Publishing the Docker image
+
+A [GitHub action](https://github.com/DomoticASW/roomba/blob/main/.github/workflows/publish-docker-image.yaml) was set up in order to build and publish the docker image after every release (which is done manually).
+
+The action is based on the [suggested one](https://docs.docker.com/build/ci/github-actions/multi-platform) by the Docker documentation.
+The main changes are:
+
+- It also sets up Java and sbt
+- It uses the sbt plugin to generate the Dockerfile
+- It also adds a specific version tag to the image
+- It uses another action to update the DockerHub repository description with the content of the README file
+
 # Other doc
 
 - [Description](./README.md)
