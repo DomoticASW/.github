@@ -114,6 +114,24 @@ The main changes are:
 - It also adds a specific version tag to the image
 - It uses another action to update the DockerHub repository description with the content of the README file
 
+## Boolean sensor
+
+This is one of the emulated device and is conveniently packaged as a Docker image.
+
+### Docker image definition
+
+The Dockerfile is based on the [template suggested](https://gleam.run/deployment/linux-server/) by the Gleam documentation.
+
+### Publishing the Docker image
+
+A [GitHub action](https://github.com/DomoticASW/boolean-sensor/blob/main/.github/workflows/publish-docker-image.yaml) was set up in order to build and publish the docker image after every release (which is done manually).
+
+The action is based on the [suggested one](https://docs.docker.com/build/ci/github-actions/multi-platform) by the Docker documentation.
+The main changes are:
+
+- It also adds a specific version tag to the image
+- It uses another action to update the DockerHub repository description with the content of the README file
+
 # Other doc
 
 - [Description](./README.md)
