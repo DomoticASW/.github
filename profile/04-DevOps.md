@@ -121,9 +121,9 @@ We set up prettier and two npm scripts:
   - a [pre-commit git hook](https://github.com/DomoticASW/server/blob/main/hooks/pre-commit) which doesn't let the developer commit unformatted code
   - a [GitHub action](https://github.com/DomoticASW/server/blob/main/.github/workflows/code-format.yaml) that is part of the checks that need to pass before merging a PR
 
-### Server
+## Server
 
-#### Building and publishing Docker image
+### Building and publishing Docker image
 
 It is useful, especially for development (we use it in our [demo](https://github.com/DomoticASW/demo/blob/main/docker-compose.yaml)), to distribute the Server (which also includes the Client) as a Docker image.
 The image is built on a two stage [Dockerfile](https://github.com/DomoticASW/server/blob/main/Dockerfile) in order to reduce the image size as much as possible.
@@ -134,7 +134,7 @@ The image is built by means of a [GitHub action](https://github.com/DomoticASW/s
 2. If the release was actually published it setups Docker for building a multiplaform image
 3. Publishes the docker image with tags `latest` and `<release-version>`
 
-#### Renovate
+### Renovate
 
 We set up Renovate through the Mend.io GitHub App in order to automate our dependency updates.
 
@@ -148,16 +148,54 @@ Our global renovate configuration is the default one while the server has a simp
 
 The last two rules aim to reduce the number of merge conflict between main and develop while still allowing the main branch to be automatically updated (mostly for security patches).
 
-### Client
+## Client
 
-#### Client CI test suite
+### Client CI test suite
 
 For the client CI has been decided to just test that the code passes the lint and compiles.
 Automated tests are not possible due to being just the GUI of the wep app.
 
-#### Renovate
+### Renovate
 
 We decided not to enable renovate on the Client as we do not have any automated UI tests and therefore we cannot trust any dependency update to be made automatically.
+
+## Roomba
+
+This is one of the emulated device and is conveniently packaged as a Docker image.
+
+### Docker image definition
+
+In order to keep the image as lean and optimized as possible it was decided to rely upon the [sbt-native-packager](https://www.scala-sbt.org/sbt-native-packager/formats/docker.html) sbt plugin which allows to automatically build a Docker image of the project.
+
+### Publishing the Docker image
+
+A [GitHub action](https://github.com/DomoticASW/roomba/blob/main/.github/workflows/publish-docker-image.yaml) was set up in order to build and publish the docker image after every release (which is done manually).
+
+The action is based on the [suggested one](https://docs.docker.com/build/ci/github-actions/multi-platform) by the Docker documentation.
+The main changes are:
+
+- It also sets up Java and sbt
+- It uses the sbt plugin to generate the Dockerfile
+- It also adds a specific version tag to the image
+- It uses another action to update the DockerHub repository description with the content of the README file
+
+## Boolean sensor
+
+This is one of the emulated device and is conveniently packaged as a Docker image.
+
+### Docker image definition
+
+The Dockerfile is based on the [template suggested](https://gleam.run/deployment/linux-server/) by the Gleam documentation.
+
+### Publishing the Docker image
+
+A [GitHub action](https://github.com/DomoticASW/boolean-sensor/blob/main/.github/workflows/publish-docker-image.yaml) was set up in order to build and publish the docker image after every release (which is done manually).
+
+The action is based on the [suggested one](https://docs.docker.com/build/ci/github-actions/multi-platform) by the Docker documentation.
+The main changes are:
+
+- It also adds a specific version tag to the image
+- It uses another action to update the DockerHub repository description with the content of the README file
 
 # Other doc
 
