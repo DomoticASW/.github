@@ -1,13 +1,16 @@
 # DevOps
 
-## Doc Automation
+## Doc Automation (.github repository)
 
 We've decided to use PlantUML in order to generate diagrams for documentation purposes.
 In order to keep the generated diagrams in sync with their source files we've set up two kinds of automations:
 
-### Git hook
+### Diagrams
+
+#### Git hook
 
 A [pre-commit git hook](../hooks/pre-commit) has been set up which executes the following tasks:
+
 1. Checks if docker is installed (as it's used to run PlantUML).
 1. Uses git diff to check whether some diagram have changed.
 1. If so it starts a docker container of PlanUML and generate all diagrams in the diagrams folder
@@ -15,20 +18,40 @@ A [pre-commit git hook](../hooks/pre-commit) has been set up which executes the 
 
 We've also created a [setup](../setup.sh) script that should be run after cloning the repository in order to install the git hooks.
 
-### GitHub action
+#### GitHub action
 
 A [GitHub action](../.github/workflows/generate-diagrams.yaml) has been set up in order to safely check server-side that the diagrams generation is correct and if it's not then regenerate them.
 
 The action runs only if something has changed in the diagram directory.
 
-#### Reasons behind the need of this action
+##### Reasons behind the need of this action
 
 1. Since we rely on git hooks to generate diagrams but they're not safe as the user is not forced to install them a check on the server-side is needed to guarantee that the diagrams are generated correctly.
 1. Using only this action without the git hook would cause these problems:
-    - The action is run on every push (not every commit), this means that if someone pushes many commits the generated diagrams will be updated only on the last commit.
-    - Relying only on the action causes the development process to slow down and also creates unnecessary commits as the user will need to push and pull every time he changes the diagrams.
+   - The action is run on every push (not every commit), this means that if someone pushes many commits the generated diagrams will be updated only on the last commit.
+   - Relying only on the action causes the development process to slow down and also creates unnecessary commits as the user will need to push and pull every time he changes the diagrams.
 
-## Software process - Client and Server
+#### Delivery
+
+##### PDF generation
+
+On every tag push a [GitHub action](../.github/workflows/generate-pdf-doc.yaml) is run which:
+
+1. Generate a PDF from the Markdown documentation using pandoc
+2. Creates a release attaching the generated PDF file
+
+##### GitHub pages
+
+On every push on the main branch [GitHub action](../.github/workflows/deploy-gh-pages.yaml) is run which:
+
+1. Move all the generated diagrams into the documentation folder (.profile)
+2. Update all links to those diagrams
+3. Use other appropriate actions to build the GH pages (using Jekyll)
+4. Deploy the GH pages
+
+We decided to use a custom GitHub action to publish out GH pages since the "automatic" method required our doc files to reside in specific folders, but we needed those files to be inside the `.profile` folder in order to show them as our organization README.
+
+## Client and Server
 
 Every rule described below must be applied both to the server and the client repositories unless otherwise specified by them.
 
@@ -82,17 +105,59 @@ To avoid this problem a pre-commit git hook have been written under the `hooks` 
 
 It has been decided to extract the [semantic-release workflow](https://github.com/DomoticASW/semantic-release) and the [commitlint workflow](https://github.com/DomoticASW/commitlint) into two different github actions of the organization so that they can be resued both from the server and the client.
 
-### Client CI test suite
-
-For the client CI has been decided to just test that the code passes the lint and compiles.
-Automated tests are not possible due to being just the GUI of the wep app.
-
 ### Serve client web app from within the server using git submodules
 
 We used git submodules to link the client repository within the server repository.
 This approach allows us to maintain a clear separation between the two repositories while still being able to serve the client from within the server.
 
 A limitation of this method is that the submodule points to a specific commit of the client repository. As a result, updates to the client repository are not automatically reflected in the server repository and must be manually updated.
+
+### Code formatting
+
+We set up prettier and two npm scripts:
+
+- `format`: formats every file in the src folder (is expected to be run by the developer)
+- `format-check`: checks that every file in the src folder is correctly formatted, it is run by both:
+  - a [pre-commit git hook](https://github.com/DomoticASW/server/blob/main/hooks/pre-commit) which doesn't let the developer commit unformatted code
+  - a [GitHub action](https://github.com/DomoticASW/server/blob/main/.github/workflows/code-format.yaml) that is part of the checks that need to pass before merging a PR
+
+## Server
+
+### Building and publishing Docker image
+
+It is useful, especially for development (we use it in our [demo](https://github.com/DomoticASW/demo/blob/main/docker-compose.yaml)), to distribute the Server (which also includes the Client) as a Docker image.
+The image is built on a two stage [Dockerfile](https://github.com/DomoticASW/server/blob/main/Dockerfile) in order to reduce the image size as much as possible.
+
+The image is built by means of a [GitHub action](https://github.com/DomoticASW/server/blob/main/.github/workflows/release.yaml) which:
+
+1. Waits for the semantic-release job to be completed and uses a plugin output to check if a release was actually published
+2. If the release was actually published it setups Docker for building a multiplaform image
+3. Publishes the docker image with tags `latest` and `<release-version>`
+
+### Renovate
+
+We set up Renovate through the Mend.io GitHub App in order to automate our dependency updates.
+
+Our global renovate configuration is the default one while the server has a simple [renovate.json](https://github.com/DomoticASW/server/blob/main/renovate.json) configuration file which:
+
+- Extends the recommended configuration file
+- Instructs renovate to track both the `main` and `develop` branches
+- Enables automerge for every package update that is stable and non-major
+- Ensures that development dependencies are updated just on develop
+- Ensures that runtime dependencies are updated just on main
+
+The last two rules aim to reduce the number of merge conflict between main and develop while still allowing the main branch to be automatically updated (mostly for security patches).
+
+## Client
+
+### Client CI test suite
+
+For the client CI has been decided to just test that the code passes the lint and compiles.
+Automated tests are not possible due to being just the GUI of the wep app.
+
+### Renovate
+
+We decided not to enable renovate on the Client as we do not have any automated UI tests and therefore we cannot trust any dependency update to be made automatically.
 
 ## Roomba
 
