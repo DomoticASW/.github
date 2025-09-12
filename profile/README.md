@@ -1,5 +1,17 @@
 # DomoticASW
 
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap; row-gap: 10px;">
+    <img style="width: 32%;" src="./img/devices.png" alt="Screenshot devices">
+    <img style="width: 32%;" src="./img/lamp.png" alt="Screenshot lamp">
+    <img style="width: 32%;" src="./img/music-player.png" alt="Screenshot music-player">
+    <img style="width: 32%;" src="./img/liam-presence-automation.png" alt="Screenshot liam-presence-automation">
+    <img style="width: 32%;" src="./img/emma-musica-wakeup.png" alt="Screenshot emma-musica-wakeup">
+    <img style="width: 32%;" src="./img/relaxing-lights-sun-setting.png" alt="Screenshot relaxing-lights-sun-setting">
+    <img style="width: 32%;" src="./img/edit-automation.png" alt="Screenshot edit-automation">
+    <img style="width: 32%;" src="./img/liam-permissions.png" alt="Screenshot liam-permissions">
+    <img style="width: 32%;" src="./img/device-groups.png" alt="Screenshot device-groups">
+</div>
+
 ## Developers
 
 - [Alessandro Venturini](mailto:alessandro.venturin6@studio.unibo.it)
