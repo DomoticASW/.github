@@ -245,6 +245,36 @@ A [GitHub action](https://github.com/DomoticASW/window/blob/main/.github/workflo
 
 The action is the same as the washing machine action described before.
 
+## Lamp
+
+In order to keep the build process simple and portable, the Docker image is generated directly through the [docker/build-push-action](https://github.com/docker/build-push-action) GitHub Action.
+
+### Publishing the Docker image
+
+A [GitHub Action](.github/workflows/docker-build-and-push.yaml) was set up in order to build and publish the Docker image after every push to the `main` branch or after a release tag starting with `v`.
+
+The action is based on the [suggested one](https://docs.docker.com/build/ci/github-actions/multi-platform) by the Docker documentation. The main characteristics are:
+
+- It authenticates with Docker Hub using repository secrets  
+- It sets up QEMU to enable multi-architecture builds  
+- It uses Docker Buildx to create and push the image  
+- It builds for both `linux/amd64` and `linux/arm64`  
+- It publishes the image with the `latest` tag on Docker Hub  
+
+## Thermometer
+
+This is one of the emulated device and is conveniently packaged as a Docker image.
+
+### Docker image definition
+
+In order to keep the build process simple and portable, the Docker image is generated directly through the [docker/build-push-action](https://github.com/docker/build-push-action) GitHub Action.
+
+### Publishing the Docker image
+
+A [GitHub Action](.github/workflows/docker-build-and-push.yaml) was set up in order to build and publish the Docker image after every push to the `main` branch or after a release tag starting with `v`.
+
+The action is the same as the lamp action described before.
+
 # Other doc
 
 - [Description](./README.md)
