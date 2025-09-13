@@ -197,6 +197,30 @@ The main changes are:
 - It also adds a specific version tag to the image
 - It uses another action to update the DockerHub repository description with the content of the README file
 
+## Washing machine sensor
+
+This is one of the emulated device and is conveniently packaged as a Docker image.
+
+### Publishing the Docker image
+
+A [GitHub action](https://github.com/DomoticASW/washing-machine/blob/main/.github/workflows/publish-docker-image.yml) was set up in order to build and publish the docker image after every release (which is done manually).
+
+The action is based on the [suggested one](https://docs.docker.com/build/ci/github-actions/multi-platform) by the Docker documentation.
+The main changes are:
+
+- It also adds a specific version tag to the image
+- It also uses another action so that my workflow can access the repository (actions/checkout v3).
+
+## Smart window sensor
+
+This is one of the emulated device and is conveniently packaged as a Docker image.
+
+### Publishing the Docker image
+
+A [GitHub action](https://github.com/DomoticASW/window/blob/main/.github/workflows/publish-docker-image.yml) was set up in order to build and publish the docker image after every release (which is done manually).
+
+The action is the same as the washing machine action described before. 
+
 # Other doc
 
 - [Description](./README.md)
