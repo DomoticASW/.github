@@ -197,11 +197,55 @@ The main changes are:
 - It also adds a specific version tag to the image
 - It uses another action to update the DockerHub repository description with the content of the README file
 
-## Lamp
+## Music player
 
 This is one of the emulated device and is conveniently packaged as a Docker image.
 
 ### Docker image definition
+
+Same as described for the **Roomba**.
+
+### Publishing the Docker image
+
+Same as described for the **Roomba**.
+
+## Light sensor
+
+This is one of the emulated device and is conveniently packaged as a Docker image.
+
+### Docker image definition
+
+Same as described for the **Roomba**.
+
+### Publishing the Docker image
+
+Same as described for the **Roomba**.
+
+## Washing machine sensor
+
+This is one of the emulated device and is conveniently packaged as a Docker image.
+
+### Publishing the Docker image
+
+A [GitHub action](https://github.com/DomoticASW/washing-machine/blob/main/.github/workflows/publish-docker-image.yml) was set up in order to build and publish the docker image after every release (which is done manually).
+
+The action is based on the [suggested one](https://docs.docker.com/build/ci/github-actions/multi-platform) by the Docker documentation.
+The main changes are:
+
+- It also adds a specific version tag to the image
+- It also uses another action so that my workflow can access the repository (actions/checkout v3).
+
+## Smart window sensor
+
+This is one of the emulated device and is conveniently packaged as a Docker image.
+
+### Publishing the Docker image
+
+A [GitHub action](https://github.com/DomoticASW/window/blob/main/.github/workflows/publish-docker-image.yml) was set up in order to build and publish the docker image after every release (which is done manually).
+
+The action is the same as the washing machine action described before.
+
+## Lamp
 
 In order to keep the build process simple and portable, the Docker image is generated directly through the [docker/build-push-action](https://github.com/docker/build-push-action) GitHub Action.
 
