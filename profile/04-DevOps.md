@@ -197,6 +197,30 @@ The main changes are:
 - It also adds a specific version tag to the image
 - It uses another action to update the DockerHub repository description with the content of the README file
 
+## Music player
+
+This is one of the emulated device and is conveniently packaged as a Docker image.
+
+### Docker image definition
+
+Same as described for the **Roomba**.
+
+### Publishing the Docker image
+
+Same as described for the **Roomba**.
+
+## Light sensor
+
+This is one of the emulated device and is conveniently packaged as a Docker image.
+
+### Docker image definition
+
+Same as described for the **Roomba**.
+
+### Publishing the Docker image
+
+Same as described for the **Roomba**.
+
 # Other doc
 
 - [Description](./README.md)
