@@ -197,6 +197,30 @@ The main changes are:
 - It also adds a specific version tag to the image
 - It uses another action to update the DockerHub repository description with the content of the README file
 
+## Music player
+
+This is one of the emulated device and is conveniently packaged as a Docker image.
+
+### Docker image definition
+
+Same as described for the **Roomba**.
+
+### Publishing the Docker image
+
+Same as described for the **Roomba**.
+
+## Light sensor
+
+This is one of the emulated device and is conveniently packaged as a Docker image.
+
+### Docker image definition
+
+Same as described for the **Roomba**.
+
+### Publishing the Docker image
+
+Same as described for the **Roomba**.
+
 ## Washing machine sensor
 
 This is one of the emulated device and is conveniently packaged as a Docker image.
@@ -219,7 +243,7 @@ This is one of the emulated device and is conveniently packaged as a Docker imag
 
 A [GitHub action](https://github.com/DomoticASW/window/blob/main/.github/workflows/publish-docker-image.yml) was set up in order to build and publish the docker image after every release (which is done manually).
 
-The action is the same as the washing machine action described before. 
+The action is the same as the washing machine action described before.
 
 # Other doc
 
