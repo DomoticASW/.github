@@ -189,27 +189,27 @@ The Dockerfile is based on the [template suggested](https://gleam.run/deployment
 
 ### Music player
 
-This is one of the emulated device and is conveniently packaged as a Docker image.
+In order to keep the image as lean and optimized as possible it was decided to rely upon the [sbt-native-packager](https://www.scala-sbt.org/sbt-native-packager/formats/docker.html) sbt plugin which allows to automatically build a Docker image of the project.
 
-#### Docker image definition
+[This](https://github.com/DomoticASW/music-player/blob/main/.github/workflows/publish-docker-image.yaml) is the action used to build and publish the image. The main changes to the one mentioned above are:
 
-Same as described for the **Roomba**.
-
-#### Publishing the Docker image
-
-Same as described for the **Roomba**.
+- It runs once a release is published
+- It also sets up Java and sbt
+- It uses the sbt plugin to generate the Dockerfile
+- It also adds a specific version tag to the image
+- It uses another action to update the DockerHub repository description with the content of the README file
 
 ### Light sensor
 
-This is one of the emulated device and is conveniently packaged as a Docker image.
+In order to keep the image as lean and optimized as possible it was decided to rely upon the [sbt-native-packager](https://www.scala-sbt.org/sbt-native-packager/formats/docker.html) sbt plugin which allows to automatically build a Docker image of the project.
 
-#### Docker image definition
+[This](https://github.com/DomoticASW/light-sensor/blob/main/.github/workflows/publish-docker-image.yaml) is the action used to build and publish the image the main changes to the one mentioned above are:
 
-Same as described for the **Roomba**.
-
-#### Publishing the Docker image
-
-Same as described for the **Roomba**.
+- It runs once a release is published
+- It also sets up Java and sbt
+- It uses the sbt plugin to generate the Dockerfile
+- It also adds a specific version tag to the image
+- It uses another action to update the DockerHub repository description with the content of the README file
 
 ### Washing machine
 
