@@ -23,6 +23,6 @@ jobs:
         run : rm -f diagrams/generated/*
       - name: Generate diagrams
         run: 'docker run -v $(pwd):/data plantuml/plantuml -v -o ../generated /data/diagrams/src'
-      - uses: stefanzweifel/git-auto-commit-action@v5 # commiting if something changed
+      - uses: stefanzweifel/git-auto-commit-action@v6 # commiting if something changed
         with:
           commit_message: Automatically generated PlantUML diagrams
