@@ -169,7 +169,7 @@ Each device image is built and published by a GitHub action that is based on the
 
 In order to keep the image as lean and optimized as possible it was decided to rely upon the [sbt-native-packager](https://www.scala-sbt.org/sbt-native-packager/formats/docker.html) sbt plugin which allows to automatically build a Docker image of the project.
 
-[This](https://github.com/DomoticASW/roomba/blob/main/.github/workflows/publish-docker-image.yaml) is the action used to build and publish the image the main changes to the one mentioned above are:
+[This](https://github.com/DomoticASW/roomba/blob/main/.github/workflows/publish-docker-image.yaml) is the action used to build and publish the image. The main changes to the one mentioned above are:
 
 - It runs once a release is published
 - It also sets up Java and sbt
@@ -181,7 +181,7 @@ In order to keep the image as lean and optimized as possible it was decided to r
 
 The Dockerfile is based on the [template suggested](https://gleam.run/deployment/linux-server/) by the Gleam documentation.
 
-[This](https://github.com/DomoticASW/boolean-sensor/blob/main/.github/workflows/publish-docker-image.yaml) is the action used to build and publish the image the main changes to the one mentioned above are:
+[This](https://github.com/DomoticASW/boolean-sensor/blob/main/.github/workflows/publish-docker-image.yaml) is the action used to build and publish the image. The main changes to the one mentioned above are:
 
 - It runs once a release is published
 - It also adds a specific version tag to the image
@@ -203,7 +203,7 @@ In order to keep the image as lean and optimized as possible it was decided to r
 
 In order to keep the image as lean and optimized as possible it was decided to rely upon the [sbt-native-packager](https://www.scala-sbt.org/sbt-native-packager/formats/docker.html) sbt plugin which allows to automatically build a Docker image of the project.
 
-[This](https://github.com/DomoticASW/light-sensor/blob/main/.github/workflows/publish-docker-image.yaml) is the action used to build and publish the image the main changes to the one mentioned above are:
+[This](https://github.com/DomoticASW/light-sensor/blob/main/.github/workflows/publish-docker-image.yaml) is the action used to build and publish the image. The main changes to the one mentioned above are:
 
 - It runs once a release is published
 - It also sets up Java and sbt
@@ -213,47 +213,29 @@ In order to keep the image as lean and optimized as possible it was decided to r
 
 ### Washing machine
 
-[This](https://github.com/DomoticASW/washing-machine/blob/main/.github/workflows/publish-docker-image.yml) is the action used to build and publish the image the main changes to the one mentioned above are:
+[This](https://github.com/DomoticASW/washing-machine/blob/main/.github/workflows/publish-docker-image.yml) is the action used to build and publish the image. The main changes to the one mentioned above are:
 
 - It runs once a release is published
 - It also adds a specific version tag to the image
 
 ### Smart window
 
-[This](https://github.com/DomoticASW/window/blob/main/.github/workflows/publish-docker-image.yml) is the action used to build and publish the image the main changes to the one mentioned above are:
+[This](https://github.com/DomoticASW/window/blob/main/.github/workflows/publish-docker-image.yml) is the action used to build and publish the image. The main changes to the one mentioned above are:
 
 - It runs once a release is published
 - It also adds a specific version tag to the image
 
 ### Lamp
 
-In order to keep the build process simple and portable, the Docker image is generated directly through the [docker/build-push-action](https://github.com/docker/build-push-action) GitHub Action.
+[This](https://github.com/DomoticASW/lamp/blob/main/.github/workflows/publish-docker-image.yml) is the action used to build and publish the image. The main changes to the one mentioned above are:
 
-#### Publishing the Docker image
-
-A [GitHub Action](.github/workflows/docker-build-and-push.yaml) was set up in order to build and publish the Docker image after every push to the `main` branch or after a release tag starting with `v`.
-
-The action is based on the [suggested one](https://docs.docker.com/build/ci/github-actions/multi-platform) by the Docker documentation. The main characteristics are:
-
-- It authenticates with Docker Hub using repository secrets
-- It sets up QEMU to enable multi-architecture builds
-- It uses Docker Buildx to create and push the image
-- It builds for both `linux/amd64` and `linux/arm64`
-- It publishes the image with the `latest` tag on Docker Hub
+- It runs after every push to the `main` branch or after a release tag starting with `v`
 
 ### Thermometer
 
-This is one of the emulated device and is conveniently packaged as a Docker image.
+[This](https://github.com/DomoticASW/thermometer/blob/main/.github/workflows/publish-docker-image.yml) is the action used to build and publish the image. The main changes to the one mentioned above are:
 
-#### Docker image definition
-
-In order to keep the build process simple and portable, the Docker image is generated directly through the [docker/build-push-action](https://github.com/docker/build-push-action) GitHub Action.
-
-#### Publishing the Docker image
-
-A [GitHub Action](.github/workflows/docker-build-and-push.yaml) was set up in order to build and publish the Docker image after every push to the `main` branch or after a release tag starting with `v`.
-
-The action is the same as the lamp action described before.
+- It runs after every push to the `main` branch or after a release tag starting with `v`
 
 # Other doc
 
