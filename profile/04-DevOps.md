@@ -213,27 +213,17 @@ In order to keep the image as lean and optimized as possible it was decided to r
 
 ### Washing machine
 
-This is one of the emulated device and is conveniently packaged as a Docker image.
+[This](https://github.com/DomoticASW/washing-machine/blob/main/.github/workflows/publish-docker-image.yml) is the action used to build and publish the image the main changes to the one mentioned above are:
 
-#### Publishing the Docker image
-
-A [GitHub action](https://github.com/DomoticASW/washing-machine/blob/main/.github/workflows/publish-docker-image.yml) was set up in order to build and publish the docker image after every release (which is done manually).
-
-The action is based on the [suggested one](https://docs.docker.com/build/ci/github-actions/multi-platform) by the Docker documentation.
-The main changes are:
-
+- It runs once a release is published
 - It also adds a specific version tag to the image
-- It also uses another action so that my workflow can access the repository (actions/checkout v3).
 
 ### Smart window
 
-This is one of the emulated device and is conveniently packaged as a Docker image.
+[This](https://github.com/DomoticASW/window/blob/main/.github/workflows/publish-docker-image.yml) is the action used to build and publish the image the main changes to the one mentioned above are:
 
-#### Publishing the Docker image
-
-A [GitHub action](https://github.com/DomoticASW/window/blob/main/.github/workflows/publish-docker-image.yml) was set up in order to build and publish the docker image after every release (which is done manually).
-
-The action is the same as the washing machine action described before.
+- It runs once a release is published
+- It also adds a specific version tag to the image
 
 ### Lamp
 
