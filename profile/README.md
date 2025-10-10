@@ -86,3 +86,7 @@ We have prepared a [full demo](https://github.com/DomoticASW/demo) with sample d
 - [Architecture](./03-Architecture.md)
 - [DevOps](./04-DevOps.md)
 - [Implementation](./05-Implementation.md)
+
+## Distribuited doc
+
+- [Distribuited](./06-Distribuited.md)
