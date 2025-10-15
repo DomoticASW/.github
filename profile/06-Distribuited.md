@@ -180,7 +180,7 @@ Our system heavily relies on the server part, which usually would not be a reall
 
 The only things that can occur to the server in order to make it unavailable are really rare and (nowadays) also not very likely to happen, like:
 1. The light goes off. (In this case it is not possible to recover in any way).
-2. The computer hosting the server crushes (In this case it is not possible to recover in any way),
+2. The computer hosting the server crashes (In this case it is not possible to recover in any way).
 3. The computer hosting the server not being powerful enough for the application (It is an SPA so it is a really light application).
 
 This made us focus more on the aspects of **Availability** and **Consistency**, making **network Partitioning** less "important".
