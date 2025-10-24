@@ -81,7 +81,8 @@ We have prepared a [full demo](https://github.com/DomoticASW/demo) with sample d
 
 # Other doc
 
-- [Analysis](./01-Analysis.md)
+- [Description](./README.md)
+- [Analysis (next)](./01-Analysis.md)
 - [Design](./02-Design.md)
 - [Architecture](./03-Architecture.md)
 - [DevOps](./04-DevOps.md)

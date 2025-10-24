@@ -244,3 +244,7 @@ In order to keep the image as lean and optimized as possible it was decided to r
 - [Design](./02-Design.md)
 - [Architecture](./03-Architecture.md)
 - [Implementation (next)](./05-Implementation.md)
+
+## Distribuited doc
+
+- [Distribuited](./06-Distribuited.md)

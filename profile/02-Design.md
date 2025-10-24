@@ -197,3 +197,7 @@ Scripts semantic correctness is checked by the ScriptsService
 - [Architecture (next)](./03-Architecture.md)
 - [DevOps](./04-DevOps.md)
 - [Implementation](./05-Implementation.md)
+
+## Distribuited doc
+
+- [Distribuited](./06-Distribuited.md)

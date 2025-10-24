@@ -253,3 +253,7 @@ When removing or editing an automation, the old one will be stopped if there are
 - [Design](./02-Design.md)
 - [Architecture](./03-Architecture.md)
 - [DevOps](./04-DevOps.md)
+
+## Distribuited doc
+
+- [Distribuited (next)](./06-Distribuited.md)

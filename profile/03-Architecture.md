@@ -21,3 +21,7 @@ The separation between domain, ports and adapters is clearly enforced by the fol
 - [Design](./02-Design.md)
 - [DevOps (next)](./04-DevOps.md)
 - [Implementation](./05-Implementation.md)
+
+## Distribuited doc
+
+- [Distribuited](./06-Distribuited.md)
