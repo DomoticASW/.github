@@ -31,7 +31,7 @@ jobs:
           cd profile
           pandoc 0*.md \
           --pdf-engine=xelatex \
-          -V geometry:margin=1cm \
+          -V geometry:margin=2.5cm \
           --toc \
           --number-sections \
           -o Documentation.pdf

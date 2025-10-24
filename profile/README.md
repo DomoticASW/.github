@@ -1,5 +1,16 @@
 # DomoticASW
 
+### Distributed Systems course
+
+## Developers
+
+- [Alessandro Venturini](mailto:alessandro.venturin6@studio.unibo.it)
+- [Francesco Carlucci](mailto:francesco.carlucci6@studio.unibo.it)
+- [Corrado Stortini](mailto:corrado.stortini2@studio.unibo.it)
+- [Marco Raggini](mailto:marco.raggini2@studio.unibo.it)
+
+## Screenshots of the application 
+
 <div style="display: flex; justify-content: space-between; flex-wrap: wrap; row-gap: 10px;">
     <img style="width: 32%;" src="./img/devices.png" alt="Screenshot devices">
     <img style="width: 32%;" src="./img/lamp.png" alt="Screenshot lamp">
@@ -11,13 +22,6 @@
     <img style="width: 32%;" src="./img/liam-permissions.png" alt="Screenshot liam-permissions">
     <img style="width: 32%;" src="./img/device-groups.png" alt="Screenshot device-groups">
 </div>
-
-## Developers
-
-- [Alessandro Venturini](mailto:alessandro.venturin6@studio.unibo.it)
-- [Francesco Carlucci](mailto:francesco.carlucci6@studio.unibo.it)
-- [Corrado Stortini](mailto:corrado.stortini2@studio.unibo.it)
-- [Marco Raggini](mailto:marco.raggini2@studio.unibo.it)
 
 ## Project description
 
