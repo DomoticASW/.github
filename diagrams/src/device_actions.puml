@@ -3,8 +3,11 @@
 actor User as user
 participant Server as server
 participant Device as device
+database MongoDB as mongo
 
 user -> server: executeAction
+server -> mongo: canExecuteAction
+mongo --> server: return success
 server -> device: executeAction
 device --> server: return success
 server --> user: return success
