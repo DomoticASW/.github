@@ -1,4 +1,4 @@
-@startuml device_actions
+@startuml user_registration
 
 actor Admin as admin
 actor User as user
