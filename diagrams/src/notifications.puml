@@ -1,0 +1,17 @@
+@startuml notifications
+
+actor User as user
+participant Server as server
+participant Device as device
+
+user -> server: subscribe for device status
+server --> user: return success
+
+server -> device: check status
+device --> server: return success
+...
+server -> device: check status
+...
+server -> user: notify device is offline
+
+@enduml
