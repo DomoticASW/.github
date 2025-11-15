@@ -1,0 +1,19 @@
+@startuml device_registrations
+
+actor User as user
+participant Server as server
+participant Devices as devices
+database MongoDB as mongo
+
+server -> server: Open udp socket
+devices -> server: async: Announce
+user -> server: Asks announced devices
+server --> user: Return announed devices
+
+user -> server: register a device
+server -> devices: register a device
+devices --> server: send device registration
+server -> mongo: save registered device
+server --> user: return success with device id
+
+@enduml
