@@ -1,0 +1,12 @@
+@startuml device_actions
+
+actor User as user
+participant Server as server
+participant Device as device
+
+user -> server: executeAction
+server -> device: executeAction
+device --> server: return success
+server --> user: return success
+
+@enduml

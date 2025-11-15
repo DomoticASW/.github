@@ -1,0 +1,12 @@
+@startuml device_properties
+
+actor User as user
+participant Server as server
+participant Device as device
+database MongoDB as mongo
+
+device -> server: updateDeviceProperty
+server -> mongo: update device
+server -> user: update device property
+
+@enduml
