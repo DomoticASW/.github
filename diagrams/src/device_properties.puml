@@ -7,6 +7,7 @@ database MongoDB as mongo
 
 device -> server: updateDeviceProperty
 server -> mongo: update device
+mongo --> server: return success
 server -> user: update device property
 
 @enduml

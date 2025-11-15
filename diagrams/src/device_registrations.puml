@@ -8,12 +8,13 @@ database MongoDB as mongo
 server -> server: Open udp socket
 devices -> server: async: Announce
 user -> server: Asks announced devices
-server --> user: Return announed devices
+server --> user: Return announced devices
 
 user -> server: register a device
 server -> devices: register a device
 devices --> server: send device registration
 server -> mongo: save registered device
+mongo --> server: return success
 server --> user: return success with device id
 
 @enduml

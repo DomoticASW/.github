@@ -1,0 +1,30 @@
+@startuml device_actions
+
+actor Admin as admin
+actor User as user
+participant Server as server
+database MongoDB as mongo
+
+user -> server: send registration request
+server -> mongo: add registration request
+mongo --> server: return success
+server --> user: return success
+...
+admin -> server: get all registration requests
+server -> mongo: getAllRegistrationRequests
+mongo --> server: return all registration requests
+server --> admin: return all registration requests
+
+admin -> server: accept registration request
+server -> mongo: remove registration request
+mongo --> server: return success
+server -> mongo: add user
+mongo --> server: return success
+server --> admin: return success
+
+user -> server: login
+server -> mongo: check user existance
+mongo --> server: return success
+server --> user: return success
+
+@enduml
